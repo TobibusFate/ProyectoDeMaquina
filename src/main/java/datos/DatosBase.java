@@ -24,7 +24,7 @@ public class DatosBase {
     // Obtiene la conexión para la Base de Datos.
     public Connection getConnection() {
         try {
-            conn = DriverManager.getConnection(MySQL_URL, MySQL_USER, MySQL_PWD);
+            conn = DriverManager.getConnection(MySQL_URL, MySQL_USER, MySQL_PWD); // podriamos hacer una selección para que el usuario decida si usar MySQL o Postgres
             return conn;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
