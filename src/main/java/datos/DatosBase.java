@@ -41,14 +41,18 @@ public class DatosBase {
     }
 
     /* La idea es que cuando se quiera usar la BD, se haga así:
-     * BD = DatosBase.getInstance();
-     * conn = BD.getConnection();
+     * var BD = DatosBase.getInstance();
+     * var conn = BD.getConnection();
      * y al finalizar:
      * BD.closeConnection();
      * 
      * o quizá:
      * conn = DatosBase.getInstance().getConnection();
      * DatosBase.getInstance().closeConnection();
+     * 
+     * o quizá:
+     * conn = DatosBase.getInstance().getConnection();
+     * conn.close(); // no sé si está cerrando la misma conexión o es otra.
      */
 
 }
