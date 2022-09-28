@@ -1,21 +1,21 @@
-package Objects;
+package objects;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Cliente_Fisico extends Cliente{
-    private int CUIL;
+    private int cuil;
     
-    public Cliente_Fisico(String apell, String name, int DNI, int tel, String IVA, boolean moroso, int CUIL) {
-        super(apell, name, DNI, tel, IVA, moroso);
-        setCUIL(CUIL);
+    public Cliente_Fisico(String apell, String name, int dni, int tel, String iva, boolean moroso, int cuil) {
+        super(apell, name, dni, tel, iva, moroso);
+        this.cuil = cuil;
     }
 
     public int getCUIL() {
-        return CUIL;
+        return this.cuil;
     }
-    public void setCUIL(int cUIL) {
-        CUIL = cUIL;
+    public void setCUIL(int cuil) {
+        this.cuil = cuil;
     }
 
     @Override

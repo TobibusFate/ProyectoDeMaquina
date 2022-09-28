@@ -1,8 +1,6 @@
-package Objects;
+package objects;
 
 import java.util.List;
-
-import javax.swing.AbstractAction;
 
 public abstract class Persona {
     private String Apellido, Nombre;

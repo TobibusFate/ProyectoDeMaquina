@@ -1,11 +1,11 @@
 package datos.dao.implementation;
 
-import Objects.Cliente_Fisico;
-import datos.dao.interfaces.DAO_ClienteF;
+import objects.Cliente_Fisico;
+import datos.dao.DAO;
 
 import java.util.List;
 
-public class DAO_ClienteF_Implementation implements DAO_ClienteF {
+public class DAO_ClienteF_Implementation implements DAO<Cliente_Fisico> {
 
     /** IMPLEMENTACION DE LOS METODOS DEL DAO CORRESPONDIENTE */
 

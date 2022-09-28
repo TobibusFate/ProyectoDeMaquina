@@ -1,4 +1,4 @@
-package interfaces;
+package interfaces_graficas;
 
 public class InterfazBase {
 }

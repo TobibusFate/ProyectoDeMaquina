@@ -1,4 +1,4 @@
-package datos.dao.interfaces;
+package datos.dao;
 
 import java.util.List;
 
