@@ -33,15 +33,23 @@ public class DB_Init {
                 // TO DO
                 + ")"
             );
-            // Pedidos tiene foreing key Producto (No recuerdo cómo hacer que sea más de 1)
+            // Pedidos tiene foreing key Producto
             query.execute("CREATE TABLE IF NOT EXISTS Pedidos ("
                 // TO DO
                 + ")"
             );
-            // Ventas tiene foreing key Producto (No recuerdo cómo hacer que sea más de 1)
+            // Ventas tiene foreing key Producto
             query.execute("CREATE TABLE IF NOT EXISTS Ventas ("
                 // TO DO
                 + ")"
+            );
+            query.execute("CREATE TABLE IF NOT EXISTS Renglon-Compra ("
+                // TO DO
+            + ")"
+            );
+            query.execute("CREATE TABLE IF NOT EXISTS Renglon-Venta ("
+                // TO DO
+            + ")"
             );
             // Otras?
         }
@@ -57,7 +65,7 @@ public class DB_Init {
     }
 
     public static void initTables () {
-        // Llena las tablas creadas con valores basicos para usar y testear.
+        // Llena las tablas creadas con valores basicos para usar y testear. EJ: 3 proveedores, 10 productos, etc...
     }
 
 

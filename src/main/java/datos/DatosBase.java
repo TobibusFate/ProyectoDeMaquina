@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatosBase {
     private static final String DB_NAME = "DataBase_IngSW2";
-    private static final String MySQL_URL = "jdbc:mysql://localhost:3306/" + DB_NAME, MySQL_USER = "root", MySQL_PWD = "admin";
+    // private static final String MySQL_URL = "jdbc:mysql://localhost:3306/" + DB_NAME, MySQL_USER = "root", MySQL_PWD = "admin"; // Para MySQL
     private static final String Postgre_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME, Postgre_USER = "postgres", Postgre_PWD = "admin"; // Para Postgres
 
     private static DatosBase instance;
@@ -24,7 +24,7 @@ public class DatosBase {
     // Obtiene la conexión para la Base de Datos.
     public Connection getConnection() {
         try {
-            conn = DriverManager.getConnection(MySQL_URL, MySQL_USER, MySQL_PWD); // podriamos hacer una selección para que el usuario decida si usar MySQL o Postgres
+            conn = DriverManager.getConnection(Postgre_URL, Postgre_USER, Postgre_PWD); // podriamos hacer una selección para que el usuario decida si usar MySQL o Postgres
             return conn;
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
