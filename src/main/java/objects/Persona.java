@@ -3,41 +3,46 @@ package objects;
 import java.util.List;
 
 public abstract class Persona {
-    private String Apellido, Nombre;
-    private int DNI, Telefono;
-    
+    private String apellido, nombre;
+    private int dni, telefono;
 
-    public Persona(String apell, String name, int DNI, int tel) {
-        setApellido(apell);
-        setNombre(name);
-        setDNI(DNI);
-        setTelefono(tel);
+    public Persona(String apellido, String nombre, int dni, int telefono) {
+        this.apellido = apellido;
+        this.nombre = nombre;
+        this.dni = dni;
+        this.telefono = telefono;
     }
 
     public String getApellido() {
-        return Apellido;
+        return apellido;
     }
+
     public void setApellido(String apellido) {
-        Apellido = apellido;
+        this.apellido = apellido;
     }
+
     public String getNombre() {
-        return Nombre;
+        return nombre;
     }
+
     public void setNombre(String nombre) {
-        Nombre = nombre;
+        this.nombre = nombre;
     }
-    
-    public int getDNI() {
-        return DNI;
+
+    public int getDni() {
+        return dni;
     }
-    public void setDNI(int dNI) {
-        DNI = dNI;
+
+    public void setDni(int dni) {
+        this.dni = dni;
     }
+
     public int getTelefono() {
-        return Telefono;
+        return telefono;
     }
+
     public void setTelefono(int telefono) {
-        Telefono = telefono;
+        this.telefono = telefono;
     }
 
     /// retorna una lista con los valores de los atributos de persona, para usar con la BD.

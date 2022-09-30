@@ -4,9 +4,7 @@ import java.util.List;
 
 public interface DAO<T> {
 
-    List<T> readAll ();
-
-    T readOne ();
+    List<T> read (T t);
 
     boolean create (T t);
 
