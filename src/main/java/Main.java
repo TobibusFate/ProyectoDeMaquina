@@ -6,12 +6,7 @@ public class Main {
         System.out.println("HOla me llamo celso");
         System.out.println("HOla me llamo fernandez");
         try {
-            var conn = DatosBase.getInstance().getConnection();
-
-            var db = new DB_Init();
-
-            db.createTables();
-
+            DB_Init.createTables();
         } catch (Exception e) {
             // TODO: handle exception
             System.out.println("caca");

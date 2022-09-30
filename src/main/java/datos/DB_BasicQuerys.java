@@ -47,16 +47,10 @@ public class DB_BasicQuerys {
             if (condition.isEmpty()) p_query = conn.prepareStatement("UPDATE "+tableName+" SET "+attribute+" = ?"); // actualiza a toda la tabla
             else p_query = conn.prepareStatement("UPDATE "+tableName+" SET "+attribute+" = ? WHERE "+condition); // actualiza tuplas que cumplan condition
 
-            // HAY UN ERROR CON ESTO!!!
-            // Solo funciona con Strings y Integers, hay que averiguar cómo hacer que funcione con floats o doubles.
-            if (newValue.matches("[+-]?\\d*(\\.\\d+)?")) p_query.setInt(1, Integer.parseUnsignedInt(newValue));
+
+            if (newValue.matches("\\d+")) p_query.setInt(1, Integer.parseInt(newValue));
+            else if (newValue.matches("\\d+\\.\\d+")) p_query.setFloat(1, Float.parseFloat(newValue));
             else p_query.setString(1, newValue);
-            /*
-             * Encontré este match:
-             * newValue.matches("\\d{1,3}\\.\\d{0,3}")
-             * pero hay que testear si detecta floats y no los int, para luego
-             * hacer un Float.parseFloat(newValue);
-             */
 
             p_query.executeUpdate();
 
@@ -94,7 +88,8 @@ public class DB_BasicQuerys {
 
                 p_query.setInt(1, Integer.parseUnsignedInt(attributeValues.get(0)));
                 for (int i = 1; i < attributeValues.size(); i++) {
-                    if (attributeValues.get(i).matches("[+-]?\\d*(\\.\\d+)?")) p_query.setInt((i+1), Integer.parseUnsignedInt(attributeValues.get(i)));
+                    if (attributeValues.get(i).matches("\\d+")) p_query.setInt((i+1), Integer.parseUnsignedInt(attributeValues.get(i)));
+                    else if (attributeValues.get(i).matches("\\d+\\.\\d+")) p_query.setFloat((i+1), Float.parseFloat(attributeValues.get(i)));
                     else p_query.setString((i+1), attributeValues.get(i));
                 }
 
