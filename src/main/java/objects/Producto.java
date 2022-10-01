@@ -1,37 +1,71 @@
 package objects;
 
 public class Producto {
-    public int codigoProducto;
-    public String nombreProducto;
-    public int unidadesEnStock;
+    public int codigoP;
+    public String nombreP;
+    public int categoriaP;
+    public float precioP;
+    public int stockMinimoP;
+    public int stockP;
 
-    public Producto(int codigoProducto, String nombreProducto, int unidadesEnStock) {
-        this.codigoProducto = codigoProducto;
-        this.nombreProducto = nombreProducto;
-        this.unidadesEnStock = unidadesEnStock;
+    public Producto(int codigoP) {
+        this.codigoP = codigoP;
     }
 
-    public int getCodigoProducto() {
-        return codigoProducto;
+    public Producto(int codigoP, String nombreP, int categoriaP, float precioP, int stockMinimoP, int stockP) {
+        this.codigoP = codigoP;
+        this.nombreP = nombreP;
+        this.categoriaP = categoriaP;
+        this.precioP = precioP;
+        this.stockMinimoP = stockMinimoP;
+        this.stockP = stockP;
     }
 
-    public void setCodigoProducto(int codigoProducto) {
-        this.codigoProducto = codigoProducto;
+    public int getCodigoP() {
+        return codigoP;
     }
 
-    public String getNombreProducto() {
-        return nombreProducto;
+    public void setCodigoP(int codigoP) {
+        this.codigoP = codigoP;
     }
 
-    public void setNombreProducto(String nombreProducto) {
-        this.nombreProducto = nombreProducto;
+    public String getNombreP() {
+        return nombreP;
     }
 
-    public int getUnidadesEnStock() {
-        return unidadesEnStock;
+    public void setNombreP(String nombreP) {
+        this.nombreP = nombreP;
     }
 
-    public void setUnidadesEnStock(int unidadesEnStock) {
-        this.unidadesEnStock = unidadesEnStock;
+    public int getCategoriaP() {
+        return categoriaP;
+    }
+
+    public void setCategoriaP(int categoriaP) {
+        this.categoriaP = categoriaP;
+    }
+
+    public float getPrecioP() {
+        return precioP;
+    }
+
+    public void setPrecioP(float precioP) {
+        this.precioP = precioP;
+    }
+
+    public int getStockMinimoP() {
+        return stockMinimoP;
+    }
+
+    public void setStockMinimoP(int stockMinimoP) {
+        this.stockMinimoP = stockMinimoP;
+    }
+
+    public int getStockP() {
+        return stockP;
+    }
+
+    public void setStockP(int stockP) {
+        this.stockP = stockP;
     }
 }

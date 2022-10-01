@@ -1,27 +1,44 @@
 package objects;
 
+import java.sql.Date;
+
 public class Venta {
-    public int  codigoVenta;
-    public int fecha;
+    public int  codigoV;
+    public Date fechaV;
+    public boolean cerradaV;
 
-    public Venta(int codigoVenta, int fecha) {
-        this.codigoVenta = codigoVenta;
-        this.fecha = fecha;
+    public Venta(int codigoV) {
+        this.codigoV = codigoV;
     }
 
-    public int getCodigoVenta() {
-        return codigoVenta;
+    public Venta(int codigoV, Date fechaV, boolean cerradaV) {
+        this.codigoV = codigoV;
+        this.fechaV = fechaV;
+        this.cerradaV = cerradaV;
     }
 
-    public void setCodigoVenta(int codigoVenta) {
-        this.codigoVenta = codigoVenta;
+
+    public int getCodigoV() {
+        return codigoV;
     }
 
-    public int getFecha() {
-        return fecha;
+    public void setCodigoV(int codigoV) {
+        this.codigoV = codigoV;
     }
 
-    public void setFecha(int fecha) {
-        this.fecha = fecha;
+    public Date getFechaV() {
+        return fechaV;
+    }
+
+    public void setFechaV(Date fechaV) {
+        this.fechaV = fechaV;
+    }
+
+    public boolean isCerradaV() {
+        return cerradaV;
+    }
+
+    public void setCerradaV(boolean cerradaV) {
+        this.cerradaV = cerradaV;
     }
 }
