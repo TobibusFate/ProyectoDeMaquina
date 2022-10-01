@@ -28,6 +28,7 @@ interfaces_graficas\Login$2.class
 datos\dao\implementation\DAO_Producto.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$4.class
+interfaces_graficas\AltaPedido\AltaPedido_Generador$5.class
 logica\managers\ManagerProveedor.class
 logica\managers\ManagerProducto.class
 datos\dao\IDAO.class
