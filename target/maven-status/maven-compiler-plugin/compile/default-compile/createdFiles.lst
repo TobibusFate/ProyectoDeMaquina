@@ -1,3 +1,4 @@
+datos\dao\implementation\DAO_Proveedor.class
 objects\Cliente.class
 datos\DatosBase.class
 interfaces_graficas\Login$1.class
@@ -18,6 +19,7 @@ objects\Pago.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$3.class
 logica\LogicaBase.class
 objects\Cliente_Fisico.class
+objects\Proveedor.class
 interfaces_graficas\RealizarVenta.class
 objects\Renglon.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$1.class

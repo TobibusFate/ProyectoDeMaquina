@@ -21,12 +21,17 @@ public class DB_Init {
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
                 + "Prod_STOCK_MINIMO INTEGER NOT NULL, "
-                + "PRIMARY KEY(Prod_CODIGO))"
+                + "PRIMARY KEY(Prod_CODIGO)"
+                + ")"
             );
 
             // Recordar que pedidos tienen foreing key Proveedor
             query.execute("CREATE TABLE IF NOT EXISTS Proveedores ("
-                // TO DO
+                + "Prov_CUIT INTEGER, "
+                + "Prov_NombreFirma VARCHAR(255) NOT NULL, "
+                + "Prov_Email VARCHAR(255) NOT NULL, "
+                + "Prov_Direccion VARCHAR(255) , "
+                + "PRIMARY KEY(Prov_CUIT)"
                 + ")"
             );
             query.execute("CREATE TABLE IF NOT EXISTS Clientes ("
