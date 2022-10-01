@@ -2,7 +2,7 @@ package datos.dao;
 
 import java.util.List;
 
-public interface DAO<T> {
+public interface IDAO<T> {
 
     List<T> read (T t);
 

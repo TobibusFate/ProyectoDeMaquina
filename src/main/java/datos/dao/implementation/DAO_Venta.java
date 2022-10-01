@@ -1,17 +1,16 @@
 package datos.dao.implementation;
 
-import datos.dao.DAO;
+import datos.dao.IDAO;
 import objects.Venta;
 
 import java.util.List;
 
 
-public class IDAO_Venta implements DAO<Venta> {
+public class DAO_Venta implements IDAO<Venta> {
 
     @Override
     public List<Venta> read(Venta venta) {
         if (venta != null) {
-            venta.getCodigoVenta();
             /** query para recuperar venta*/
         } else {
             /** query para retornar lista de ventas*/

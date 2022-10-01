@@ -1,11 +1,11 @@
 package datos.dao.implementation;
 
-import datos.dao.DAO;
+import datos.dao.IDAO;
 import objects.Producto;
 
 import java.util.List;
 
-public class IDAO_Producto implements DAO<Producto> {
+public class DAO_Producto implements IDAO<Producto> {
     @Override
     public List<Producto> read(Producto producto) {
         if (producto != null) {
