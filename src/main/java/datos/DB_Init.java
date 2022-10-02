@@ -13,7 +13,6 @@ public class DB_Init {
 
         try {
             query = conn.createStatement();
-
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
                 + "Prod_NOMBRE VARCHAR(255) NOT NULL, "
@@ -34,7 +33,7 @@ public class DB_Init {
                 + "PRIMARY KEY(Prov_CUIT)"
                 + ")"
             );
-            query.execute("CREATE TABLE IF NOT EXISTS Clientes ("
+            /*query.execute("CREATE TABLE IF NOT EXISTS Clientes ("
                 // TO DO
                 + ")"
             );
@@ -42,20 +41,34 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Pedidos ("
                 // TO DO
                 + ")"
-            );
-            // Ventas tiene foreing key Producto
+            );*/
             query.execute("CREATE TABLE IF NOT EXISTS Ventas ("
-                // TO DO
+                    + "Venta_CODIGO BIGINT, "
+                    + "Venta_CERRADA BOOLEAN NOT NULL, "
+                    + "Venta_MONTO REAL NOT NULL, "
+                    + "Venta_FECHA DATE, "
+                    + "Venta_HORA TIME, "
+                    + "PRIMARY KEY(Venta_CODIGO)"
                 + ")"
             );
-            query.execute("CREATE TABLE IF NOT EXISTS Renglon-Compra ("
+
+            query.execute("CREATE TABLE IF NOT EXISTS Usuarios ("
+                    + "Usuario_usuario VARCHAR(255), "
+                    + "Usuario_contraseña VARCHAR(255) NOT NULL, "
+                    + "Usuario_telefono VARCHAR(255) NOT NULL, "
+                    + "Usuario_Email BIGINT, "
+                    + "PRIMARY KEY(Usuario_usuario)"
+                    + ")"
+            );
+
+            /*query.execute("CREATE TABLE IF NOT EXISTS Renglon-Venta ("
                 // TO DO
             + ")"
             );
-            query.execute("CREATE TABLE IF NOT EXISTS Renglon-Venta ("
+            query.execute("CREATE TABLE IF NOT EXISTS Renglon-Pedido ("
                 // TO DO
             + ")"
-            );
+            );*/
             // Otras?
         }
         catch (SQLException ex) {

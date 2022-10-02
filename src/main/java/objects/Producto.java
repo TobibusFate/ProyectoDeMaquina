@@ -1,18 +1,18 @@
 package objects;
 
 public class Producto {
-    public int codigoP;
-    public String nombreP;
-    public int categoriaP;
-    public float precioP;
-    public int stockMinimoP;
-    public int stockP;
+    private int codigoP;
+    private String nombreP;
+    private String categoriaP;
+    private float precioP;
+    private int stockMinimoP;
+    private int stockP;
 
     public Producto(int codigoP) {
         this.codigoP = codigoP;
     }
 
-    public Producto(int codigoP, String nombreP, int categoriaP, float precioP, int stockMinimoP, int stockP) {
+    public Producto(int codigoP, String nombreP, String categoriaP, float precioP, int stockMinimoP, int stockP) {
         this.codigoP = codigoP;
         this.nombreP = nombreP;
         this.categoriaP = categoriaP;
@@ -37,11 +37,11 @@ public class Producto {
         this.nombreP = nombreP;
     }
 
-    public int getCategoriaP() {
+    public String  getCategoriaP() {
         return categoriaP;
     }
 
-    public void setCategoriaP(int categoriaP) {
+    public void setCategoriaP(String  categoriaP) {
         this.categoriaP = categoriaP;
     }
 

@@ -6,8 +6,8 @@ import java.util.List;
 
 
 public class Proveedor {
-    String nombre, email, direccion;
-    int cuit;
+    private String nombre, email, direccion;
+    private int cuit;
     
     Proveedor(int cuit, String nombre, String email, String direccion) {
         this.cuit = cuit;

@@ -3,9 +3,9 @@ package objects;
 import java.sql.Date;
 
 public class Pago {
-    public Date fechaP;
-    public Date fechaLimiteP;
-    public float montoP;
+    private Date fechaP;
+    private Date fechaLimiteP;
+    private float montoP;
 
     public Pago(Date fechaP, Date fechaLimiteP, float montoP) {
         this.fechaP = fechaP;

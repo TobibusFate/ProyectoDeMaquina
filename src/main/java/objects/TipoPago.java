@@ -1,8 +1,8 @@
 package objects;
 
 public class TipoPago {
-    public int cantCuotas;
-    public int metodoDePago;
+    private int cantCuotas;
+    private int metodoDePago;
 
     public TipoPago(int cantCuotas, int metodoDePago) {
         this.cantCuotas = cantCuotas;

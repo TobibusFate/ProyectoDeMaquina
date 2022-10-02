@@ -1,8 +1,8 @@
 package objects;
 
 public abstract class Renglon {
-    public float montoTotal;
-    public float descuento;
+    private float montoTotal;
+    private float descuento;
 
     public Renglon(float montoTotal, float descuento) {
         this.montoTotal = montoTotal;
