@@ -24,6 +24,21 @@ public class DB_Init {
                 + ")"
             );
 
+            /*query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                "VALUES ('1000', 'Leche', 'Comestible', '150', '3050', '200') ");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('1001', 'yorurt', 'Comestible', '190', '2500', '200') ");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('1050', 'galletas de chocolate', 'Comestible', '110', '2500', '100') ");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('1060', 'galletas de arroz', 'Comestible', '120', '2500', '100') ");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('1065', 'galletas saladas', 'Comestible', '120', '2500', '100') ");*/
+
             // Recordar que pedidos tienen foreing key Proveedor
             query.execute("CREATE TABLE IF NOT EXISTS Proveedores ("
                 + "Prov_CUIT INTEGER, "

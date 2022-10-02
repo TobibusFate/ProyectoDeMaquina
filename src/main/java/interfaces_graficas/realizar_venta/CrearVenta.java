@@ -4,6 +4,21 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import logica.managers.ManagerProducto;
+import objects.Producto;
+import objects.RenglonVenta;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  *
  * @author tovib
@@ -13,9 +28,16 @@ public class CrearVenta extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarVenta
      */
+    private static HashMap <Integer, Producto> listaProductos = new HashMap<>();
+
+    private static List<RenglonVenta> listaRenglon = new ArrayList<>();
+
+
     public CrearVenta() {
         initComponents();
         cantidad_pagos.setText("1");
+        listaProductos = ManagerProducto.getHashMapProductos();
+        updateCombobox();
     }
 
     /**
@@ -27,6 +49,7 @@ public class CrearVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_renglones = new javax.swing.JTable();
         boton_continuar = new javax.swing.JButton();
@@ -34,7 +57,28 @@ public class CrearVenta extends javax.swing.JFrame {
         buscador_productos = new javax.swing.JTextField();
         cantidad_pagos = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        combobox_listado_productos = new javax.swing.JComboBox<>();
+        textodePrueba = new javax.swing.JLabel();
 
+        buscador_productos.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateCombobox();
+                combobox_listado_productos.showPopup();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateCombobox();
+                combobox_listado_productos.showPopup();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateCombobox();
+                combobox_listado_productos.showPopup();
+            }
+        });
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabla_renglones.setModel(new javax.swing.table.DefaultTableModel(
@@ -82,7 +126,6 @@ public class CrearVenta extends javax.swing.JFrame {
 
         boton_salir.setText("Salir");
 
-        buscador_productos.setText("Buscador de Productos");
         buscador_productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buscador_productosActionPerformed(evt);
@@ -97,44 +140,61 @@ public class CrearVenta extends javax.swing.JFrame {
 
         jLabel1.setText("Cantidad de pagos");
 
+        combobox_listado_productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combobox_listado_productosActionPerformed(evt);
+            }
+        });
+
+        textodePrueba.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(boton_salir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boton_continuar)
+                        .addGap(18, 18, 18))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 596, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cantidad_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 70, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(boton_salir)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(boton_continuar)))
-                        .addGap(18, 18, 18))))
+                                .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(144, 144, 144)
+                                .addComponent(combobox_listado_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cantidad_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 88, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(375, 375, 375)
+                .addComponent(textodePrueba)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combobox_listado_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(textodePrueba)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cantidad_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(1, 1, 1)))
+                        .addComponent(cantidad_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boton_continuar)
@@ -147,7 +207,29 @@ public class CrearVenta extends javax.swing.JFrame {
 
     private void buscador_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscador_productosActionPerformed
         // TODO add your handling code here:
+
+
+
     }//GEN-LAST:event_buscador_productosActionPerformed
+
+    private void updateCombobox(){
+        List<String> lista = new ArrayList<>();
+        for (int i = 0;i<combobox_listado_productos.getItemCount();i++) {
+            lista.add(combobox_listado_productos.getItemAt(i).toLowerCase());
+        }
+        for (Producto p: listaProductos.values()){
+            if (p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
+                if (!lista.contains(p.getNombreP().toLowerCase())) {
+                    combobox_listado_productos.addItem(p.getNombreP().toLowerCase());
+                }
+            }
+            if (lista.contains(p.getNombreP().toLowerCase())) {
+                if (!p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
+                    combobox_listado_productos.removeItem(p.getNombreP().toLowerCase());
+                }
+            }
+        }
+    }
 
     private void cantidad_pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cantidad_pagosActionPerformed
         // TODO add your handling code here:
@@ -159,6 +241,10 @@ public class CrearVenta extends javax.swing.JFrame {
         /** ejecutar seleccion pago la cantidad de veces que indique value*/
     }//GEN-LAST:event_boton_continuarActionPerformed
 
+    private void combobox_listado_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_listado_productosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_combobox_listado_productosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -166,7 +252,7 @@ public class CrearVenta extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -200,8 +286,10 @@ public class CrearVenta extends javax.swing.JFrame {
     private javax.swing.JButton boton_salir;
     private javax.swing.JTextField buscador_productos;
     private javax.swing.JTextField cantidad_pagos;
+    private javax.swing.JComboBox<String> combobox_listado_productos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla_renglones;
+    private javax.swing.JLabel textodePrueba;
     // End of variables declaration//GEN-END:variables
 }
