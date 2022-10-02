@@ -10,17 +10,6 @@ import java.util.List;
 
 public class DB_BasicQuerys {
 
-    private static DB_BasicQuerys instance;
-
-    private DB_BasicQuerys() {
-        // Empty Constructor
-    }
-
-    public static DB_BasicQuerys getInstance() {
-        if (instance == null) instance = new DB_BasicQuerys();
-        return instance;
-    }
-
     // A partir de una query: "select * from table where cod = x"
     // retorna true si existe, false si no. Se puede usar al querer dar de baja una tupla, primero hacer un if (!tupleExists(...)).
     // nota: como usa createStatement, no permitir que el usuario la use, puede generar problemas de seguridad.
@@ -47,10 +36,13 @@ public class DB_BasicQuerys {
             if (condition.isEmpty()) p_query = conn.prepareStatement("UPDATE "+tableName+" SET "+attribute+" = ?"); // actualiza a toda la tabla
             else p_query = conn.prepareStatement("UPDATE "+tableName+" SET "+attribute+" = ? WHERE "+condition); // actualiza tuplas que cumplan condition
 
-
-            if (newValue.matches("\\d+")) p_query.setInt(1, Integer.parseInt(newValue));
-            else if (newValue.matches("\\d+\\.\\d+")) p_query.setFloat(1, Float.parseFloat(newValue));
-            else p_query.setString(1, newValue);
+            switch (matchesType(newValue)) {
+                case 1: p_query.setInt(1, Integer.parseInt(newValue)); break;
+                case 2: p_query.setLong(1, Long.parseLong(newValue)); break;
+                case 3: p_query.setFloat(1, Float.parseFloat(newValue)); break;
+                case 4: p_query.setDouble(1, Double.parseDouble(newValue)); break;
+                case 0: p_query.setString(1, newValue); break;
+            }
 
             p_query.executeUpdate();
 
@@ -70,11 +62,26 @@ public class DB_BasicQuerys {
         try {
             if (conn == null) throw new SQLException("Connection error");
             if (keyNames.isEmpty() || attributeValues.isEmpty()) throw new SQLException("Missing attributes/columns");
-            if (keyNames.size() != attributeValues.size()) throw new SQLException("Not matching attributes quantities");
 
-            String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = "+Integer.parseUnsignedInt(attributeValues.get(0));
+            String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = ";
+
+            switch (matchesType(attributeValues.get(0))) {
+                case 1: query += Integer.parseInt(attributeValues.get(0)); break;
+                case 2: query += Long.parseLong(attributeValues.get(0)); break;
+                case 3: query += Float.parseFloat(attributeValues.get(0)); break;
+                case 4: query += Double.parseDouble(attributeValues.get(0)); break;
+                case 0: query += attributeValues.get(0); break;
+            }
+
             for (int i = 1; i < keyNames.size(); i++) {
-                query += " AND "+keyNames.get(i)+" = "+Integer.parseUnsignedInt(attributeValues.get(i));
+                query += " AND "+keyNames.get(i)+" = ";
+                switch (matchesType(attributeValues.get(i))) {
+                    case 1: query += Integer.parseInt(attributeValues.get(i)); break;
+                    case 2: query += Long.parseLong(attributeValues.get(i)); break;
+                    case 3: query += Float.parseFloat(attributeValues.get(i)); break;
+                    case 4: query += Double.parseDouble(attributeValues.get(i)); break;
+                    case 0: query += attributeValues.get(i); break;
+                }
             }
 
             if (!tupleExists(query, conn)) {
@@ -86,11 +93,14 @@ public class DB_BasicQuerys {
 
                 PreparedStatement p_query = conn.prepareStatement(insert_query);
 
-                p_query.setInt(1, Integer.parseUnsignedInt(attributeValues.get(0)));
-                for (int i = 1; i < attributeValues.size(); i++) {
-                    if (attributeValues.get(i).matches("\\d+")) p_query.setInt((i+1), Integer.parseUnsignedInt(attributeValues.get(i)));
-                    else if (attributeValues.get(i).matches("\\d+\\.\\d+")) p_query.setFloat((i+1), Float.parseFloat(attributeValues.get(i)));
-                    else p_query.setString((i+1), attributeValues.get(i));
+                for (int i = 0; i < attributeValues.size(); i++) {
+                    switch (matchesType(attributeValues.get(i))) {
+                        case 1: p_query.setInt((i+1), Integer.parseInt(attributeValues.get(i)));; break;
+                        case 2: p_query.setLong((i+1), Long.parseLong(attributeValues.get(i))); break;
+                        case 3: p_query.setFloat((i+1), Float.parseFloat(attributeValues.get(i))); break;
+                        case 4: p_query.setDouble((i+1), Double.parseDouble(attributeValues.get(i))); break;
+                        case 0: p_query.setString((i+1), attributeValues.get(i)); break;
+                    }
                 }
 
                 p_query.executeUpdate();
@@ -106,17 +116,32 @@ public class DB_BasicQuerys {
         }
     }
 
-    public static boolean deleteTuple(List<Integer> keys, List<String> keyNames, String tableName, Connection conn) {
+    public static boolean deleteTuple(List<String> keyNames, List<String> keyValues, String tableName, Connection conn) {
         // keys es la lista de las primary keys de la tupla a eliminar, y keyNames los nombres de los atributos de esas keys. 
         try {
             if (conn == null) throw new SQLException("Connection error");
-            if (keys.isEmpty() || keyNames.isEmpty()) throw new SQLException("Missing keys");
-            if (keys.size() != keyNames.size()) throw new SQLException("Not matching key quantities");
+            if (keyValues.isEmpty() || keyNames.isEmpty()) throw new SQLException("Missing keys");
+            if (keyValues.size() != keyNames.size()) throw new SQLException("Not matching key quantities");
 
 
-            String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = "+keys.get(0);
-            for (int i = 1; i < keys.size(); i++) {
-                query += " AND "+keyNames.get(i)+" = "+keys.get(i);
+            String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = ";
+            switch (matchesType(keyValues.get(0))) {
+                case 1: query += Integer.parseInt(keyValues.get(0)); break;
+                case 2: query += Long.parseLong(keyValues.get(0)); break;
+                case 3: query += Float.parseFloat(keyValues.get(0)); break;
+                case 4: query += Double.parseDouble(keyValues.get(0)); break;
+                case 0: query += keyValues.get(0); break;
+            }
+
+            for (int i = 1; i < keyValues.size(); i++) {
+                query += " AND "+keyNames.get(i)+" = ";
+                switch (matchesType(keyValues.get(i))) {
+                    case 1: query += Integer.parseInt(keyValues.get(i)); break;
+                    case 2: query += Long.parseLong(keyValues.get(i)); break;
+                    case 3: query += Float.parseFloat(keyValues.get(i)); break;
+                    case 4: query += Double.parseDouble(keyValues.get(i)); break;
+                    case 0: query += keyValues.get(i); break;
+                }
             }
             
             if (tupleExists(query, conn)) {
@@ -127,9 +152,14 @@ public class DB_BasicQuerys {
 
                 PreparedStatement p_query = conn.prepareStatement(query_delete);
 
-                p_query.setInt(1, keys.get(0));
-                for (int i = 1; i < keys.size(); i++) {
-                    p_query.setInt((i+1), keys.get(i));
+                for (int i = 0; i < keyValues.size(); i++) {
+                    switch (matchesType(keyValues.get(i))) {
+                        case 1: p_query.setInt((i+1), Integer.parseInt(keyValues.get(i)));; break;
+                        case 2: p_query.setLong((i+1), Long.parseLong(keyValues.get(i))); break;
+                        case 3: p_query.setFloat((i+1), Float.parseFloat(keyValues.get(i))); break;
+                        case 4: p_query.setDouble((i+1), Double.parseDouble(keyValues.get(i))); break;
+                        case 0: p_query.setString((i+1), keyValues.get(i)); break;
+                    }
                 }
 
 
@@ -144,6 +174,14 @@ public class DB_BasicQuerys {
             System.out.println(ex.getMessage());
             return false;
         }
+    }
+
+    public static int matchesType(String s) {
+        if (s.matches("\\d{1,8}")) return 1; // int
+        else if (s.matches("\\d+")) return 2; // long
+        else if (s.matches("\\d{1,8}\\.\\d{1,8}")) return 3; // float
+        else if (s.matches("\\d+\\.\\d+")) return 4; // double
+        return 0; // string
     }
 
 }

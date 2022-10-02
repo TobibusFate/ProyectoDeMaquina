@@ -51,5 +51,5 @@ public abstract class Persona {
     // TODO: crear listas similares a la de arriba para los nombres y valores de las keys.
     //public abstract List<String> getAttributeNamesList();
     //public abstract List<String> getKeyNamesList();
-    //public abstract List<Integer> getKeyValuesList();
+    //public abstract List<String> getKeyValuesList();
 }

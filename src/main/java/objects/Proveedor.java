@@ -7,9 +7,9 @@ import java.util.List;
 
 public class Proveedor {
     private String nombre, email, direccion;
-    private int cuit;
+    private long cuit;
     
-    Proveedor(int cuit, String nombre, String email, String direccion) {
+    Proveedor(long cuit, String nombre, String email, String direccion) {
         this.cuit = cuit;
         this.nombre = nombre;
         this.email = email;
@@ -37,10 +37,10 @@ public class Proveedor {
         this.direccion = direccion;
     }
     
-    public int getCuit() {
+    public long getCuit() {
         return cuit;
     }
-    public void setCuit(int cuit) {
+    public void setCuit(long cuit) {
         this.cuit = cuit;
     }
     
@@ -51,9 +51,9 @@ public class Proveedor {
         return l;
     }
     // valor del cuit
-    public List<Integer> getKeyValuesList() {
-        List<Integer> l = new ArrayList<>();
-        l.add(cuit);
+    public List<String> getKeyValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(Long.toString(cuit));
         return l;
     }
     
@@ -68,7 +68,7 @@ public class Proveedor {
     
     public List<String> getAttributeValuesList() {
         List<String> l = new ArrayList<>();
-        l.add(Integer.toString(cuit));
+        l.add(Long.toString(cuit));
         l.add(nombre);
         l.add(email);
         l.add(direccion);
