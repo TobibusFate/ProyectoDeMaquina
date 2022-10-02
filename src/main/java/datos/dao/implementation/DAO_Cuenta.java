@@ -2,7 +2,7 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
-import objects.Usuario;
+import objects.Cuenta;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,17 +11,17 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DAO_Usuario implements IDAO<Usuario> {
+public class DAO_Cuenta implements IDAO<Cuenta> {
     @Override
-    public List<Usuario> read(Usuario u) {
+    public List<Cuenta> read(Cuenta c) {
         Connection conn = DatosBase.getInstance().getConnection();
         Statement statement;
-        List<Usuario> list = new ArrayList<>();
+        List<Cuenta> list = new ArrayList<>();
         try {
             statement = conn.createStatement();
-            ResultSet rs = statement.executeQuery("SELECT * FROM Usuarios WHERE (Usuario_usuario ='"+u.getUser()+"')");
+            ResultSet rs = statement.executeQuery("SELECT * FROM Cuentas WHERE (Cuen_USUARIO ='"+c.getCuenta()+"')");
             while (rs.next()){
-                list.add(new Usuario(rs.getString("Usuario_usuario"),rs.getString("Usuario_contraseña"),rs.getInt("Usuario_tipo")));
+                list.add(new Cuenta(rs.getString("Cuen_USUARIO"),rs.getString("Cuen_CONTRASEÑA"),rs.getInt("Cuen_PERMISOS")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -30,17 +30,17 @@ public class DAO_Usuario implements IDAO<Usuario> {
     }
 
     @Override
-    public boolean create(Usuario usuario) {
+    public boolean create(Cuenta usuario) {
         return false;
     }
 
     @Override
-    public boolean update(Usuario usuario) {
+    public boolean update(Cuenta usuario) {
         return false;
     }
 
     @Override
-    public boolean delete(Usuario usuario) {
+    public boolean delete(Cuenta usuario) {
         return false;
     }
 }

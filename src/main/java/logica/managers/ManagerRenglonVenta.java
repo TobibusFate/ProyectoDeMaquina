@@ -1,7 +1,6 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_RenglonVenta;
-import datos.dao.implementation.DAO_Usuario;
 import objects.RenglonVenta;
 
 public class ManagerRenglonVenta {

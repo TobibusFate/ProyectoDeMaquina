@@ -4,8 +4,8 @@
  */
 package interfaces_graficas;
 
-import logica.managers.ManagerUsuario;
-import objects.Usuario;
+import logica.managers.ManagerCuenta;
+import objects.Cuenta;
 
 /**
  *
@@ -110,7 +110,7 @@ public class LogIn extends javax.swing.JFrame {
 
     private void botone_ntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botone_ntrarActionPerformed
 
-        int accion = ManagerUsuario.logear(new Usuario(entrada_usuario.getText(),entrada_conteseña.getText()));
+        int accion = ManagerCuenta.logear(new Cuenta(entrada_usuario.getText(),entrada_conteseña.getText()));
 
         switch (accion) {
             case -1:

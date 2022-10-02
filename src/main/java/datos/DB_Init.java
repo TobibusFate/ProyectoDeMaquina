@@ -54,18 +54,8 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS ClientesJuridicos ("
                 + "CliJ_DNI INTEGER, "
                 + "CliJ_CUIT BIGINT, "
-                + "PRIMARY KEY(CliJ_DNI, CliJ_CUIL), "
+                + "PRIMARY KEY(CliJ_DNI, CliJ_CUIT), "
                 + "FOREIGN KEY(CliJ_DNI) REFERENCES Clientes(Cli_DNI)"
-                + ")"
-            );
-            
-            // no sé si poner la foreign key de cuenta acá o en cuenta poner trab_dni
-            query.execute("CREATE TABLE IF NOT EXISTS Trabajadores ("
-                + "Trab_DNI INTEGER, "
-                + "Trab_USUARIO VARCHAR(255), "
-                + "PRIMARY KEY(Trab_DNI, Trab_USUARIO), "
-                + "FOREIGN KEY(Trab_DNI) REFERENCES Personas(Pers_DNI), "
-                + "FOREIGN KEY(Trab_USUARIO) REFERENCES Cuentas(Cuen_USUARIO)"
                 + ")"
             );
 
@@ -78,10 +68,24 @@ public class DB_Init {
                     + ")"
             );
 
+            // no sé si poner la foreign key de cuenta acá o en cuenta poner trab_dni
+            query.execute("CREATE TABLE IF NOT EXISTS Trabajadores ("
+                + "Trab_DNI INTEGER, "
+                + "Trab_USUARIO VARCHAR(255), "
+                + "Trab_CODIGO INTEGER, "
+                + "PRIMARY KEY(Trab_CODIGO), "
+                + "FOREIGN KEY(Trab_DNI) REFERENCES Personas(Pers_DNI), "
+                + "FOREIGN KEY(Trab_USUARIO) REFERENCES Cuentas(Cuen_USUARIO)"
+                + ")"
+            );
+
             query.execute("CREATE TABLE IF NOT EXISTS Administradores ("
+                + "Admin_CODIGO INTEGER, "
+                + "Admin_USUARIO VARCHAR(255), "
                 + "Admin_DNI INTEGER, "
-                + "PRIMARY KEY(Admin_DNI), "
-                + "FOREIGN KEY(Admin_DNI) REFERENCES Trabajadores(Trab_DNI)"
+                + "PRIMARY KEY(Admin_CODIGO), "
+                + "FOREIGN KEY(Admin_DNI) REFERENCES Trabajadores(Trab_CODIGO), "
+                + "FOREIGN KEY(Admin_USUARIO) REFERENCES Trabajadores(Trab_USUARIO)"
                 + ")"
             );
             
