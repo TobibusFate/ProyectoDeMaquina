@@ -22,8 +22,9 @@ public class DAO_Producto implements IDAO<Producto> {
             statement = conn.createStatement();
             // query para retornar el producto
             if (p != null) {
-                rs = statement.executeQuery("SELECT * FROM Productos WHERE Prod_CODIGO = " +p.getCodigoP());
-                list.add(new Producto(rs.getInt("Prod_CODIGO"),
+                rs = statement.executeQuery("SELECT * FROM Productos WHERE (Prod_CODIGO = '" +p.getCodigoP()+"')");
+                list.add(new Producto(
+                        rs.getInt("Prod_CODIGO"),
                         rs.getString("Prod_NOMBRE"),
                         rs.getString("Prod_CATEGORIA"),
                         rs.getInt("Prod_PRECIO"),
@@ -32,7 +33,7 @@ public class DAO_Producto implements IDAO<Producto> {
                         ));
             // query para retornar lista de productos
             } else {
-                rs = statement.executeQuery("SELECT * FROM Productos ORDER BY COD)");
+                rs = statement.executeQuery("SELECT * FROM Productos ORDER BY Prod_CODIGO");
                 while (rs.next()){
                     list.add(new Producto(rs.getInt("Prod_CODIGO"),
                             rs.getString("Prod_NOMBRE"),
