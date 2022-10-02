@@ -10,17 +10,6 @@ import java.util.List;
 
 public class DB_BasicQuerys {
 
-    private static DB_BasicQuerys instance;
-
-    private DB_BasicQuerys() {
-        // Empty Constructor
-    }
-
-    public static DB_BasicQuerys getInstance() {
-        if (instance == null) instance = new DB_BasicQuerys();
-        return instance;
-    }
-
     // A partir de una query: "select * from table where cod = x"
     // retorna true si existe, false si no. Se puede usar al querer dar de baja una tupla, primero hacer un if (!tupleExists(...)).
     // nota: como usa createStatement, no permitir que el usuario la use, puede generar problemas de seguridad.
