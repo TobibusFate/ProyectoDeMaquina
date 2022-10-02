@@ -55,11 +55,16 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Usuarios ("
                     + "Usuario_usuario VARCHAR(255), "
                     + "Usuario_contraseña VARCHAR(255) NOT NULL, "
-                    + "Usuario_telefono VARCHAR(255) NOT NULL, "
-                    + "Usuario_Email BIGINT, "
+                    + "Usuario_tipo INT NOT NULL, "
+                    + "Usuario_email VARCHAR(255) NOT NULL, "
+                    + "Usuario_telefono BIGINT, "
                     + "PRIMARY KEY(Usuario_usuario)"
                     + ")"
             );
+            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
+              //      "VALUES ('user', '123', '1', '2266646', 'correo1234') ");
+            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
+                //    "VALUES ('admin', '123', '2', '2266646', 'correo1234') ");
 
             /*query.execute("CREATE TABLE IF NOT EXISTS Renglon-Venta ("
                 // TO DO
