@@ -16,7 +16,7 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
                 + "Prod_NOMBRE VARCHAR(255) NOT NULL, "
-                + "Prod_CATEGORIA VARCHAR(255) NOT NULL, "
+                + "Prod_CAGTEORIA VARCHAR(255) NOT NULL, "
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
                 + "Prod_STOCK_MINIMO INTEGER NOT NULL, "
@@ -62,8 +62,8 @@ public class DB_Init {
             // no sé si poner la foreign key de cuenta acá o en cuenta poner trab_dni
             query.execute("CREATE TABLE IF NOT EXISTS Trabajadores ("
                 + "Trab_DNI INTEGER, "
-                + "Trab_USUARIO VARCHAR(255) NOT NULL, "
-                + "PRIMARY KEY(Trab_DNI), "
+                + "Trab_USUARIO VARCHAR(255), "
+                + "PRIMARY KEY(Trab_DNI, Trab_USUARIO), "
                 + "FOREIGN KEY(Trab_DNI) REFERENCES Personas(Pers_DNI), "
                 + "FOREIGN KEY(Trab_USUARIO) REFERENCES Cuentas(Cuen_USUARIO)"
                 + ")"
@@ -72,7 +72,7 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Cuentas ("
                     + "Cuen_USUARIO VARCHAR(255), "
                     + "Cuen_CONTRASEÑA VARCHAR(255) NOT NULL, "
-                    + "Cuen_PERMISOS BOOLEAN NOT NULL, "
+                    + "Cuen_PERMISOS INTEGER NOT NULL, "
                     + "Cuen_EMAIL VARCHAR(255) NOT NULL, "
                     + "PRIMARY KEY(Cuen_USUARIO)"
                     + ")"
@@ -86,9 +86,9 @@ public class DB_Init {
             );
             
             query.execute("CREATE TABLE IF NOT EXISTS Pedidos ("
+                + "Ped_CODIGO INTEGER, "
                 + "Ped_Prov_CUIT BIGINT, "
                 + "Ped_Admin_DNI INTEGER, "
-                + "Ped_CODIGO INTEGER, "
                 + "Ped_FECHAPEDIDO DATE NOT NULL, "
                 + "Ped_FECHAENTREGA DATE, "
                 + "PRIMARY KEY(Ped_Prov_CUIT, Ped_Admin_DNI, Ped_CODIGO), "
@@ -127,21 +127,7 @@ public class DB_Init {
                 + "PRIMARY KEY(Pago_CODIGO, Pago_Venta_CODIGO), "
                 + "FOREIGN KEY(Pago_Venta_CODIGO) REFERENCES Ventas(Venta_CODIGO)"
             );
-/*
-            query.execute("CREATE TABLE IF NOT EXISTS MetodosDePago ("
-                + "Metod_TIPO ENUM('Fiado','Efectivo','TarjetaDebito','TarjetaCredito'), "
-                + "Metod_TITULAR VARCHAR(255), "
-                + "Metod_CUOTAS"
-                + ""
-                + ""
-            );
-*/
-
             
-            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
-              //      "VALUES ('user', '123', '1', '2266646', 'correo1234') ");
-            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
-                //    "VALUES ('admin', '123', '2', '2266646', 'correo1234') ");
 
             query.execute("CREATE TABLE IF NOT EXISTS Renglon ("
                 + "Ren_CODIGO INTEGER, "
@@ -185,7 +171,11 @@ public class DB_Init {
     }
 
     public static void initTables () {
-        // Llena las tablas creadas con valores basicos para usar y testear. EJ: 3 proveedores, 10 productos, etc...
+        // Llena las tablas creadas con valores basicos para usar y testear. EJ: 3 proveedores, 10 productos, etc
+        //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
+              //      "VALUES ('user', '123', '1', '2266646', 'correo1234') ");
+            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
+                //    "VALUES ('admin', '123', '2', '2266646', 'correo1234') ");...
     }
 
 
