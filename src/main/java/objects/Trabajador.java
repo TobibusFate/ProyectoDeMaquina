@@ -3,52 +3,51 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente_Fisico extends Cliente{
-    private long cuil;
+public class Trabajador extends Persona {
 
-    public Cliente_Fisico(String apell, String name, int dni, long tel, String iva, boolean moroso, int cuil) {
-        super(apell, name, dni, tel, iva, moroso);
-        this.cuil = cuil;
+    Cuenta cuenta;
+    
+    public Trabajador(String apellido, String nombre, int dni, long telefono, Cuenta cuenta) {
+        super(apellido, nombre, dni, telefono);
+        this.cuenta = cuenta;
     }
 
-    public long getCuil() {
-        return cuil;
+    public Cuenta getCuenta() {
+        return cuenta;
     }
 
-    public void setCuil(long cuil) {
-        this.cuil = cuil;
+    public void setCuenta(Cuenta cuenta) {
+        this.cuenta = cuenta;
     }
 
-    @Override
     public List<String> getAttributeNamesList() {
         List<String> l = new ArrayList<>();
-        l.add("CliF_DNI");
-        l.add("CliF_CUIL");
+        l.add("Trab_USUARIO");
+        l.add("Trab_DNI");
         return l;
     }
 
-    @Override
     public List<String> getAttributeValuesList() {
         List<String> l = new ArrayList<>();
+        l.add(cuenta.getCuenta());
         l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
         return l;
     }
 
-    @Override
     public List<String> getKeyNamesList() {
         List<String> l = new ArrayList<>();
-        l.add("CliF_DNI");
-        l.add("CliF_CUIL");
+        l.add("Trab_USUARIO");
+        l.add("Trab_DNI");
         return l;
     }
 
-    @Override
     public List<String> getKeyValuesList() {
         List<String> l = new ArrayList<>();
+        l.add(cuenta.getCuenta());
         l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
         return l;
     }
+
+    
     
 }

@@ -16,12 +16,12 @@ public class DB_Init {
 
             //query.execute("CREATE TYPE PERMISO AS ENUM('Empleado', 'Administrador')");
             //query.execute("CREATE TYPE METODOPAGO AS ENUM('Fiado', 'Efectivo', 'TarjetaDebito','TarjetaCredito')");
-            //query.execute("CREATE TYPE TIPOCANTIDAD AS ENUM('Bolsones', 'Bultos Cerrados', 'Pallets')");
+            //query.execute("CREATE TYPE TIPOCANTIDAD AS ENUM('Bolsones', 'BultosCerrados', 'Pallets')");
 
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
                 + "Prod_NOMBRE VARCHAR(255) NOT NULL, "
-                + "Prod_CAGTEORIA VARCHAR(255) NOT NULL, "
+                + "Prod_CATEGORIA VARCHAR(255) NOT NULL, "
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
                 + "Prod_STOCK_MINIMO INTEGER NOT NULL, "
@@ -63,7 +63,7 @@ public class DB_Init {
                 + "FOREIGN KEY(CliJ_DNI) REFERENCES Clientes(Cli_DNI)"
                 + ")"
             );
-
+// no revisado con su clase
             query.execute("CREATE TABLE IF NOT EXISTS Cuentas ("
                     + "Cuen_USUARIO VARCHAR(255), "
                     + "Cuen_CONTRASEÑA VARCHAR(255) NOT NULL, "
@@ -73,8 +73,7 @@ public class DB_Init {
                     + ")"
             );
 
-            // no sé si poner la foreign key de cuenta acá o en cuenta poner trab_dni
-            query.execute("CREATE TABLE IF NOT EXISTS Trabajadores ("
+           query.execute("CREATE TABLE IF NOT EXISTS Trabajadores ("
                 + "Trab_USUARIO VARCHAR(255), "
                 + "Trab_DNI INTEGER, "
                 + "PRIMARY KEY(Trab_DNI, Trab_USUARIO), "
@@ -88,7 +87,6 @@ public class DB_Init {
                 + "Admin_DNI INTEGER, "
                 + "PRIMARY KEY(Admin_DNI, Admin_USUARIO), "
                 + "FOREIGN KEY(Admin_DNI, Admin_USUARIO) REFERENCES Trabajadores(Trab_DNI, Trab_USUARIO)"
-                //+ "FOREIGN KEY(Admin_USUARIO) REFERENCES Trabajadores(Trab_USUARIO)"
                 + ")"
             );
 
@@ -101,6 +99,7 @@ public class DB_Init {
                 + ")"
             );
             
+            // fechas no revisadas en su clase
             query.execute("CREATE TABLE IF NOT EXISTS Pedidos ("
                 + "Ped_CODIGO INTEGER, "
                 + "Ped_Prov_CUIT BIGINT, "
@@ -113,9 +112,7 @@ public class DB_Init {
                 + "FOREIGN KEY(Ped_Admin_DNI, Ped_Admin_USUARIO) REFERENCES Administradores(Admin_DNI, Admin_USUARIO)"
                 + ")"
             );
-
-            
-
+            // fechas no revisadas en su clase
             query.execute("CREATE TABLE IF NOT EXISTS Ventas ("
                 + "Venta_CODIGO INTEGER, "
                 + "Venta_CERRADA BOOLEAN NOT NULL, "
@@ -127,7 +124,7 @@ public class DB_Init {
                 //+ "FOREIGN KEY(Venta_Cli_DNI) REFERENCES Clientes(Cli_DNI)"
                 + ")"
             );
-
+            // fechas no revisadas en su clase
             query.execute("CREATE TABLE IF NOT EXISTS Pagos ("
                 + "Pago_CODIGO INTEGER, "
                 + "Pago_Venta_CODIGO INTEGER, "
@@ -146,7 +143,7 @@ public class DB_Init {
                 + "Ren_CODIGO INTEGER, "
                 + "Ren_Prod_CODIGO INTEGER, "
                 + "Ren_MONTOTOTAL REAL NOT NULL, "
-                + "Ren_DESCUENTO INTEGER NOT NULL, "
+                + "Ren_DESCUENTO REAL NOT NULL, "
                 + "PRIMARY KEY(Ren_CODIGO), "
                 + "FOREIGN KEY(Ren_Prod_CODIGO) REFERENCES Productos(Prod_CODIGO)"
                 + ")"
