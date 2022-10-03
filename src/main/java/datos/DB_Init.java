@@ -21,7 +21,7 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
                 + "Prod_NOMBRE VARCHAR(255) NOT NULL, "
-                + "Prod_CAGTEORIA VARCHAR(255) NOT NULL, "
+                + "Prod_CATEGORIA VARCHAR(255) NOT NULL, "
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
                 + "Prod_STOCK_MINIMO INTEGER NOT NULL, "
@@ -170,11 +170,11 @@ public class DB_Init {
                 + "FOREIGN KEY(RenP_Ped_CODIGO) REFERENCES Pedidos(Ped_CODIGO)"
                 + ")"
             );
+            //query.execute("drop table Renglon_Venta");
+            //query.execute("drop table Renglon_Pedido");
+            //query.execute("drop table Renglon");
+            //query.execute("drop table Productos");
 
-            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
-                    "VALUES ('user', '123', 'Empleado', 'correo1234') ");
-            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
-                    "VALUES ('', '', 'Administrador', 'correo1234') ");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -198,6 +198,20 @@ public class DB_Init {
                     "VALUES ('', '', 'Empleado', 'correo1234') ");
             query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('admin', '123', 'Administrador', 'correo1234') ");
+
+
+                    query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('12', 'leche', 'comestible', '150', '200', '50')");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('15', 'galletas de chocolate', 'comestible', '200', '200', '50')");
+
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('19', 'galletas de coco', 'comestible', '110', '200', '50')");
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
+            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
          */
 
     }

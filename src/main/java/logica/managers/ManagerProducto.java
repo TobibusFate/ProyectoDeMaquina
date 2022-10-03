@@ -7,11 +7,11 @@ import java.util.HashMap;
 
 public class ManagerProducto {
     private static DAO_Producto dao_producto = new DAO_Producto();
-    public static HashMap<Integer, Producto> getHashMapProductos() {
-        HashMap <Integer, Producto> map = new HashMap<>();
+    public static HashMap<String, Producto> getHashMapProductos() {
+        HashMap <String, Producto> map = new HashMap<>();
 
         for (Producto producto : dao_producto.read(null)) {
-            map.put(producto.getCodigoP(),producto);
+            map.put(producto.getNombreP(),producto);
         }
         return map;
     }
