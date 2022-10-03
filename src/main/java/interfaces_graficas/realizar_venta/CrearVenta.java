@@ -4,6 +4,7 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import datos.dao.implementation.DAO_Producto;
 import logica.managers.ManagerProducto;
 import objects.Producto;
 import objects.RenglonVenta;
@@ -309,6 +310,7 @@ public class CrearVenta extends javax.swing.JFrame {
     private void boton_continuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_continuarActionPerformed
         // TODO add your handling code here:
         int value =Integer.parseInt(cantidad_pagos.getText());
+
         /** ejecutar seleccion pago la cantidad de veces que indique value*/
     }//GEN-LAST:event_boton_continuarActionPerformed
 

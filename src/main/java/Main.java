@@ -5,8 +5,8 @@ import interfaces_graficas.LogIn;
 public class Main {
     
     public static void main(String[] args) {
-        LogIn li = new LogIn();
-       li.setVisible(true);
+        LogIn logIn = new LogIn();
+        logIn.setVisible(true);
         
         try {
             DB_Init.createTables();

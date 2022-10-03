@@ -4,16 +4,13 @@ import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Producto;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Producto implements IDAO<Producto> {
     @Override
-    public List<Producto> read(Producto p) {
+    public List<Producto> read(Producto producto) {
         Connection conn = DatosBase.getInstance().getConnection();
         Statement statement;
         List<Producto> list = new ArrayList<>();
@@ -21,8 +18,8 @@ public class DAO_Producto implements IDAO<Producto> {
         try {
             statement = conn.createStatement();
             // query para retornar el producto
-            if (p != null) {
-                rs = statement.executeQuery("SELECT * FROM Productos WHERE (Prod_CODIGO = '" +p.getCodigoP()+"')");
+            if (producto != null) {
+                rs = statement.executeQuery("SELECT * FROM Productos WHERE (Prod_CODIGO = '" +producto.getCodigoP()+"')");
                 list.add(new Producto(
                         rs.getInt("Prod_CODIGO"),
                         rs.getString("Prod_NOMBRE"),
@@ -47,6 +44,7 @@ public class DAO_Producto implements IDAO<Producto> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        DatosBase.getInstance().closeConnection();
         return list;
     }
 
@@ -57,17 +55,25 @@ public class DAO_Producto implements IDAO<Producto> {
 
     @Override
     public boolean update(Producto producto) {
-        /*Connection conn = DatosBase.getInstance().getConnection();
-        Statement statement;
-
+        Connection conn = DatosBase.getInstance().getConnection();
+        PreparedStatement statement;
+        Boolean exito = false;
+        String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?" +
+                " WHERE (Prod_CODIGO = '" + producto.getCodigoP() + "')";
         try {
-            statement = conn.createStatement();
-
+            statement = conn.prepareStatement(sqlUpdate);
+            statement.setString(1,producto.getNombreP());
+            statement.setFloat(2,producto.getPrecioP());
+            statement.setInt(3,producto.getStockP());
+            statement.setInt(4,producto.getStockMinimoP());
+            statement.executeUpdate();
+            exito = true;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }*/
-        return false;
+        }
+        DatosBase.getInstance().closeConnection();
+        return exito;
     }
 
     @Override

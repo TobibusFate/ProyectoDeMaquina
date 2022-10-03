@@ -25,11 +25,9 @@ public class RenglonVenta extends Renglon {
 
     public void setUnidades(int unidades) {
         this.unidades = unidades;
-<<<<<<< HEAD
         setDescuento(super.getDescuento());
-=======
+
         super.setMontoTotal(this.unidades*this.getProducto().getPrecioP());
->>>>>>> cd62b1b128cbb5501cc900fab217ba46ba474624
     }
 
     public Venta getVenta() {
@@ -53,16 +51,15 @@ public class RenglonVenta extends Renglon {
         l.add(Integer.toString(venta.getCodigoV()));
         return l;
     }
-<<<<<<< HEAD
 
     @Override
     public void setDescuento(float descuento) {
         super.setDescuento(descuento);
-        float localDescuento = (this.producto.getPrecioP() * this.unidades) * (descuento/100);
-        setMontoTotal((this.unidades * this.producto.getPrecioP())-  localDescuento);
+        float localDescuento = (super.getProducto().getPrecioP() * this.unidades) * (descuento/100);
+        setMontoTotal((this.unidades * super.getProducto().getPrecioP()) -  localDescuento);
 
     }
-=======
+
     
     public List<String> getAttributeNamesList() {
         List<String> l = new ArrayList<>();
@@ -81,5 +78,4 @@ public class RenglonVenta extends Renglon {
     }
 
 
->>>>>>> cd62b1b128cbb5501cc900fab217ba46ba474624
 }

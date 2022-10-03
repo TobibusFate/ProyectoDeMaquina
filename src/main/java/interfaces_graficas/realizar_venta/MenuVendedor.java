@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package interfaces_graficas;
+package interfaces_graficas.realizar_venta;
 
+import interfaces_graficas.LogIn;
 import interfaces_graficas.realizar_venta.CrearVenta;
 
 /**
@@ -31,7 +32,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        realizar_venta = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
@@ -48,10 +49,10 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         jButton1.setText("Buscar Venta");
 
-        jButton2.setText("Realizar Venta");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        realizar_venta.setText("Realizar Venta");
+        realizar_venta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                realizar_ventaActionPerformed(evt);
             }
         });
 
@@ -75,7 +76,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                         .addGap(79, 79, 79)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButton3)
-                            .addComponent(jButton2))))
+                            .addComponent(realizar_venta))))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -84,7 +85,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(realizar_venta))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
@@ -99,12 +100,12 @@ public class MenuVendedor extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void realizar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_ventaActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
         CrearVenta cv = new CrearVenta();
         cv.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_realizar_ventaActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -150,10 +151,10 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton realizar_venta;
     // End of variables declaration//GEN-END:variables
 }
