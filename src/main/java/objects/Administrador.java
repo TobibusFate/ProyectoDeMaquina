@@ -3,52 +3,39 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente_Fisico extends Cliente{
-    private long cuil;
+public class Administrador extends Trabajador {
 
-    public Cliente_Fisico(String apell, String name, int dni, long tel, String iva, boolean moroso, int cuil) {
-        super(apell, name, dni, tel, iva, moroso);
-        this.cuil = cuil;
-    }
-
-    public long getCuil() {
-        return cuil;
-    }
-
-    public void setCuil(long cuil) {
-        this.cuil = cuil;
-    }
-
-    @Override
-    public List<String> getAttributeNamesList() {
-        List<String> l = new ArrayList<>();
-        l.add("CliF_DNI");
-        l.add("CliF_CUIL");
-        return l;
-    }
-
-    @Override
-    public List<String> getAttributeValuesList() {
-        List<String> l = new ArrayList<>();
-        l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
-        return l;
-    }
-
-    @Override
-    public List<String> getKeyNamesList() {
-        List<String> l = new ArrayList<>();
-        l.add("CliF_DNI");
-        l.add("CliF_CUIL");
-        return l;
-    }
-
-    @Override
-    public List<String> getKeyValuesList() {
-        List<String> l = new ArrayList<>();
-        l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
-        return l;
+    public Administrador(String apellido, String nombre, int dni, long telefono, Cuenta cuenta) {
+        super(apellido, nombre, dni, telefono, cuenta);
     }
     
+    public List<String> getAttributeNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Admin_USUARIO");
+        l.add("Admin_DNI");
+        return l;
+    }
+
+    public List<String> getAttributeValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(getCuenta().getCuenta());
+        l.add(Integer.toString(getDni()));
+        return l;
+    }
+
+    public List<String> getKeyNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Admin_USUARIO");
+        l.add("Admin_DNI");
+        return l;
+    }
+
+    public List<String> getKeyValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(getCuenta().getCuenta());
+        l.add(Integer.toString(getDni()));
+        return l;
+    }
+
+
 }

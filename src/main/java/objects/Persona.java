@@ -1,12 +1,14 @@
 package objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Persona {
     private String apellido, nombre;
-    private int dni, telefono;
+    private int dni;
+    private long telefono;
 
-    public Persona(String apellido, String nombre, int dni, int telefono) {
+    public Persona(String apellido, String nombre, int dni, long telefono) {
         this.apellido = apellido;
         this.nombre = nombre;
         this.dni = dni;
@@ -37,7 +39,7 @@ public abstract class Persona {
         this.dni = dni;
     }
 
-    public int getTelefono() {
+    public long getTelefono() {
         return telefono;
     }
 
@@ -45,11 +47,33 @@ public abstract class Persona {
         this.telefono = telefono;
     }
 
-    /// retorna una lista con los valores de los atributos de persona, para usar con la BD.
-    public abstract List<String> getValueList();
+    public List<String> getAttributeNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Pers_DNI");
+        l.add("Pers_Nombre");
+        l.add("Pers_Apellido");
+        l.add("Pers_Telefono");
+        return l;
+    }
 
-    // TODO: crear listas similares a la de arriba para los nombres y valores de las keys.
-    //public abstract List<String> getAttributeNamesList();
-    //public abstract List<String> getKeyNamesList();
-    //public abstract List<String> getKeyValuesList();
+    public List<String> getAttributeValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(Integer.toString(dni));
+        l.add(nombre);
+        l.add(apellido);
+        l.add(Long.toString(telefono));
+        return l;
+    }
+
+    public List<String> getKeyNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Pers_DNI");
+        return l;
+    }
+
+    public List<String> getKeyValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(Integer.toString(dni));
+        return l;
+    }
 }

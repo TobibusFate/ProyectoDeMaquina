@@ -3,27 +3,26 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente_Fisico extends Cliente{
-    private long cuil;
+public class Cliente_Juridico extends Cliente {
+    private long cuit;
 
-    public Cliente_Fisico(String apell, String name, int dni, long tel, String iva, boolean moroso, int cuil) {
-        super(apell, name, dni, tel, iva, moroso);
-        this.cuil = cuil;
+    public Cliente_Juridico(String apell, String name, int dni, long tel, String condicion_IVA, boolean moroso, long cuit) {
+        super(apell, name, dni, tel, condicion_IVA, moroso);
+        this.cuit = cuit;
     }
 
-    public long getCuil() {
-        return cuil;
+    public long getCuit() {
+        return cuit;
     }
-
-    public void setCuil(long cuil) {
-        this.cuil = cuil;
+    public void setCuit(long cuit) {
+        this.cuit = cuit;
     }
 
     @Override
     public List<String> getAttributeNamesList() {
         List<String> l = new ArrayList<>();
         l.add("CliF_DNI");
-        l.add("CliF_CUIL");
+        l.add("CliF_CUIT");
         return l;
     }
 
@@ -31,7 +30,7 @@ public class Cliente_Fisico extends Cliente{
     public List<String> getAttributeValuesList() {
         List<String> l = new ArrayList<>();
         l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
+        l.add(Long.toString(cuit));
         return l;
     }
 
@@ -39,7 +38,7 @@ public class Cliente_Fisico extends Cliente{
     public List<String> getKeyNamesList() {
         List<String> l = new ArrayList<>();
         l.add("CliF_DNI");
-        l.add("CliF_CUIL");
+        l.add("CliF_CUIT");
         return l;
     }
 
@@ -47,8 +46,9 @@ public class Cliente_Fisico extends Cliente{
     public List<String> getKeyValuesList() {
         List<String> l = new ArrayList<>();
         l.add(Integer.toString(getDni()));
-        l.add(Long.toString(cuil));
+        l.add(Long.toString(cuit));
         return l;
     }
-    
+
+
 }

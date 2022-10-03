@@ -1,5 +1,8 @@
 package objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Producto {
     private int codigoP;
     private String nombreP;
@@ -68,4 +71,36 @@ public class Producto {
     public void setStockP(int stockP) {
         this.stockP = stockP;
     }
+
+    public List<String> getAttributeNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Prod_CODIGO");
+        l.add("Prod_NOMBRE");
+        l.add("Prod_CATEGORIA");
+        l.add("Prod_PRECIO");
+        l.add("Prod_STOCK");
+        l.add("Prod_STOCK_MINIMO");
+        return l;
+    }
+    public List<String> getAttributeValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(Integer.toString(codigoP));
+        l.add(nombreP);
+        l.add(categoriaP);
+        l.add(Float.toString(precioP));
+        l.add(Integer.toString(stockP));
+        l.add(Integer.toString(stockMinimoP));
+        return l;
+    }
+    public List<String> getKeyNamesList() {
+        List<String> l = new ArrayList<>();
+        l.add("Prod_CODIGO");
+        return l;
+    }
+    public List<String> getKeyValuesList() {
+        List<String> l = new ArrayList<>();
+        l.add(Integer.toString(codigoP));
+        return l;
+    }
+
 }
