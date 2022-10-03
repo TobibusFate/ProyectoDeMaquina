@@ -31,7 +31,7 @@ public class CrearVenta extends javax.swing.JFrame {
      */
     private static HashMap <String, Producto> listaProductos = new HashMap<>();
 
-    private static List<RenglonVenta> listaRenglon = new ArrayList<>();
+    private static HashMap <String, RenglonVenta> listaRenglon = new HashMap<>();
     private DefaultTableModel model;
 
     public CrearVenta() {
@@ -49,17 +49,20 @@ public class CrearVenta extends javax.swing.JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
         });
@@ -274,25 +277,15 @@ public class CrearVenta extends javax.swing.JFrame {
 
     private void boton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_agregarActionPerformed
         // TODO add your handling code here:
-
-        boolean contiene = false;
-        int pos = 0;
-
-        for (RenglonVenta rv : listaRenglon.stream().toList()) {
-            if (rv.getProducto().getCodigoP() == listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getCodigoP()) {
-                contiene = true;
-            }
-            if (!contiene) {
-                pos++;
-            }
-        }
-        if (!contiene) {
-            listaRenglon.add(new RenglonVenta(Integer.parseInt(unidades.getText()),listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
-        } else {
-            RenglonVenta renglonVenta = listaRenglon.get(pos);
+        String text = combobox_listado_productos.getSelectedItem().toString();
+        if (listaRenglon.containsKey(text)) {
+            /** MODIFICAR CANTIDAD*/
+            RenglonVenta renglonVenta = listaRenglon.get(text);
             renglonVenta.setUnidades(renglonVenta.getUnidades()+Integer.parseInt(unidades.getText()));
-            listaRenglon.set(pos,renglonVenta);
-            //modificar cantidad
+            listaRenglon.replace(text,renglonVenta);
+        } else {
+            /** NUEVA ENTRADA*/
+            listaRenglon.put(text,new RenglonVenta(Integer.parseInt(unidades.getText()),listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
         }
         updateTable();
                 
@@ -300,11 +293,12 @@ public class CrearVenta extends javax.swing.JFrame {
 
     public void updateTable (){
         model = (DefaultTableModel) this.tabla_renglones.getModel();
-        for (int i = 0; i< model.getRowCount();i++){
-            model.removeRow(i);
+        /** LIMPIAR TABLA*/
+        while (model.getRowCount()>0){
+            model.removeRow(0);
         }
-
-        for (RenglonVenta rv: listaRenglon.stream().toList()){
+        /** CARGAR  TABLA*/
+        for (RenglonVenta rv: listaRenglon.values()){
             model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento() });
         }
     }
