@@ -170,6 +170,11 @@ public class DB_Init {
                 + "FOREIGN KEY(RenP_Ped_CODIGO) REFERENCES Pedidos(Ped_CODIGO)"
                 + ")"
             );
+
+            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+                    "VALUES ('user', '123', 'Empleado', 'correo1234') ");
+            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+                    "VALUES ('', '', 'Administrador', 'correo1234') ");
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -177,6 +182,7 @@ public class DB_Init {
         finally { // finally se ejecuta siempre, no importa si hubo excepcion, así aseguramos que se cierra la conexión
             DatosBase.getInstance().closeConnection();
         }
+
 
 
         
