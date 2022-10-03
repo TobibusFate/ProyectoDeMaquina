@@ -10,8 +10,8 @@ public abstract class Renglon {
     private float montoTotal;
     private float descuento;
     
-    public Renglon(int codigo, Producto prod, float montoTotal, float descuento) {
-        this.codigo = codigo;
+    public Renglon(Producto prod, float montoTotal, float descuento) {
+        //this.codigo = codigo;
         this.prod = prod;
         this.montoTotal = montoTotal;
         this.descuento = descuento;
@@ -25,11 +25,11 @@ public abstract class Renglon {
         this.codigo = codigo;
     }
 
-    public Producto getProd() {
+    public Producto getProducto() {
         return prod;
     }
 
-    public void setProd(Producto prod) {
+    public void setProducto(Producto prod) {
         this.prod = prod;
     }
     

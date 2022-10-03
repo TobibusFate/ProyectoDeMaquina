@@ -9,8 +9,8 @@ public class RenglonPedido extends Renglon {
     private TipoCantidad tipoCantidad;
 
     
-    public RenglonPedido(int codigo, Producto prod, float montoTotal, float descuento, int cantidad, Pedido pedido, TipoCantidad tipo) {
-        super(codigo, prod, montoTotal, descuento);
+    public RenglonPedido(Producto prod, float montoTotal, float descuento, int cantidad, Pedido pedido, TipoCantidad tipo) {
+        super(prod, montoTotal, descuento);
         this.cantidad = cantidad;
         this.pedido = pedido;
         this.tipoCantidad = tipo;

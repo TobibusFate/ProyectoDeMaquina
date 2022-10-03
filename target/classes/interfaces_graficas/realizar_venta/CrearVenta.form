@@ -39,7 +39,7 @@
                           <EmptySpace min="69" max="32767" attributes="0"/>
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="cantidad" min="-2" pref="80" max="-2" attributes="0"/>
+                          <Component id="unidades" min="-2" pref="80" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="boton_salir" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -70,7 +70,7 @@
                           <Component id="combobox_listado_productos" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="boton_agregar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cantidad" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="unidades" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="316" max="-2" attributes="0"/>
@@ -108,7 +108,7 @@
         <Component class="javax.swing.JTable" name="tabla_renglones">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="4">
+              <Table columnCount="6" rowCount="0">
                 <Column editable="false" title="Codigo" type="java.lang.Long"/>
                 <Column editable="true" title="Nombre" type="java.lang.String"/>
                 <Column editable="true" title="Cantidad" type="java.lang.Long"/>
@@ -203,6 +203,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Agregar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_agregarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -214,7 +217,10 @@
         <Property name="text" type="java.lang.String" value="Cantidad"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="cantidad">
+    <Component class="javax.swing.JTextField" name="unidades">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="unidadesActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

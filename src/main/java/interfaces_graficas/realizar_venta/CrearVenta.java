@@ -11,6 +11,7 @@ import objects.RenglonVenta;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -28,15 +29,17 @@ public class CrearVenta extends javax.swing.JFrame {
     /**
      * Creates new form RegistrarVenta
      */
-    private static HashMap <Integer, Producto> listaProductos = new HashMap<>();
+    private static HashMap <String, Producto> listaProductos = new HashMap<>();
 
-    private static List<RenglonVenta> listaRenglon = new ArrayList<>();
-
+    private static HashMap <String, RenglonVenta> listaRenglon = new HashMap<>();
+    private DefaultTableModel model;
 
     public CrearVenta() {
         initComponents();
         addList();
+        listaRenglon.clear();
         cantidad_pagos.setText("1");
+        unidades.setText("1");
         listaProductos = ManagerProducto.getHashMapProductos();
         updateCombobox();
     }
@@ -46,17 +49,20 @@ public class CrearVenta extends javax.swing.JFrame {
             @Override
             public void insertUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
             @Override
             public void removeUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 updateCombobox();
+                combobox_listado_productos.hidePopup();
                 combobox_listado_productos.showPopup();
             }
         });
@@ -82,16 +88,13 @@ public class CrearVenta extends javax.swing.JFrame {
         boton_agregar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        cantidad = new javax.swing.JTextField();
+        unidades = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tabla_renglones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Codigo", "Nombre", "Cantidad", "Monto", "Monto Total", "Descuento"
@@ -152,10 +155,21 @@ public class CrearVenta extends javax.swing.JFrame {
         });
 
         boton_agregar.setText("Agregar");
+        boton_agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_agregarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Buscador");
 
         jLabel3.setText("Cantidad");
+
+        unidades.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unidadesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -176,7 +190,7 @@ public class CrearVenta extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jLabel3)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(unidades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(boton_salir))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,7 +214,7 @@ public class CrearVenta extends javax.swing.JFrame {
                             .addComponent(combobox_listado_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(boton_agregar)
                             .addComponent(jLabel3)
-                            .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(unidades, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -261,6 +275,38 @@ public class CrearVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_combobox_listado_productosActionPerformed
 
+    private void boton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_agregarActionPerformed
+        // TODO add your handling code here:
+        String text = combobox_listado_productos.getSelectedItem().toString();
+        if (listaRenglon.containsKey(text)) {
+            /** MODIFICAR CANTIDAD*/
+            RenglonVenta renglonVenta = listaRenglon.get(text);
+            renglonVenta.setUnidades(renglonVenta.getUnidades()+Integer.parseInt(unidades.getText()));
+            listaRenglon.replace(text,renglonVenta);
+        } else {
+            /** NUEVA ENTRADA*/
+            listaRenglon.put(text,new RenglonVenta(Integer.parseInt(unidades.getText()),listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
+        }
+        updateTable();
+                
+    }//GEN-LAST:event_boton_agregarActionPerformed
+
+    public void updateTable (){
+        model = (DefaultTableModel) this.tabla_renglones.getModel();
+        /** LIMPIAR TABLA*/
+        while (model.getRowCount()>0){
+            model.removeRow(0);
+        }
+        /** CARGAR  TABLA*/
+        for (RenglonVenta rv: listaRenglon.values()){
+            model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento() });
+        }
+    }
+
+    private void unidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadesActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_unidadesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,7 +348,6 @@ public class CrearVenta extends javax.swing.JFrame {
     private javax.swing.JButton boton_continuar;
     private javax.swing.JButton boton_salir;
     private javax.swing.JTextField buscador_productos;
-    private javax.swing.JTextField cantidad;
     private javax.swing.JTextField cantidad_pagos;
     private javax.swing.JComboBox<String> combobox_listado_productos;
     private javax.swing.JLabel jLabel1;
@@ -310,5 +355,6 @@ public class CrearVenta extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla_renglones;
+    private javax.swing.JTextField unidades;
     // End of variables declaration//GEN-END:variables
 }
