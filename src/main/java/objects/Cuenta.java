@@ -1,21 +1,20 @@
 package objects;
 
 public class Cuenta {
-    private String cuenta, pass, email;
-    private int tipo;
+    private String cuenta, pass, email, tipo;
 
     public Cuenta(String cuenta, String pass) {
         this.cuenta = cuenta;
         this.pass = pass;
     }
 
-    public Cuenta(String cuenta, String pass, int tipo) {
+    public Cuenta(String cuenta, String pass, String tipo) {
         this.cuenta = cuenta;
         this.pass = pass;
         this.tipo = tipo;
     }
 
-    public Cuenta(String cuenta, String pass, String email, int tipo) {
+    public Cuenta(String cuenta, String pass, String email, String tipo) {
         this.cuenta = cuenta;
         this.pass = pass;
         this.email = email;
@@ -46,11 +45,11 @@ public class Cuenta {
         this.email = email;
     }
 
-    public int getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(int tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 }

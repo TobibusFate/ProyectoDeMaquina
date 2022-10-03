@@ -4,6 +4,7 @@
  */
 package interfaces_graficas;
 
+import interfaces_graficas.AltaPedido.MenuAdministrador;
 import logica.managers.ManagerCuenta;
 import objects.Cuenta;
 
@@ -120,13 +121,15 @@ public class LogIn extends javax.swing.JFrame {
             System.out.println("Usuario no encontrado");
             break;
             case 1:
-                
                 this.setVisible(false);
                 MenuVendedor mv = new MenuVendedor();
                 mv.setVisible(true);
             break;
             case 2:
-            System.out.println("Administrador");
+                this.setVisible(false);
+                MenuAdministrador ma = new MenuAdministrador();
+                ma.setVisible(true);
+
             break;
         }
 

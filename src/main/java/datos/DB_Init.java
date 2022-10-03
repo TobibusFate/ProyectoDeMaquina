@@ -14,9 +14,9 @@ public class DB_Init {
         try {
             query = conn.createStatement();
 
-            //query.execute("CREATE TYPE IF NOT EXISTS PERMISO AS ENUM('Empleado', 'Administrador')");
-            //query.execute("CREATE TYPE IF NOT EXISTS METODOPAGO AS ENUM('Fiado', 'Efectivo', 'TarjetaDebito','TarjetaCredito')");
-            //query.execute("CREATE TYPE IF NOT EXISTS TIPOCANTIDAD AS ENUM('Bolsones', 'Bultos Cerrados', 'Pallets')");
+            //query.execute("CREATE TYPE PERMISO AS ENUM('Empleado', 'Administrador')");
+            //query.execute("CREATE TYPE METODOPAGO AS ENUM('Fiado', 'Efectivo', 'TarjetaDebito','TarjetaCredito')");
+            //query.execute("CREATE TYPE TIPOCANTIDAD AS ENUM('Bolsones', 'Bultos Cerrados', 'Pallets')");
 
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
@@ -170,7 +170,6 @@ public class DB_Init {
                 + "FOREIGN KEY(RenP_Ped_CODIGO) REFERENCES Pedidos(Ped_CODIGO)"
                 + ")"
             );
-            
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -178,17 +177,23 @@ public class DB_Init {
         finally { // finally se ejecuta siempre, no importa si hubo excepcion, así aseguramos que se cierra la conexión
             DatosBase.getInstance().closeConnection();
         }
-        
-            
+
+
         
     }
 
     public static void initTables () {
         // Llena las tablas creadas con valores basicos para usar y testear. EJ: 3 proveedores, 10 productos, etc
-        //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
-              //      "VALUES ('user', '123', '1', '2266646', 'correo1234') ");
-            //query.execute("INSERT INTO Usuarios (Usuario_usuario, Usuario_contraseña, Usuario_tipo, Usuario_telefono, Usuario_Email) " +
-                //    "VALUES ('admin', '123', '2', '2266646', 'correo1234') ");...
+
+        /*
+        query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+                    "VALUES ('user', '123', 'Empleado', 'correo1234') ");
+            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+                    "VALUES ('', '', 'Empleado', 'correo1234') ");
+            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+                    "VALUES ('admin', '123', 'Administrador', 'correo1234') ");
+         */
+
     }
 
 
