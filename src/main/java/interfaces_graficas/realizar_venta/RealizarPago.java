@@ -7,6 +7,12 @@ package interfaces_graficas.realizar_venta;
 import objects.CantCuotas;
 import objects.TipoDePago;
 
+import javax.swing.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+
 /**
  *
  * @author tovib
@@ -19,6 +25,9 @@ public class RealizarPago extends javax.swing.JFrame {
     public RealizarPago() {
         initComponents();
         initCombobox();
+        tipo_pago.setSelectedItem(TipoDePago.EFECTIVO.getTipo());
+        texto_dni.setEditable(false);
+        
     }
 
     public void initCombobox() {
@@ -26,10 +35,21 @@ public class RealizarPago extends javax.swing.JFrame {
         for (TipoDePago tipoDePago: TipoDePago.values()){
             tipo_pago.addItem(tipoDePago.getTipo());
         }
+        tipo_pago.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                if (e.getItem().toString().equals(TipoDePago.FIADO.getTipo())) {
+                    texto_dni.setEditable(true);
+                } else {
+                    texto_dni.setEditable(false);
+                }
+            }
+        });
 
         for (CantCuotas cantCuotas: CantCuotas.values()){
             cuotas.addItem(cantCuotas.getCuota());
         }
+
     }
 
     /**
@@ -42,10 +62,10 @@ public class RealizarPago extends javax.swing.JFrame {
     private void initComponents() {
 
         tipo_pago = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        texto_monto = new javax.swing.JTextField();
+        texto_dni = new javax.swing.JTextField();
+        boton_cargar = new javax.swing.JButton();
+        boton_cancelar = new javax.swing.JButton();
         cuotas = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -53,24 +73,42 @@ public class RealizarPago extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        monto_faltante = new javax.swing.JLabel();
+        boton_pagar_restante = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        tipo_pago.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tipo_pago.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tipo_pagoActionPerformed(evt);
             }
         });
 
-        jButton1.setText("Cargar");
+        texto_monto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                texto_montoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        boton_cargar.setText("Cargar");
+        boton_cargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_cargarActionPerformed(evt);
+            }
+        });
 
-        cuotas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        boton_cancelar.setText("Cancelar");
+        boton_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_cancelarActionPerformed(evt);
+            }
+        });
+
+        cuotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cuotasActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Tipo de Pago");
 
@@ -80,13 +118,18 @@ public class RealizarPago extends javax.swing.JFrame {
 
         jLabel6.setText("Monto");
 
-        jLabel7.setText("Monto Restante");
+        jLabel7.setText("Monto Restante    $");
 
         jLabel8.setText("Realizar Pago");
 
-        jLabel9.setText("$1000");
+        monto_faltante.setText("1000");
 
-        jButton3.setText("Pagar Restante");
+        boton_pagar_restante.setText("Pagar Restante");
+        boton_pagar_restante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_pagar_restanteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -94,9 +137,9 @@ public class RealizarPago extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton2)
+                .addComponent(boton_cancelar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(boton_cargar)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(34, 34, 34)
@@ -109,16 +152,16 @@ public class RealizarPago extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3))
-                        .addComponent(tipo_pago, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(cuotas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(95, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(monto_faltante)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(boton_pagar_restante)
+                            .addComponent(tipo_pago, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(texto_dni, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cuotas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(texto_monto, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,7 +174,7 @@ public class RealizarPago extends javax.swing.JFrame {
                     .addComponent(tipo_pago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -140,25 +183,50 @@ public class RealizarPago extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel9)
-                    .addComponent(jButton3))
+                    .addComponent(monto_faltante)
+                    .addComponent(boton_pagar_restante))
                 .addGap(14, 14, 14)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(texto_monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(49, 49, 49)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(boton_cancelar)
+                    .addComponent(boton_cargar))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void texto_montoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_texto_montoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_texto_montoActionPerformed
+
+    private void tipo_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipo_pagoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipo_pagoActionPerformed
+
+    private void cuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cuotasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cuotasActionPerformed
+
+    private void boton_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cargarActionPerformed
+        // TODO add your handling code here:
+        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) && texto_dni.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
+        }
+    }//GEN-LAST:event_boton_cargarActionPerformed
+
+    private void boton_pagar_restanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_pagar_restanteActionPerformed
+        // TODO add your handling code here:
+        texto_monto.setText(monto_faltante.getText());
+    }//GEN-LAST:event_boton_pagar_restanteActionPerformed
+
+    private void boton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cancelarActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_boton_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -196,19 +264,19 @@ public class RealizarPago extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_cancelar;
+    private javax.swing.JButton boton_cargar;
+    private javax.swing.JButton boton_pagar_restante;
     private javax.swing.JComboBox<String> cuotas;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel monto_faltante;
+    private javax.swing.JTextField texto_dni;
+    private javax.swing.JTextField texto_monto;
     private javax.swing.JComboBox<String> tipo_pago;
     // End of variables declaration//GEN-END:variables
 }
