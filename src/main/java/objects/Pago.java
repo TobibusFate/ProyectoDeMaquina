@@ -11,10 +11,10 @@ public class Pago {
     private float montoP;
     private Venta venta;
     private int cuotas;
-    private TipoMetodoPago metodoPago;
+    private String metodoPago;
 
     
-    public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, TipoMetodoPago metodoPago) {
+    public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago) {
         this.codigoP = codigoP;
         this.fechaP = fechaP;
         this.fechaLimiteP = fechaLimiteP;
@@ -40,14 +40,22 @@ public class Pago {
         this.cuotas = cuotas;
     }
 
-    public TipoMetodoPago getMetodoPago() {
+    public int getCodigoP() {
+        return codigoP;
+    }
+
+    public void setCodigoP(int codigoP) {
+        this.codigoP = codigoP;
+    }
+
+    public String getMetodoPago() {
         return metodoPago;
     }
 
-    public void setMetodoPago(TipoMetodoPago metodoPago) {
+    public void setMetodoPago(String metodoPago) {
         this.metodoPago = metodoPago;
     }
-    
+
     public Date getFechaP() {
         return fechaP;
     }
