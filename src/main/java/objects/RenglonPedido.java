@@ -8,9 +8,15 @@ public class RenglonPedido extends Renglon {
     private Pedido pedido;
     private TipoCantidad tipoCantidad;
 
+    // pedido = null
+    public RenglonPedido(Producto prod, int cantidad, TipoCantidad tipo, float descuento) {
+        super(prod,prod.getPrecioP()*cantidad, descuento);
+        this.cantidad = cantidad;
+        this.tipoCantidad = tipo;
+    }
     
-    public RenglonPedido(Producto prod, float montoTotal, float descuento, int cantidad, Pedido pedido, TipoCantidad tipo) {
-        super(prod, montoTotal, descuento);
+    public RenglonPedido(Producto prod, Pedido pedido, int cantidad, TipoCantidad tipo, float descuento) {
+        super(prod, prod.getPrecioP()*cantidad, descuento);
         this.cantidad = cantidad;
         this.pedido = pedido;
         this.tipoCantidad = tipo;

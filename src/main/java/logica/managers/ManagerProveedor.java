@@ -1,5 +1,21 @@
 package logica.managers;
 
+import datos.dao.implementation.DAO_Proveedor;
+import java.util.HashMap;
+import java.util.Map;
+import objects.Proveedor;
+
 public class ManagerProveedor {
-    /** PARTE LOGICA ENCARGADA DE LOS PROVEEDORES */
+    private static DAO_Proveedor dao_Proveedor = new DAO_Proveedor();
+    
+    public static Map<Long, Proveedor> getProveedoresMap() {
+        Map<Long, Proveedor> m = new HashMap<>();
+        
+        for (Proveedor p: dao_Proveedor.read(null)) {
+            m.put(p.getCuit(), p);
+        }
+        
+        return m;
+    }
+    
 }

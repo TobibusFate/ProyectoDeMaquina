@@ -9,7 +9,7 @@ public class Proveedor {
     private String nombre, email, direccion;
     private long cuit;
     
-    Proveedor(long cuit, String nombre, String email, String direccion) {
+    public Proveedor(long cuit, String nombre, String email, String direccion) {
         this.cuit = cuit;
         this.nombre = nombre;
         this.email = email;

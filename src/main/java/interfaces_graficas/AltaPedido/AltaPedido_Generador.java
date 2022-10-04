@@ -5,17 +5,117 @@
  */
 package interfaces_graficas.AltaPedido;
 
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
+import logica.managers.ManagerProducto;
+import logica.managers.ManagerProveedor;
+import objects.Producto;
+import objects.Proveedor;
+import objects.RenglonPedido;
+import objects.TipoCantidad;
+
 /**
  *
  * @author Cell9870
  */
 public class AltaPedido_Generador extends javax.swing.JPanel {
 
-    /**
-     * Creates new form MenuAltaPedido
-     */
+    private Map<Long,Proveedor> mapProveedores = new HashMap<>();
+    private Map<String,Producto> mapProductos = new HashMap<>();
+    private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
+    private Proveedor proveedor;
+    private DefaultTableModel model;
+    
     public AltaPedido_Generador() {
         initComponents();
+        AddListeners();
+        mapRenglones.clear();
+        Btn_Continuar.setEnabled(false);
+        
+        mapProveedores = ManagerProveedor.getProveedoresMap();
+        mapProductos = ManagerProducto.getHashMapProductos();
+        updateComboboxProductos();
+        updateComboboxProveedores();
+    }
+    
+    private void AddListeners() {
+        FldCUIT.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+            }        
+        );
+        FldProd.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateComboboxProductos();
+                    Cbx_ListaProductos.hidePopup();
+                    Cbx_ListaProductos.showPopup();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    updateComboboxProductos();
+                    Cbx_ListaProductos.hidePopup();
+                    Cbx_ListaProductos.showPopup();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateComboboxProductos();
+                    Cbx_ListaProductos.hidePopup();
+                    Cbx_ListaProductos.showPopup();
+                }   
+            }        
+        );
+        
+        TblRenglones.addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    super.focusGained(e);
+                    int row = TblRenglones.getSelectedRow();
+                    int column = TblRenglones.getSelectedColumn();
+                    String newValue = TblRenglones.getValueAt(row, column).toString();
+                    String rowName = TblRenglones.getValueAt(row, 1).toString();
+                    updateRenglonPedido(rowName,newValue,column);
+                    updateTable();
+                }
+            }
+        );
+    }
+    
+    private void updateRenglonPedido(String rowName, String newValue, int column) {
+        RenglonPedido rp = mapRenglones.get(rowName);
+        switch (column) {
+            case 2: rp.setCantidad(Integer.parseInt(newValue)); break;
+            case 5: rp.setDescuento(Float.parseFloat(newValue)); break;
+        }
+        mapRenglones.replace(rowName, rp);
     }
 
     /**
@@ -29,18 +129,24 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
 
         content = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        Btn_CargarProv = new javax.swing.JButton();
         FldNombre = new javax.swing.JTextField();
         FldCUIT = new javax.swing.JTextField();
         FldEmail = new javax.swing.JTextField();
         FldDomicilio = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TblRenglones = new javax.swing.JTable();
         BtnCancelar = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Btn_removeProd = new javax.swing.JButton();
+        Btn_Continuar = new javax.swing.JButton();
+        Cbx_ListaProveedores = new javax.swing.JComboBox<>();
+        FldCUIT1 = new javax.swing.JTextField();
+        Btn_addProd = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        FldProd = new javax.swing.JTextField();
+        Cbx_ListaProductos = new javax.swing.JComboBox<>();
+        FldMontoFinal = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setPreferredSize(new java.awt.Dimension(860, 510));
@@ -50,13 +156,17 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
 
         jLabel1.setText("Proveedor:");
 
-        jButton1.setText("Buscar");
+        Btn_CargarProv.setText("Cargar");
+        Btn_CargarProv.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_Btn_CargarProvProvActionPerformed(evt);
+            }
+        });
 
         FldNombre.setEditable(false);
         FldNombre.setText("Nombre");
         FldNombre.setPreferredSize(new java.awt.Dimension(81, 20));
 
-        FldCUIT.setText("CUIT");
         FldCUIT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FldCUITActionPerformed(evt);
@@ -80,8 +190,6 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
                 FldDomicilioActionPerformed(evt);
             }
         });
-
-        jLabel2.setText("Pedido:");
 
         TblRenglones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -109,11 +217,58 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
             }
         });
 
-        jToggleButton1.setText("+");
+        Btn_removeProd.setText("-");
+        Btn_removeProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_removeProdActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("-");
+        Btn_Continuar.setText("Continuar");
+        Btn_Continuar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_ContinuarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Continuar");
+        Cbx_ListaProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cbx_ListaProveedoresActionPerformed(evt);
+            }
+        });
+
+        FldCUIT1.setEditable(false);
+        FldCUIT1.setText("CUIT");
+        FldCUIT1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FldCUIT1ActionPerformed(evt);
+            }
+        });
+
+        Btn_addProd.setText("+");
+        Btn_addProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Btn_addProdActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Productos: ");
+
+        FldProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                FldProdActionPerformed(evt);
+            }
+        });
+
+        Cbx_ListaProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cbx_ListaProductosActionPerformed(evt);
+            }
+        });
+
+        FldMontoFinal.setEditable(false);
+
+        jLabel3.setText("Monto Final:");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -121,62 +276,99 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                        .addComponent(BtnCancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3))
-                    .addComponent(jLabel1)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(FldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(10, 10, 10)
-                        .addComponent(FldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton1))
+                        .addGap(332, 332, 332)
+                        .addComponent(FldDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addComponent(FldCUIT1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(10, 10, 10)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(FldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Cbx_ListaProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(Btn_CargarProv)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addComponent(BtnCancelar)
+                        .addGap(682, 682, 682)
+                        .addComponent(Btn_Continuar))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Btn_removeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addGap(11, 11, 11)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
+                .addGap(7, 7, 7)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cbx_ListaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Btn_CargarProv))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FldCUIT1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(FldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(FldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(jToggleButton1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton2)))
-                        .addGap(0, 63, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton3)
-                            .addComponent(BtnCancelar))
-                        .addContainerGap())))
+                            .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Btn_addProd))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_removeProd))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(18, 18, 18)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Btn_Continuar)
+                    .addComponent(BtnCancelar))
+                .addContainerGap())
         );
 
         add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 510));
@@ -198,21 +390,141 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
+    private void FldCUIT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUIT1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FldCUIT1ActionPerformed
+
+    private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cbx_ListaProveedoresActionPerformed
+
+    private void Btn_Btn_CargarProvProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Btn_CargarProvProvActionPerformed
+        // TODO add your handling code here:
+        String textCbx = Cbx_ListaProveedores.getSelectedItem().toString();
+        for (Proveedor prov : mapProveedores.values()) {
+            if (Long.toString(prov.getCuit()).equals(textCbx)) {
+                FldCUIT1.setText(Long.toString(prov.getCuit()));
+                FldNombre.setText(prov.getNombre());
+                FldEmail.setText(prov.getEmail());
+                FldDomicilio.setText(prov.getDireccion());
+            }
+        }
+    }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
+
+    private void Btn_removeProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_removeProdActionPerformed
+        if (TblRenglones.getSelectedRow() != -1) {
+            mapRenglones.remove(model.getValueAt(TblRenglones.getSelectedRow(), 1).toString());
+            model.removeRow(TblRenglones.getSelectedRow());
+        }
+        else {
+            // TODO: MessageDialog
+        }
+        if (mapRenglones.isEmpty()) {
+            Btn_Continuar.setEnabled(false);
+        }
+    }//GEN-LAST:event_Btn_removeProdActionPerformed
+
+    private void Btn_addProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_addProdActionPerformed
+        // TODO add your handling code here:
+        String cbxText = Cbx_ListaProductos.getSelectedItem().toString();
+        if (!mapRenglones.containsKey(cbxText)) {
+            mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.BultosCerrados,0F));
+        }
+        if (!mapRenglones.isEmpty()) {
+            Btn_Continuar.setEnabled(true);
+        }
+        updateTable();
+    }//GEN-LAST:event_Btn_addProdActionPerformed
+
+    private void FldProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldProdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FldProdActionPerformed
+
+    private void Cbx_ListaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProductosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cbx_ListaProductosActionPerformed
+
+    private void Btn_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ContinuarActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(content, "no implemented");
+    }//GEN-LAST:event_Btn_ContinuarActionPerformed
+
+    private void updateComboboxProveedores(){
+        List<String> listaProv = new ArrayList<>();
+        for (int i = 0;i<Cbx_ListaProveedores.getItemCount();i++) {
+            listaProv.add(Cbx_ListaProveedores.getItemAt(i).toLowerCase());
+        }
+        for (Proveedor p: mapProveedores.values()){
+            if (p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase())) {
+                if (!listaProv.contains(p.getNombre().toLowerCase())) {
+                    Cbx_ListaProveedores.addItem(p.getNombre().toLowerCase());
+                }
+            }
+            if (listaProv.contains(p.getNombre().toLowerCase())) {
+                if (!p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase())) {
+                    Cbx_ListaProveedores.removeItem(p.getNombre().toLowerCase());
+                }
+            }
+        }
+    }
+    
+    private void updateComboboxProductos(){
+        List<String> listaProd = new ArrayList<>();
+        for (int i = 0;i<Cbx_ListaProductos.getItemCount();i++) {
+            listaProd.add(Cbx_ListaProductos.getItemAt(i).toLowerCase());
+        }
+        for (Producto p: mapProductos.values()){
+            if (p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
+                if (!listaProd.contains(p.getNombreP().toLowerCase())) {
+                    Cbx_ListaProductos.addItem(p.getNombreP().toLowerCase());
+                }
+            }
+            if (listaProd.contains(p.getNombreP().toLowerCase())) {
+                if (!p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
+                    Cbx_ListaProductos.removeItem(p.getNombreP().toLowerCase());
+                }
+            }
+        }
+    }
+    
+    private void updateTable() {
+        model = (DefaultTableModel) TblRenglones.getModel();
+        while(model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        for (RenglonPedido rp: mapRenglones.values()) {
+            model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
+        }
+        float value = 0;
+        for (RenglonPedido rp: mapRenglones.values()) {
+            value += rp.getMontoTotal();
+        }
+        FldMontoFinal.setText(Float.toString(value));
+    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;
+    private javax.swing.JButton Btn_CargarProv;
+    private javax.swing.JButton Btn_Continuar;
+    private javax.swing.JButton Btn_addProd;
+    private javax.swing.JButton Btn_removeProd;
+    private javax.swing.JComboBox<String> Cbx_ListaProductos;
+    private javax.swing.JComboBox<String> Cbx_ListaProveedores;
     private javax.swing.JTextField FldCUIT;
+    private javax.swing.JTextField FldCUIT1;
     private javax.swing.JTextField FldDomicilio;
     private javax.swing.JTextField FldEmail;
+    private javax.swing.JTextField FldMontoFinal;
     private javax.swing.JTextField FldNombre;
+    private javax.swing.JTextField FldProd;
     private javax.swing.JTable TblRenglones;
     private javax.swing.JPanel content;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
     // End of variables declaration//GEN-END:variables
+
+    
 }

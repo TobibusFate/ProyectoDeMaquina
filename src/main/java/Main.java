@@ -9,10 +9,13 @@ public class Main {
         logIn.setVisible(true);
         
         try {
+            DB_Init.dropAllTables();
             DB_Init.createTables();
+            DB_Init.initTables();
         } catch (Exception e) {
             // TODO: handle exception
-            System.out.println("caca");
+            e.printStackTrace();
+            System.out.println(e);
         }
         
         

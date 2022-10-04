@@ -185,32 +185,59 @@ public class DB_Init {
         
     }
 
-    public static void initTables () {
+    public static void initTables () throws SQLException {
         // Llena las tablas creadas con valores basicos para usar y testear. EJ: 3 proveedores, 10 productos, etc
 
-        /*
+        var conn = DatosBase.getInstance().getConnection();
+        query = conn.createStatement();
+        
         query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('user', '123', 'Empleado', 'correo1234') ");
-            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+        query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('', '', 'Empleado', 'correo1234') ");
-            query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
+        query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('admin', '123', 'Administrador', 'correo1234') ");
+        
 
-
-                    query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('12', 'leche', 'comestible', '150', '200', '50')");
 
-            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('15', 'galletas de chocolate', 'comestible', '200', '200', '50')");
 
-            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('19', 'galletas de coco', 'comestible', '110', '200', '50')");
-            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
-            query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
-         */
-
+         
+        query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
+                    "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
+        DatosBase.getInstance().closeConnection();
+    }
+    
+    public static void dropAllTables() throws SQLException {
+        var conn = DatosBase.getInstance().getConnection();
+        query = conn.createStatement();
+        
+        query.execute("DROP TABLE Renglon_Venta");
+        query.execute("DROP TABLE Renglon_Pedido");
+        query.execute("DROP TABLE Renglon");
+        query.execute("DROP TABLE Productos");
+        query.execute("DROP TABLE ClientesFisicos");
+        query.execute("DROP TABLE ClientesJuridicos");
+        query.execute("DROP TABLE Clientes");
+        query.execute("DROP TABLE Pedidos");
+        query.execute("DROP TABLE Proveedores");
+        query.execute("DROP TABLE Administradores");
+        query.execute("DROP TABLE Trabajadores");
+        query.execute("DROP TABLE Cuentas");
+        query.execute("DROP TABLE Personas");
+        query.execute("DROP TABLE Pagos");
+        query.execute("DROP TABLE Ventas");
+        
+        DatosBase.getInstance().closeConnection();
     }
 
 
