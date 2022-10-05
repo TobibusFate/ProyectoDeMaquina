@@ -1,12 +1,16 @@
 package objects;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Venta {
-    private int  codigoV;
-    private Date fechaV;
+    private int codigoV;
+    private LocalDate fechaV;
+
+    private LocalDateTime horaV;
     private boolean cerradaV;
     private float montoV;
 
@@ -16,12 +20,20 @@ public class Venta {
         this.codigoV = codigoV;
     }
 
-    public Venta(int codigoV, Date fechaV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {
+    public Venta(int codigoV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {
+        this.codigoV = codigoV;
+        this.cerradaV = cerradaV;
+        this.montoV = montoV;
+        this.renglonesDeProductos = renglonesDeProductos;
+    }
+
+    public Venta(int codigoV, LocalDate fechaV, LocalDateTime horaV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {
         this.codigoV = codigoV;
         this.fechaV = fechaV;
+        this.horaV = horaV;
         this.cerradaV = cerradaV;
-        this.renglonesDeProductos = renglonesDeProductos;
         this.montoV = montoV;
+        this.renglonesDeProductos = renglonesDeProductos;
     }
 
     public int getCodigoV() {
@@ -32,20 +44,36 @@ public class Venta {
         this.codigoV = codigoV;
     }
 
-    public Date getFechaV() {
+    public LocalDate getFechaV() {
         return fechaV;
     }
 
-    public void setFechaV(Date fechaV) {
+    public void setFechaV(LocalDate fechaV) {
         this.fechaV = fechaV;
     }
 
-    public boolean isCerradaV() {
+    public LocalDateTime getHoraV() {
+        return horaV;
+    }
+
+    public void setHoraV(LocalDateTime horaV) {
+        this.horaV = horaV;
+    }
+
+    public boolean getCerradaV() {
         return cerradaV;
     }
 
     public void setCerradaV(boolean cerradaV) {
         this.cerradaV = cerradaV;
+    }
+
+    public float getMontoV() {
+        return montoV;
+    }
+
+    public void setMontoV(float montoV) {
+        this.montoV = montoV;
     }
 
     public List<RenglonVenta> getRenglonesDeProductos() {

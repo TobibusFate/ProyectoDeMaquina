@@ -15,5 +15,10 @@ public class ManagerProducto {
         }
         return map;
     }
+    public static void updateStock(Producto producto, int unidades) {
+        producto.setStockP(producto.getStockP() - unidades);
+        dao_producto.update(producto);
+
+    }
     /** PARTE LOGICA ENCARGADA DE LOS PRODUCTOS */
 }

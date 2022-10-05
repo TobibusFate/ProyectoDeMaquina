@@ -13,6 +13,8 @@ public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
 
     @Override
     public boolean create(RenglonVenta renglonVenta) {
+
+
         return false;
     }
 

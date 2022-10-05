@@ -23,12 +23,7 @@ public class RenglonVenta extends Renglon {
         return unidades;
     }
 
-    public void setUnidades(int unidades) {
-        this.unidades = unidades;
-        setDescuento(super.getDescuento());
 
-        super.setMontoTotal(this.unidades*this.getProducto().getPrecioP());
-    }
 
     public Venta getVenta() {
         return venta;
@@ -52,6 +47,10 @@ public class RenglonVenta extends Renglon {
         return l;
     }
 
+    public void setUnidades(int unidades) {
+        this.unidades = unidades;
+        setDescuento(super.getDescuento());
+    }
     @Override
     public void setDescuento(float descuento) {
         super.setDescuento(descuento);
