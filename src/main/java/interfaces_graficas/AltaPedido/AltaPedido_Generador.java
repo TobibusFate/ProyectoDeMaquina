@@ -26,7 +26,7 @@ import objects.TipoCantidad;
  *
  * @author Cell9870
  */
-public class AltaPedido_Generador extends javax.swing.JPanel {
+public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private Map<Long,Proveedor> mapProveedores = new HashMap<>();
     private Map<String,Producto> mapProductos = new HashMap<>();
@@ -45,7 +45,7 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         updateComboboxProductos();
         updateComboboxProveedores();
     }
-    
+
     private void AddListeners() {
         FldCUIT.getDocument().addDocumentListener(new DocumentListener() {
                 @Override
@@ -117,7 +117,7 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         }
         mapRenglones.replace(rowName, rp);
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -148,9 +148,8 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         FldMontoFinal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 204));
-        setPreferredSize(new java.awt.Dimension(860, 510));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         content.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -352,10 +351,10 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Btn_addProd))
+                            .addComponent(Btn_addProd)
+                            .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -371,8 +370,23 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
                 .addContainerGap())
         );
 
-        add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 510));
+        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 510));
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Btn_Btn_CargarProvProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Btn_CargarProvProvActionPerformed
+        // TODO add your handling code here:
+        String textCbx = Cbx_ListaProveedores.getSelectedItem().toString();
+        for (Proveedor prov : mapProveedores.values()) {
+            if (Long.toString(prov.getCuit()).equals(textCbx) || prov.getNombre().equals(textCbx)) {
+                FldCUIT1.setText(Long.toString(prov.getCuit()));
+                FldNombre.setText(prov.getNombre());
+                FldEmail.setText(prov.getEmail());
+                FldDomicilio.setText(prov.getDireccion());
+            }
+        }
+    }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
 
     private void FldCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUITActionPerformed
         // TODO add your handling code here:
@@ -390,27 +404,6 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
-    private void FldCUIT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUIT1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_FldCUIT1ActionPerformed
-
-    private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Cbx_ListaProveedoresActionPerformed
-
-    private void Btn_Btn_CargarProvProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Btn_CargarProvProvActionPerformed
-        // TODO add your handling code here:
-        String textCbx = Cbx_ListaProveedores.getSelectedItem().toString();
-        for (Proveedor prov : mapProveedores.values()) {
-            if (Long.toString(prov.getCuit()).equals(textCbx)) {
-                FldCUIT1.setText(Long.toString(prov.getCuit()));
-                FldNombre.setText(prov.getNombre());
-                FldEmail.setText(prov.getEmail());
-                FldDomicilio.setText(prov.getDireccion());
-            }
-        }
-    }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
-
     private void Btn_removeProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_removeProdActionPerformed
         if (TblRenglones.getSelectedRow() != -1) {
             mapRenglones.remove(model.getValueAt(TblRenglones.getSelectedRow(), 1).toString());
@@ -422,7 +415,21 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         if (mapRenglones.isEmpty()) {
             Btn_Continuar.setEnabled(false);
         }
+        updateTable();
     }//GEN-LAST:event_Btn_removeProdActionPerformed
+
+    private void Btn_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ContinuarActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(content, "no implemented");
+    }//GEN-LAST:event_Btn_ContinuarActionPerformed
+
+    private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cbx_ListaProveedoresActionPerformed
+
+    private void FldCUIT1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUIT1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_FldCUIT1ActionPerformed
 
     private void Btn_addProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_addProdActionPerformed
         // TODO add your handling code here:
@@ -444,18 +451,13 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Cbx_ListaProductosActionPerformed
 
-    private void Btn_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ContinuarActionPerformed
-        // TODO add your handling code here:
-        JOptionPane.showMessageDialog(content, "no implemented");
-    }//GEN-LAST:event_Btn_ContinuarActionPerformed
-
     private void updateComboboxProveedores(){
         List<String> listaProv = new ArrayList<>();
         for (int i = 0;i<Cbx_ListaProveedores.getItemCount();i++) {
             listaProv.add(Cbx_ListaProveedores.getItemAt(i).toLowerCase());
         }
         for (Proveedor p: mapProveedores.values()){
-            if (p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase())) {
+            if (p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase()) || String.valueOf(p.getCuit()).toLowerCase().contains(FldCUIT.getText().toLowerCase()) ) {
                 if (!listaProv.contains(p.getNombre().toLowerCase())) {
                     Cbx_ListaProveedores.addItem(p.getNombre().toLowerCase());
                 }
@@ -502,6 +504,42 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
         FldMontoFinal.setText(Float.toString(value));
     }
     
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Generador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AltaPedido_Generador().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;
@@ -525,6 +563,4 @@ public class AltaPedido_Generador extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
-
-    
 }

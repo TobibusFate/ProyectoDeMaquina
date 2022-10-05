@@ -77,6 +77,7 @@ objects\Renglon.class
 interfaces_graficas\realizar_venta\CrearVenta$4.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$8.class
 interfaces_graficas\realizar_venta\RealizarPago$5.class
+interfaces_graficas\AltaPedido\AltaPedido_Generador$17.class
 datos\dao\implementation\DAO_Producto.class
 interfaces_graficas\LogIn$1.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$5.class
