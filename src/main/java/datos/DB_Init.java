@@ -115,13 +115,13 @@ public class DB_Init {
             // fechas no revisadas en su clase
             query.execute("CREATE TABLE IF NOT EXISTS Ventas ("
                 + "Venta_CODIGO INTEGER, "
+                + "Venta_Cuen_USUARIO VARCHAR(255) NOT NULL, "
                 + "Venta_CERRADA BOOLEAN NOT NULL, "
                 + "Venta_MONTO REAL NOT NULL, "
                 + "Venta_FECHA DATE, "
                 + "Venta_HORA TIME, "
-                //+ "Venta_Cli_DNI INTEGER NULL"
-                + "PRIMARY KEY(Venta_CODIGO)"
-                //+ "FOREIGN KEY(Venta_Cli_DNI) REFERENCES Clientes(Cli_DNI)"
+                + "PRIMARY KEY(Venta_CODIGO), "
+                + "FOREIGN KEY(Venta_Cuen_USUARIO) REFERENCES Cuentas(Cuen_USUARIO)"
                 + ")"
             );
             // fechas no revisadas en su clase

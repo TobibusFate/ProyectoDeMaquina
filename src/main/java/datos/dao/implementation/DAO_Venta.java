@@ -34,8 +34,9 @@ public class DAO_Venta implements IDAO<Venta> {
         try {
             statement = conn.createStatement();
             exito = statement.execute(
-                    "INSERT INTO Ventas (Venta_CODIGO, Venta_CERRADA, Venta_MONTO, Venta_FECHA, Venta_HORA) VALUES ('"
+                    "INSERT INTO Ventas (Venta_CODIGO, Venta_Cuen_USUARIO, Venta_CERRADA, Venta_MONTO, Venta_FECHA, Venta_HORA) VALUES ('"
                             +venta.getCodigoV()+"', '"
+                            +venta.getCuentaVendedor()+"', '"
                             +venta.getCerradaV()+"', '"
                             +venta.getMontoV()+"', '"
                             +LocalDate.now()+"', '"
