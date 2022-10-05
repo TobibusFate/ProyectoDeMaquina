@@ -1,7 +1,10 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_Proveedor;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import objects.Proveedor;
 
@@ -16,6 +19,12 @@ public class ManagerProveedor {
         }
         
         return m;
+    }
+
+    public static Proveedor getProveedor(Long cuit) {
+        Proveedor prov = new Proveedor(cuit, "", "", "");
+
+        return dao_Proveedor.read(prov).get(0);
     }
     
 }

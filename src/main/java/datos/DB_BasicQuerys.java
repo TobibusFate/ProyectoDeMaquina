@@ -23,6 +23,71 @@ public class DB_BasicQuerys {
         }
     }
 
+
+    public static ResultSet findTuple(List<String> keyNames, List<String> keyValues, String tableName, Connection conn) {
+        try {
+            ResultSet rs = null;
+
+            if (keyValues != null && keyNames != null) { 
+                if (conn == null) throw new SQLException("Connection error");
+                if (keyNames.isEmpty() || keyValues.isEmpty()) throw new SQLException("Missing attribute/values");
+                if (keyValues.size() != keyNames.size()) throw new SQLException("Not matching key quantities");
+
+                String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = ";
+                switch (matchesType(keyValues.get(0))) {
+                    case 1: query += Integer.parseInt(keyValues.get(0)); break;
+                    case 2: query += Long.parseLong(keyValues.get(0)); break;
+                    case 3: query += Float.parseFloat(keyValues.get(0)); break;
+                    case 4: query += Double.parseDouble(keyValues.get(0)); break;
+                    case 0: query += keyValues.get(0); break;
+                }
+
+                for (int i = 1; i < keyValues.size(); i++) {
+                    query += " AND "+keyNames.get(i)+" = ";
+                    switch (matchesType(keyValues.get(i))) {
+                        case 1: query += Integer.parseInt(keyValues.get(i)); break;
+                        case 2: query += Long.parseLong(keyValues.get(i)); break;
+                        case 3: query += Float.parseFloat(keyValues.get(i)); break;
+                        case 4: query += Double.parseDouble(keyValues.get(i)); break;
+                        case 0: query += keyValues.get(i); break;
+                    }
+                }
+
+                if (tupleExists(query, conn)) {
+                    String query_return = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = ?";
+                    for (int i = 1; i < keyNames.size(); i++) {
+                        query_return += " AND "+keyNames.get(i)+" = ?";
+                    }
+
+                    PreparedStatement p_query = conn.prepareStatement(query_return);
+
+                    for (int i = 0; i < keyValues.size(); i++) {
+                        switch (matchesType(keyValues.get(i))) {
+                            case 1: p_query.setInt((i+1), Integer.parseInt(keyValues.get(i)));; break;
+                            case 2: p_query.setLong((i+1), Long.parseLong(keyValues.get(i))); break;
+                            case 3: p_query.setFloat((i+1), Float.parseFloat(keyValues.get(i))); break;
+                            case 4: p_query.setDouble((i+1), Double.parseDouble(keyValues.get(i))); break;
+                            case 0: p_query.setString((i+1), keyValues.get(i)); break;
+                        }
+                    }
+                    rs = p_query.executeQuery();
+
+                    return rs;
+                }
+            }
+            else {
+                Statement s_query = conn.createStatement();
+                rs = s_query.executeQuery("SELECT * FROM "+tableName);
+                return rs;
+            }
+
+        } catch (SQLException ex) {
+            return null;
+        }
+        return null;
+    }
+
+
     // retorna true si actualizó el valor de las tuplas, o false si hubo un error.
     public static boolean updateTuple(String attribute, String newValue, String condition, String tableName, Connection conn) {
         // nombre del atributo a modificar, el nuevo valor, la condicion (ej: codigo = x) y el nombre de la tabla a la que pertenece

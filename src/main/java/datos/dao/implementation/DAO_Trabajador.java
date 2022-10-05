@@ -1,0 +1,61 @@
+package datos.dao.implementation;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+import datos.DB_BasicQuerys;
+import datos.DatosBase;
+import datos.dao.IDAO;
+import logica.managers.ManagerPersona;
+import objects.Trabajador;
+import java.sql.SQLException;
+
+public class DAO_Trabajador implements IDAO<Trabajador>{
+
+    @Override
+    public List<Trabajador> read(Trabajador t) {
+        Connection conn = DatosBase.getInstance().getConnection();
+        List<Trabajador> list = new ArrayList<>();
+        ResultSet rs = null;
+        
+        try {
+            if (t != null) rs = DB_BasicQuerys.findTuple(t.getKeyNamesList(), t.getKeyValuesList(), "Trabajadores", conn);
+            else rs = DB_BasicQuerys.findTuple(null, null, "Trabajadores", conn);
+            while (rs.next()) {     
+                Trabajador trab = (Trabajador) ManagerPersona.getPersonaTrabajador(rs.getInt("Trab_DNI"));
+                list.add(new Trabajador(
+                    trab.getApellido(),
+                    trab.getNombre(), 
+                    trab.getDni(), 
+                    trab.getTelefono(), 
+                    null)); 
+            }
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DatosBase.getInstance().closeConnection();
+        return list;
+    }
+
+    @Override
+    public boolean create(Trabajador t) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean update(Trabajador t) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean delete(Trabajador t) {
+        // TODO Auto-generated method stub
+        return false;
+    }
+    
+}

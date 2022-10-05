@@ -5,6 +5,7 @@ import objects.Cuenta;
 
 public class ManagerCuenta {
     private static DAO_Cuenta dao_cuenta = new DAO_Cuenta();
+
     public static int logear (Cuenta c) {
 
         if (dao_cuenta.read(c).isEmpty()) {
@@ -24,5 +25,11 @@ public class ManagerCuenta {
         } else  {
             return -1;
         }
+    }
+
+    public static Cuenta getCuenta(String user) {
+        Cuenta cuenta = new Cuenta(user,"");
+
+        return dao_cuenta.read(cuenta).get(0);
     }
 }

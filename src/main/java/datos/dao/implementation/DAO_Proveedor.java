@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import objects.Producto;
 import objects.Proveedor;
 
 
@@ -17,34 +19,23 @@ public class DAO_Proveedor implements IDAO<Proveedor> {
     @Override
     public List<Proveedor> read(Proveedor p) {
         Connection conn = DatosBase.getInstance().getConnection();
-        Statement statement;
         List<Proveedor> list = new ArrayList<>();
-        ResultSet rs;
+        ResultSet rs = null;
         try {
-            statement = conn.createStatement();
-            // query para retornar el proveedor
-            if (p != null) {
-                rs = statement.executeQuery("SELECT * FROM Proveedores WHERE (Prov_CUIT = '" +p.getCuit()+"')");
+            if (p != null) rs = DB_BasicQuerys.findTuple(p.getKeyNamesList(), p.getKeyValuesList(), "Proveedores", conn);
+            else rs = DB_BasicQuerys.findTuple(null, null, "Proveedores", conn);
+            while (rs.next()) {
                 list.add(new Proveedor(
-                        rs.getLong("Prov_CUIT"),
-                        rs.getString("Prov_NombreFirma"),
-                        rs.getString("Prov_Email"),
-                        rs.getString("Prov_Direccion")
-                    ));
-            // query para retornar lista de productos
-            } else {
-                rs = statement.executeQuery("SELECT * FROM Proveedores ORDER BY Prov_CUIT");
-                while (rs.next()){
-                    list.add(new Proveedor(
-                        rs.getLong("Prov_CUIT"),
-                        rs.getString("Prov_NombreFirma"),
-                        rs.getString("Prov_Email"),
-                        rs.getString("Prov_Direccion")
-                    ));
-                }
+                    rs.getLong("Prov_CUIT"),
+                    rs.getString("Prov_NombreFirma"),
+                    rs.getString("Prov_Email"),
+                    rs.getString("Prov_Direccion")
+                    )
+                );   
             }
+            rs.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
         DatosBase.getInstance().closeConnection();
         return list;
