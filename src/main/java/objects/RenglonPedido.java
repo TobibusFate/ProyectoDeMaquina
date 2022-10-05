@@ -36,7 +36,19 @@ public class RenglonPedido extends Renglon {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+        setDescuento(getDescuento());
+        
+        float tempDescuento = (getProducto().getPrecioP() * getCantidad()) * (getDescuento()/100);
+        setMontoTotal(this.cantidad*getProducto().getPrecioP() - tempDescuento);
     }
+    
+    @Override
+    public void setDescuento(float descuento) {
+        super.setDescuento(descuento);
+        
+        float tempDescuento = (getProducto().getPrecioP() * getCantidad()) * (descuento/100);
+        setMontoTotal(this.cantidad * getProducto().getPrecioP() - tempDescuento);
+    } 
 
     public Pedido getPedido() {
         return pedido;
