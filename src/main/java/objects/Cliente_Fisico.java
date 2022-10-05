@@ -6,6 +6,11 @@ import java.util.List;
 public class Cliente_Fisico extends Cliente{
     private long cuil;
 
+    public Cliente_Fisico(int dni) {
+        super(dni);
+
+    }
+
     public Cliente_Fisico(String apell, String name, int dni, long tel, String iva, boolean moroso, int cuil) {
         super(apell, name, dni, tel, iva, moroso);
         this.cuil = cuil;

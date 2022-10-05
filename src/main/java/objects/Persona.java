@@ -8,6 +8,10 @@ public abstract class Persona {
     private int dni;
     private long telefono;
 
+    public Persona(int dni) {
+        this.dni = dni;
+    }
+
     public Persona(String apellido, String nombre, int dni, long telefono) {
         this.apellido = apellido;
         this.nombre = nombre;

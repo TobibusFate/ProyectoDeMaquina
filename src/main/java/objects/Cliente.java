@@ -7,6 +7,10 @@ public abstract class Cliente extends Persona {
     private String condicion_IVA;
     private boolean moroso;
 
+    public Cliente(int dni) {
+        super(dni);
+    }
+
     public Cliente(String apell, String name, int dni, long tel, String condicion_IVA, boolean moroso) {
         super(apell, name, dni, tel);
         this.condicion_IVA = condicion_IVA;

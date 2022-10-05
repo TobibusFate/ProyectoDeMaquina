@@ -2,30 +2,24 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
-import objects.Producto;
-import objects.Venta;
+import objects.Renglon;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
-
-public class DAO_Venta implements IDAO<Venta> {
-
+public class DAO_Renglon implements IDAO<Renglon> {
     @Override
-    public List<Venta> read(Venta venta) {
-        if (venta != null) {
-            /** query para recuperar venta*/
-        } else {
-            /** query para retornar lista de ventas*/
-        }
+    public List<Renglon> read(Renglon renglon) {
         return null;
     }
 
     @Override
-    public boolean create(Venta venta) {
+    public boolean create(Renglon renglon) {
         Connection conn = DatosBase.getInstance().getConnection();
         Statement statement;
         boolean exito = false;
@@ -34,13 +28,11 @@ public class DAO_Venta implements IDAO<Venta> {
         try {
             statement = conn.createStatement();
             exito = statement.execute(
-                    "INSERT INTO Ventas (Venta_CODIGO, Venta_Cuen_USUARIO, Venta_CERRADA, Venta_MONTO, Venta_FECHA, Venta_HORA) VALUES ('"
-                            +venta.getCodigoV()+"', '"
-                            +venta.getCuentaVendedor()+"', '"
-                            +venta.getCerradaV()+"', '"
-                            +venta.getMontoV()+"', '"
-                            +LocalDate.now()+"', '"
-                            +lt.getHour() +":"+ lt.getMinute() +":"+ lt.getSecond()
+                    "INSERT INTO Ventas (Ren_CODIGO, Ren_Prod_CODIGO, Ren_MONTOTOTAL, Ren_DESCUENTO) VALUES ('"
+                            +renglon.getCodigo()+"', '"
+                            +renglon.getProducto().getCodigoP()+"', '"
+                            +renglon.getMontoTotal()+"', '"
+                            + renglon.getDescuento()+"', '"
                             +"' )");
 
         } catch (SQLException e) {
@@ -52,16 +44,15 @@ public class DAO_Venta implements IDAO<Venta> {
     }
 
     @Override
-    public boolean update(Venta venta) {
-        /** query para actualizar venta*/
+    public boolean update(Renglon renglon) {
         return false;
     }
 
     @Override
-    public boolean delete(Venta venta) {
-        /** query para eliminar venta*/
+    public boolean delete(Renglon renglon) {
         return false;
     }
+
     public int generateNextKey() {
         int value = 0;
         Connection conn = DatosBase.getInstance().getConnection();
@@ -69,7 +60,7 @@ public class DAO_Venta implements IDAO<Venta> {
         ResultSet rs;
         try {
             statement = conn.createStatement();
-            rs = statement.executeQuery("SELECT COALESCE (MAX (Venta_CODIGO),0) FROM Ventas");
+            rs = statement.executeQuery("SELECT COALESCE (MAX (Ren_CODIGO),0) FROM Renglon");
             if (rs.next()){
                 value = rs.getInt("coalesce");
             }
@@ -80,4 +71,5 @@ public class DAO_Venta implements IDAO<Venta> {
         DatosBase.getInstance().closeConnection();
         return value+1;
     }
+
 }

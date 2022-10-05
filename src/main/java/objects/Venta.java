@@ -9,10 +9,11 @@ import java.util.List;
 public class Venta {
     private int codigoV;
     private LocalDate fechaV;
-
     private LocalDateTime horaV;
     private boolean cerradaV;
     private float montoV;
+
+    private String cuentaVendedor;
 
     private List<RenglonVenta> renglonesDeProductos;
 
@@ -27,12 +28,13 @@ public class Venta {
         this.renglonesDeProductos = renglonesDeProductos;
     }
 
-    public Venta(int codigoV, LocalDate fechaV, LocalDateTime horaV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {
+    public Venta(int codigoV, LocalDate fechaV, LocalDateTime horaV, boolean cerradaV, float montoV, String cuentaVendedor, List<RenglonVenta> renglonesDeProductos) {
         this.codigoV = codigoV;
         this.fechaV = fechaV;
         this.horaV = horaV;
         this.cerradaV = cerradaV;
         this.montoV = montoV;
+        this.cuentaVendedor = cuentaVendedor;
         this.renglonesDeProductos = renglonesDeProductos;
     }
 
@@ -42,6 +44,14 @@ public class Venta {
 
     public void setCodigoV(int codigoV) {
         this.codigoV = codigoV;
+    }
+
+    public String getCuentaVendedor() {
+        return cuentaVendedor;
+    }
+
+    public void setCuentaVendedor(String cuentaVendedor) {
+        this.cuentaVendedor = cuentaVendedor;
     }
 
     public LocalDate getFechaV() {

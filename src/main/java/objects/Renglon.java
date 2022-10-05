@@ -6,17 +6,26 @@ import java.util.List;
 public abstract class Renglon {
     private int codigo;
     private Producto prod;
-    
     private float montoTotal;
     private float descuento;
-    
+
+    public Renglon(int codigo) {
+        this.codigo = codigo;
+    }
+
     public Renglon(Producto prod, float montoTotal, float descuento) {
-        //this.codigo = codigo;
         this.prod = prod;
         this.montoTotal = montoTotal;
         this.descuento = descuento;
     }
-    
+
+    public Renglon(int codigo, Producto prod, float montoTotal, float descuento) {
+        this.codigo = codigo;
+        this.prod = prod;
+        this.montoTotal = montoTotal;
+        this.descuento = descuento;
+    }
+
     public int getCodigo() {
         return codigo;
     }
