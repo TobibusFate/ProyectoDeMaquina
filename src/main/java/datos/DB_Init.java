@@ -20,7 +20,7 @@ public class DB_Init {
 
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
-                + "Prod_NOMBRE VARCHAR(255) NOT NULL, "
+                + "Prod_NOMBRE VARCHAR(255) UNIQUE NOT NULL, "
                 + "Prod_CATEGORIA VARCHAR(255) NOT NULL, "
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
@@ -128,12 +128,14 @@ public class DB_Init {
             query.execute("CREATE TABLE IF NOT EXISTS Pagos ("
                 + "Pago_CODIGO INTEGER, "
                 + "Pago_Venta_CODIGO INTEGER, "
+                + "Pago_Cliente_DNI INTEGER, "
                 + "Pago_MONTO REAL NOT NULL, "
                 + "Pago_FECHAPAGO DATE NOT NULL, "
                 + "Pago_FECHALIMITE DATE, "
                 + "Pago_CUOTAS INTEGER NOT NULL, "
                 + "Pago_TIPO METODOPAGO, "
                 + "PRIMARY KEY(Pago_CODIGO), "
+                + "FOREIGN KEY(Pago_Cliente_DNI) REFERENCES Clientes(Cli_DNI), "
                 + "FOREIGN KEY(Pago_Venta_CODIGO) REFERENCES Ventas(Venta_CODIGO)"
                 + ")"
             );
@@ -221,21 +223,21 @@ public class DB_Init {
         var conn = DatosBase.getInstance().getConnection();
         query = conn.createStatement();
         
-        query.execute("DROP TABLE Renglon_Venta");
-        query.execute("DROP TABLE Renglon_Pedido");
-        query.execute("DROP TABLE Renglon");
-        query.execute("DROP TABLE Productos");
-        query.execute("DROP TABLE ClientesFisicos");
-        query.execute("DROP TABLE ClientesJuridicos");
-        query.execute("DROP TABLE Clientes");
-        query.execute("DROP TABLE Pedidos");
-        query.execute("DROP TABLE Proveedores");
-        query.execute("DROP TABLE Administradores");
-        query.execute("DROP TABLE Trabajadores");
-        query.execute("DROP TABLE Cuentas");
-        query.execute("DROP TABLE Personas");
-        query.execute("DROP TABLE Pagos");
-        query.execute("DROP TABLE Ventas");
+        query.execute("DROP TABLE IF EXISTS Renglon_Venta");
+        query.execute("DROP TABLE IF EXISTS Renglon_Pedido");
+        query.execute("DROP TABLE IF EXISTS Renglon");
+        query.execute("DROP TABLE IF EXISTS Productos");
+        query.execute("DROP TABLE IF EXISTS ClientesFisicos");
+        query.execute("DROP TABLE IF EXISTS ClientesJuridicos");
+        query.execute("DROP TABLE IF EXISTS Pagos");
+        query.execute("DROP TABLE IF EXISTS Clientes");
+        query.execute("DROP TABLE IF EXISTS Pedidos");
+        query.execute("DROP TABLE IF EXISTS Proveedores");
+        query.execute("DROP TABLE IF EXISTS Administradores");
+        query.execute("DROP TABLE IF EXISTS Trabajadores");
+        query.execute("DROP TABLE IF EXISTS Cuentas");
+        query.execute("DROP TABLE IF EXISTS Personas");
+        query.execute("DROP TABLE IF EXISTS Ventas");
         
         DatosBase.getInstance().closeConnection();
     }

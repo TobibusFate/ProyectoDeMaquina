@@ -13,7 +13,9 @@ public class Pago {
     private int cuotas;
     private String metodoPago;
 
-    
+    private Cliente cliente;
+
+
     public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago) {
         this.codigoP = codigoP;
         this.fechaP = fechaP;
@@ -22,8 +24,28 @@ public class Pago {
         this.venta = venta;
         this.cuotas = cuotas;
         this.metodoPago = metodoPago;
+        this.cliente = null;
     }
-    
+
+    public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago, Cliente cliente) {
+        this.codigoP = codigoP;
+        this.fechaP = fechaP;
+        this.fechaLimiteP = fechaLimiteP;
+        this.montoP = montoP;
+        this.venta = venta;
+        this.cuotas = cuotas;
+        this.metodoPago = metodoPago;
+        this.cliente = cliente;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
     public Venta getVenta() {
         return venta;
     }

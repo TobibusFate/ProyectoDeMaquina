@@ -8,6 +8,8 @@ import objects.RenglonPedido;
 public class ManagerRenglonPedido {
     private static DAO_RenglonPedido dao_renglonPedido = new DAO_RenglonPedido();
     
-    private static void CargarRenglon(RenglonPedido rp) {}
+    private static void CargarRenglon(RenglonPedido rp) {
+
+    }
     
 }

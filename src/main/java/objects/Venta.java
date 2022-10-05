@@ -9,7 +9,6 @@ import java.util.List;
 public class Venta {
     private int codigoV;
     private LocalDate fechaV;
-
     private LocalDateTime horaV;
     private boolean cerradaV;
     private float montoV;
