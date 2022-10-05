@@ -26,10 +26,10 @@ public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
         try {
             statement = conn.createStatement();
             exito = statement.execute(
-                    "INSERT INTO Ventas (RenV_CODIGO, RenV_Venta_CODIGO, RenV_UNIDADES) VALUES ('"
+                    "INSERT INTO Renglon_Venta (RenV_CODIGO, RenV_Venta_CODIGO, RenV_UNIDADES) VALUES ('"
                             +renglonVenta.getCodigo()+"', '"
                             +renglonVenta.getVenta().getCodigoV()+"', '"
-                            +renglonVenta.getUnidades()+"', '"
+                            +renglonVenta.getUnidades()
                             +"' )");
 
         } catch (SQLException e) {

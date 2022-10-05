@@ -32,7 +32,8 @@ public class DAO_Producto implements IDAO<Producto> {
             } else {
                 rs = statement.executeQuery("SELECT * FROM Productos ORDER BY Prod_CODIGO");
                 while (rs.next()){
-                    list.add(new Producto(rs.getInt("Prod_CODIGO"),
+                    list.add(new Producto(
+                            rs.getInt("Prod_CODIGO"),
                             rs.getString("Prod_NOMBRE"),
                             rs.getString("Prod_CATEGORIA"),
                             rs.getInt("Prod_PRECIO"),
@@ -41,6 +42,7 @@ public class DAO_Producto implements IDAO<Producto> {
                     ));
                 }
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

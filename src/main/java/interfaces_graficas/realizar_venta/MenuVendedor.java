@@ -16,8 +16,10 @@ public class MenuVendedor extends javax.swing.JFrame {
     /**
      * Creates new form MenuVendedor
      */
-    public MenuVendedor() {
+    private String usuario;
+    public MenuVendedor(String usuario) {
         initComponents();
+        this.usuario = usuario;
     }
 
     /**
@@ -104,15 +106,15 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void realizar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_ventaActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        CrearVenta cv = new CrearVenta();
+        CrearVenta cv = new CrearVenta(this.usuario);
         cv.setVisible(true);
     }//GEN-LAST:event_realizar_ventaActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
         LogIn li = new LogIn();
         li.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
@@ -145,7 +147,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuVendedor().setVisible(true);
+                new MenuVendedor("").setVisible(true);
             }
         });
     }

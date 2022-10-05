@@ -12,13 +12,18 @@ public class Venta {
     private LocalDateTime horaV;
     private boolean cerradaV;
     private float montoV;
-
     private String cuentaVendedor;
 
     private List<RenglonVenta> renglonesDeProductos;
 
     public Venta(int codigoV) {
         this.codigoV = codigoV;
+    }
+
+    public Venta( float montoV, boolean cerradaV, String cuentaVendedor) {
+        this.cerradaV = cerradaV;
+        this.montoV = montoV;
+        this.cuentaVendedor = cuentaVendedor;
     }
 
     public Venta(int codigoV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {

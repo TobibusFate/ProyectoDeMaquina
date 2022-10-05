@@ -199,7 +199,13 @@ public class DB_Init {
                     "VALUES ('', '', 'Empleado', 'correo1234') ");
         query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('admin', '123', 'Administrador', 'correo1234') ");
-        
+
+        query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
+                "VALUES (0, '_', 'Anonimo', '0') ");
+
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO) " +
+                "VALUES (0, 'patata', 'false') ");
+
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('12', 'leche', 'comestible', '150', '200', '50')");
@@ -235,9 +241,9 @@ public class DB_Init {
         query.execute("DROP TABLE IF EXISTS Proveedores");
         query.execute("DROP TABLE IF EXISTS Administradores");
         query.execute("DROP TABLE IF EXISTS Trabajadores");
+        query.execute("DROP TABLE IF EXISTS Ventas");
         query.execute("DROP TABLE IF EXISTS Cuentas");
         query.execute("DROP TABLE IF EXISTS Personas");
-        query.execute("DROP TABLE IF EXISTS Ventas");
         
         DatosBase.getInstance().closeConnection();
     }

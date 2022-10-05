@@ -1,22 +1,27 @@
 package objects;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Pago {
     private int codigoP;
-    private Date fechaP;
-    private Date fechaLimiteP;
+    private LocalDate fechaP;
+    private LocalDate fechaLimiteP;
     private float montoP;
     private Venta venta;
     private int cuotas;
     private String metodoPago;
-
     private Cliente cliente;
 
+    public Pago(float montoP, int cuotas, String metodoPago) {
+        this.montoP = montoP;
+        this.cuotas = cuotas;
+        this.metodoPago = metodoPago;
+    }
 
-    public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago) {
+    public Pago(int codigoP, LocalDate fechaP, LocalDate fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago) {
         this.codigoP = codigoP;
         this.fechaP = fechaP;
         this.fechaLimiteP = fechaLimiteP;
@@ -27,7 +32,7 @@ public class Pago {
         this.cliente = null;
     }
 
-    public Pago(int codigoP, Date fechaP, Date fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago, Cliente cliente) {
+    public Pago(int codigoP, LocalDate fechaP, LocalDate fechaLimiteP, float montoP, Venta venta, int cuotas, String metodoPago, Cliente cliente) {
         this.codigoP = codigoP;
         this.fechaP = fechaP;
         this.fechaLimiteP = fechaLimiteP;
@@ -78,19 +83,19 @@ public class Pago {
         this.metodoPago = metodoPago;
     }
 
-    public Date getFechaP() {
+    public LocalDate getFechaP() {
         return fechaP;
     }
 
-    public void setFechaP(Date fechaP) {
+    public void setFechaP(LocalDate fechaP) {
         this.fechaP = fechaP;
     }
 
-    public Date getFechaLimiteP() {
+    public LocalDate getFechaLimiteP() {
         return fechaLimiteP;
     }
 
-    public void setFechaLimiteP(Date fechaLimiteP) {
+    public void setFechaLimiteP(LocalDate fechaLimiteP) {
         this.fechaLimiteP = fechaLimiteP;
     }
 

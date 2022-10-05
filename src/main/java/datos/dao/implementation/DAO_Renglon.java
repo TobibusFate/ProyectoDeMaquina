@@ -28,11 +28,11 @@ public class DAO_Renglon implements IDAO<Renglon> {
         try {
             statement = conn.createStatement();
             exito = statement.execute(
-                    "INSERT INTO Ventas (Ren_CODIGO, Ren_Prod_CODIGO, Ren_MONTOTOTAL, Ren_DESCUENTO) VALUES ('"
+                    "INSERT INTO Renglon (Ren_CODIGO, Ren_Prod_CODIGO, Ren_MONTOTOTAL, Ren_DESCUENTO) VALUES ('"
                             +renglon.getCodigo()+"', '"
                             +renglon.getProducto().getCodigoP()+"', '"
                             +renglon.getMontoTotal()+"', '"
-                            + renglon.getDescuento()+"', '"
+                            + renglon.getDescuento()
                             +"' )");
 
         } catch (SQLException e) {

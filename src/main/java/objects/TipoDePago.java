@@ -1,10 +1,8 @@
 package objects;
 
-import java.util.ArrayList;
-
 public enum TipoDePago {
-    TARJETA_DE_CREDITO("Tarjeta de Credito"),
-    TARJETA_DE_DEBITO("Tarjeta de Debito"),
+    TARJETA_CREDITO("Tarjeta de Credito"),
+    TARJETA_DEBITO("Tarjeta de Debito"),
     EFECTIVO("Efectivo"),
     FIADO("Fiado");
 

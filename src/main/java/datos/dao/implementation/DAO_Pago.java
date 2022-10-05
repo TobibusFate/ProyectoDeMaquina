@@ -6,6 +6,7 @@ import objects.Cliente_Fisico;
 import objects.Pago;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
@@ -36,9 +37,8 @@ public class DAO_Pago implements IDAO<Pago> {
                             +pago.getFechaP()+"', '"
                             +pago.getFechaLimiteP()+"', '"
                             +pago.getCuotas()+"', '"
-                            +pago.getMetodoPago()+"', '"
+                            +pago.getMetodoPago()
                             +"' )");
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -55,4 +55,23 @@ public class DAO_Pago implements IDAO<Pago> {
     public boolean delete(Pago pago) {
         return false;
     }
+    public int generateNextKey() {
+        int value = 0;
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        ResultSet rs;
+        try {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT COALESCE (MAX (Pago_CODIGO),0) FROM Pagos");
+            if (rs.next()){
+                value = rs.getInt("coalesce");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        DatosBase.getInstance().closeConnection();
+        return value+1;
+    }
+
 }

@@ -123,7 +123,7 @@ public class LogIn extends javax.swing.JFrame {
             break;
             case 1:
                 this.setVisible(false);
-                MenuVendedor mv = new MenuVendedor();
+                MenuVendedor mv = new MenuVendedor(entrada_usuario.getText());
                 mv.setVisible(true);
             break;
             case 2:
