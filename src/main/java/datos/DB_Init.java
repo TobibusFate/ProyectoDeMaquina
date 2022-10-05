@@ -43,6 +43,7 @@ public class DB_Init {
                 + "Cli_DNI INTEGER, "
                 + "Cli_IVA VARCHAR(255), "
                 + "Cli_MOROSO BOOLEAN NOT NULL, "
+                + "Cli_DEUDA REAL NOT NULL, "
                 + "PRIMARY KEY(Cli_DNI), "
                 + "FOREIGN KEY(Cli_DNI) REFERENCES Personas(Pers_DNI)"
                 + ")"
@@ -203,8 +204,8 @@ public class DB_Init {
         query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
                 "VALUES (0, '_', 'Anonimo', '0') ");
 
-        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO) " +
-                "VALUES (0, 'patata', 'false') ");
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (0, 'patata', 'false', 0) ");
 
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +

@@ -4,6 +4,7 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import logica.managers.ManagerCliente;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerVenta;
 import objects.*;
@@ -27,6 +28,7 @@ public class CrearVenta extends javax.swing.JFrame {
      */
     private String usuario;
     private static HashMap <String, Producto> listaProductos = new HashMap<>();
+    private static HashMap <Integer, Cliente> listaClientes = new HashMap<>();
     private static HashMap <String, RenglonVenta> listaRenglon = new HashMap<>();
     private static ArrayList<Pago> listaPagos = new ArrayList<>();
     private DefaultTableModel model;
@@ -39,6 +41,7 @@ public class CrearVenta extends javax.swing.JFrame {
         unidades.setText("1");
         boton_realizar_pago.setEnabled(false);
         boton_vaciar_pagos.setEnabled(false);
+        listaClientes = ManagerCliente.getHashMapClientes();
         listaProductos = ManagerProducto.getHashMapProductos();
         updateCombobox();
     }
@@ -49,6 +52,11 @@ public class CrearVenta extends javax.swing.JFrame {
         }
         updateMontoRestante();
     }
+
+    public HashMap<Integer, Cliente> getListaClientes() {
+        return listaClientes;
+    }
+
     private void addList() {
         buscador_productos.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -359,6 +367,7 @@ public class CrearVenta extends javax.swing.JFrame {
         boton_realizar_pago.setEnabled(false);
         listaRenglon.clear();
         listaProductos = ManagerProducto.getHashMapProductos();
+        listaClientes = ManagerCliente.getHashMapClientes();
         updateTable();
     }
 

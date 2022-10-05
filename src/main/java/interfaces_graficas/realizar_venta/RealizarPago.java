@@ -265,9 +265,14 @@ public class RealizarPago extends javax.swing.JFrame {
         if (texto_monto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El Monto es obligatorio");
         } else {
-            if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) && texto_dni.getText().equals("")) {
+            if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
+                    texto_dni.getText().equals("")) {
                 JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
-            } else {
+            } else if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
+                    !crearVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+                JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
+            }
+            else {
                 LocalDate now = LocalDate.now();
                 String tipoPago;
                 if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_CREDITO.getTipo())) {
@@ -277,7 +282,6 @@ public class RealizarPago extends javax.swing.JFrame {
                 } else {
                     tipoPago = tipo_pago.getSelectedItem().toString();
                 }
-
                 Pago pago = new Pago(
                         Float.parseFloat(texto_monto.getText()),
                         Integer.parseInt(text_cuotas.getText()),
