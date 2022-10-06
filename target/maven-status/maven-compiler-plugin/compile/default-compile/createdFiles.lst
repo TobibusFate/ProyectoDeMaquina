@@ -33,6 +33,7 @@ objects\Administrador.class
 Main.class
 datos\DB_BasicQuerys.class
 interfaces_graficas\realizar_venta\CrearVenta$1.class
+interfaces_graficas\AltaPedido\AltaPedido_Preview$2.class
 interfaces_graficas\realizar_venta\RealizarPago.class
 interfaces_graficas\realizar_venta\RealizarPago$6.class
 interfaces_graficas\realizar_venta\CrearVenta$13.class
@@ -45,6 +46,7 @@ interfaces_graficas\realizar_venta\RealizarPago$5.class
 datos\dao\implementation\DAO_Producto.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$5.class
 logica\managers\ManagerCliente.class
+interfaces_graficas\AltaPedido\AltaPedido_Preview$3.class
 datos\dao\IDAO.class
 interfaces_graficas\realizar_venta\CrearVenta$7.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$14.class
@@ -67,6 +69,7 @@ logica\managers\ManagerRenglonVenta.class
 objects\TipoCantidad.class
 interfaces_graficas\realizar_venta\MenuVendedor$2.class
 datos\dao\implementation\DAO_RenglonPedido.class
+interfaces_graficas\AltaPedido\AltaPedido_Preview$4.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$1.class
 interfaces_graficas\realizar_venta\RealizarPago$3.class
 interfaces_graficas\realizar_venta\CrearVenta.class
@@ -104,6 +107,7 @@ logica\managers\ManagerPersona.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$8.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$17.class
 interfaces_graficas\realizar_venta\CrearVenta$11.class
+interfaces_graficas\realizar_venta\MenuVendedor$4.class
 logica\managers\ManagerPedido.class
 interfaces_graficas\LogIn$1.class
 objects\RenglonVenta.class
