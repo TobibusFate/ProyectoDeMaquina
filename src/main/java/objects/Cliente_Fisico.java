@@ -11,18 +11,8 @@ public class Cliente_Fisico extends Cliente{
 
     }
 
-    public Cliente_Fisico(int dni, long cuil) {
-        super(dni);
-        this.cuil = cuil;
-    }
-
-    public Cliente_Fisico(int dni, String condicion_IVA, boolean moroso, float deuda, long cuil) {
-        super(dni, condicion_IVA, moroso, deuda);
-        this.cuil = cuil;
-    }
-
-    public Cliente_Fisico(String apellido, String nombre, int dni, long telefono, String condicion_IVA, boolean moroso, float deuda, long cuil) {
-        super(apellido, nombre, dni, telefono, condicion_IVA, moroso, deuda);
+    public Cliente_Fisico(String apell, String name, int dni, long tel, String iva, boolean moroso, int cuil) {
+        super(apell, name, dni, tel, iva, moroso);
         this.cuil = cuil;
     }
 

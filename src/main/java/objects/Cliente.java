@@ -6,44 +6,26 @@ import java.util.List;
 public abstract class Cliente extends Persona {
     private String condicion_IVA;
     private boolean moroso;
-    private float deuda;
 
     public Cliente(int dni) {
         super(dni);
     }
 
-    public Cliente(int dni, String condicion_IVA, boolean moroso, float deuda) {
-        super(dni);
+    public Cliente(String apell, String name, int dni, long tel, String condicion_IVA, boolean moroso) {
+        super(apell, name, dni, tel);
         this.condicion_IVA = condicion_IVA;
         this.moroso = moroso;
-        this.deuda = deuda;
     }
-
-    public Cliente(String apellido, String nombre, int dni, long telefono, String condicion_IVA, boolean moroso, float deuda) {
-        super(apellido, nombre, dni, telefono);
-        this.condicion_IVA = condicion_IVA;
-        this.moroso = moroso;
-        this.deuda = deuda;
-    }
-
 
 
     public String getCondicion_IVA() {
         return condicion_IVA;
     }
 
-    public float getDeuda() {
-        return deuda;
-    }
-
-    public void setDeuda(float deuda) {
-        this.deuda = deuda;
-    }
-
     public void setCondicion_IVA(String condicion_IVA) {
         this.condicion_IVA = condicion_IVA;
     }
-    public boolean getMoroso() {
+    public boolean isMoroso() {
         return moroso;
     }
 

@@ -7,7 +7,8 @@ import objects.Venta;
 public class Main {
     
     public static void main(String[] args) {
-
+        LogIn logIn = new LogIn();
+        logIn.setVisible(true);
 
         try {
             DB_Init.dropAllTables();
@@ -18,8 +19,6 @@ public class Main {
             e.printStackTrace();
             System.out.println(e);
         }
-        LogIn logIn = new LogIn();
-        logIn.setVisible(true);
 
     }
 
