@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -85,14 +86,6 @@ public class CrearVenta extends javax.swing.JFrame {
         });
 
         tabla_renglones.addFocusListener(new FocusAdapter() {
-            private static int valorActual;
-            @Override
-            public void focusLost(FocusEvent e) {
-                int fila = tabla_renglones.getSelectedRow();
-                int columna = tabla_renglones.getSelectedColumn();
-                valorActual = Integer.parseInt(tabla_renglones.getValueAt(fila,columna).toString());
-            }
-
             @Override
             public void focusGained(FocusEvent e) {
                 //super.focusGained(e);
@@ -100,14 +93,29 @@ public class CrearVenta extends javax.swing.JFrame {
                 int columna = tabla_renglones.getSelectedColumn();
                 String nuevoValor = tabla_renglones.getValueAt(fila,columna).toString();
                 String nombreFila = tabla_renglones.getValueAt(fila,1).toString();
-                updateRenglonVenta(nombreFila,nuevoValor,columna,valorActual);
+                updateRenglonVenta(nombreFila,nuevoValor,columna);
                 updateTable();
             }
 
         });
+
+        unidades.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(unidades.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
     }
 
-    private void updateRenglonVenta (String nombreFila, String nuevoValor, int columna, int valorActual){
+    private void updateRenglonVenta (String nombreFila, String nuevoValor, int columna){
         RenglonVenta renglonVenta = listaRenglon.get(nombreFila);
         switch (columna){
             case 2: //unidades
