@@ -21,7 +21,7 @@ public class DAO_Cuenta implements IDAO<Cuenta> {
             statement = conn.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Cuentas WHERE (Cuen_USUARIO ='"+c.getCuenta()+"')");
             while (rs.next()){
-                list.add(new Cuenta(rs.getString("Cuen_USUARIO"),rs.getString("Cuen_CONTRASEÑA"),rs.getString("Cuen_PERMISOS")));
+                list.add(new Cuenta(rs.getString("Cuen_USUARIO"),rs.getString("Cuen_CONTRASEÑA"), rs.getString("Cuen_EMAIL"),rs.getString("Cuen_PERMISOS")));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

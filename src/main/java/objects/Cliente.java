@@ -12,13 +12,6 @@ public abstract class Cliente extends Persona {
         super(dni);
     }
 
-    public Cliente(int dni, String condicion_IVA, boolean moroso, float deuda) {
-        super(dni);
-        this.condicion_IVA = condicion_IVA;
-        this.moroso = moroso;
-        this.deuda = deuda;
-    }
-
     public Cliente(String apellido, String nombre, int dni, long telefono, String condicion_IVA, boolean moroso, float deuda) {
         super(apellido, nombre, dni, telefono);
         this.condicion_IVA = condicion_IVA;
@@ -26,7 +19,12 @@ public abstract class Cliente extends Persona {
         this.deuda = deuda;
     }
 
-
+    public Cliente(int dni, String condicion_IVA, boolean moroso, float deuda) {
+        super(dni);
+        this.condicion_IVA = condicion_IVA;
+        this.moroso = moroso;
+        this.deuda = deuda;
+    }
 
     public String getCondicion_IVA() {
         return condicion_IVA;

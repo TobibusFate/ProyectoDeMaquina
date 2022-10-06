@@ -2,6 +2,7 @@ package logica.managers;
 
 import datos.dao.implementation.DAO_Cuenta;
 import objects.Cuenta;
+import objects.Trabajador;
 
 public class ManagerCuenta {
     private static DAO_Cuenta dao_cuenta = new DAO_Cuenta();

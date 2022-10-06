@@ -15,8 +15,12 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import logica.managers.ManagerAdministrador;
+import logica.managers.ManagerPedido;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerProveedor;
+import objects.Administrador;
+import objects.Pedido;
 import objects.Producto;
 import objects.Proveedor;
 import objects.RenglonPedido;
@@ -33,8 +37,9 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
     private Proveedor proveedor;
     private DefaultTableModel model;
+    private Administrador admin;
     
-    public AltaPedido_Generador() {
+    public AltaPedido_Generador(String username) {
         initComponents();
         AddListeners();
         mapRenglones.clear();
@@ -42,6 +47,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         
         mapProveedores = ManagerProveedor.getProveedoresMap();
         mapProductos = ManagerProducto.getHashMapProductos();
+        admin = ManagerAdministrador.getAdministrador(-1, username);
         updateComboboxProductos();
         updateComboboxProveedores();
     }
@@ -147,6 +153,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         Cbx_ListaProductos = new javax.swing.JComboBox<>();
         FldMontoFinal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        Cbx_ListaTipos = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -199,7 +206,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, false, true, false
+                false, false, true, false, false, true, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -269,6 +276,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
         jLabel3.setText("Monto Final:");
 
+        Cbx_ListaTipos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bolsones", "Bultos Cerrados", "Pallets" }));
+        Cbx_ListaTipos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cbx_ListaTiposActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -280,85 +294,93 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                         .addGap(332, 332, 332)
                         .addComponent(FldDomicilio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addGroup(contentLayout.createSequentialGroup()
-                                        .addComponent(jLabel1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(contentLayout.createSequentialGroup()
-                                        .addComponent(FldCUIT1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(10, 10, 10)
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(FldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(Cbx_ListaProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(contentLayout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(Btn_CargarProv)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addGap(20, 20, 20)
-                                .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 411, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addComponent(BtnCancelar)
-                        .addGap(682, 682, 682)
-                        .addComponent(Btn_Continuar))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Btn_removeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                                        .addComponent(FldCUIT1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addComponent(jLabel1)
+                                        .addGap(33, 33, 33)))
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(10, 10, 10)
+                                        .addComponent(Cbx_ListaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Btn_CargarProv))
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(FldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(contentLayout.createSequentialGroup()
+                                    .addComponent(BtnCancelar)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(Btn_Continuar))
+                                .addGroup(contentLayout.createSequentialGroup()
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addGroup(contentLayout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(contentLayout.createSequentialGroup()
+                                            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel2)
+                                                .addGroup(contentLayout.createSequentialGroup()
+                                                    .addGap(87, 87, 87)
+                                                    .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addComponent(Cbx_ListaTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Btn_removeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addGap(7, 7, 7)
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cbx_ListaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Btn_CargarProv))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(6, 6, 6)
+                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Cbx_ListaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Btn_CargarProv))
+                .addGap(12, 12, 12)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(FldCUIT1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(FldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(FldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(FldDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(FldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Btn_addProd)
-                            .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_removeProd))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(Cbx_ListaProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(FldProd, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Cbx_ListaTipos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 331, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addComponent(Btn_addProd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Btn_removeProd)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -384,6 +406,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                 FldNombre.setText(prov.getNombre());
                 FldEmail.setText(prov.getEmail());
                 FldDomicilio.setText(prov.getDireccion());
+                proveedor = ManagerProveedor.getProveedor(prov.getCuit());
             }
         }
     }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
@@ -420,7 +443,18 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private void Btn_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ContinuarActionPerformed
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(content, "no implemented");
+        Pedido pedido = new Pedido(
+                ManagerPedido.generarKey(),
+                admin,
+                proveedor
+        );
+        
+        
+        ManagerPedido.cargarPedido(pedido, mapRenglones.values());
+        JOptionPane.showMessageDialog(null, "Alta de Pedido exitosa");
+        
+        // limpiar venta
+        
     }//GEN-LAST:event_Btn_ContinuarActionPerformed
 
     private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
@@ -434,8 +468,23 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void Btn_addProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_addProdActionPerformed
         // TODO add your handling code here:
         String cbxText = Cbx_ListaProductos.getSelectedItem().toString();
+        String cbxTipo = Cbx_ListaTipos.getSelectedItem().toString();
         if (!mapRenglones.containsKey(cbxText)) {
-            mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.BultosCerrados,0F));
+            switch (cbxTipo) {
+                case "Bolsones": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+                case "Bultos Cerrados": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.BultosCerrados,0F)); break;
+                case "Pallets": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Pallets,0F)); break;
+                default: mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+            }
+        }
+        else {
+            RenglonPedido rp = mapRenglones.get(cbxText);
+            switch (cbxTipo) {
+                case "Bolsones": rp.setTipoCantidad(TipoCantidad.Bolsones);; break;
+                case "Bultos Cerrados": rp.setTipoCantidad(TipoCantidad.BultosCerrados);; break;
+                case "Pallets": rp.setTipoCantidad(TipoCantidad.Pallets);; break;
+            }
+            mapRenglones.replace(cbxText, rp);
         }
         if (!mapRenglones.isEmpty()) {
             Btn_Continuar.setEnabled(true);
@@ -450,6 +499,10 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void Cbx_ListaProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProductosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Cbx_ListaProductosActionPerformed
+
+    private void Cbx_ListaTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaTiposActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Cbx_ListaTiposActionPerformed
 
     private void updateComboboxProveedores(){
         List<String> listaProv = new ArrayList<>();
@@ -536,7 +589,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AltaPedido_Generador().setVisible(true);
+                new AltaPedido_Generador("").setVisible(true);
             }
         });
     }
@@ -549,6 +602,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private javax.swing.JButton Btn_removeProd;
     private javax.swing.JComboBox<String> Cbx_ListaProductos;
     private javax.swing.JComboBox<String> Cbx_ListaProveedores;
+    private javax.swing.JComboBox<String> Cbx_ListaTipos;
     private javax.swing.JTextField FldCUIT;
     private javax.swing.JTextField FldCUIT1;
     private javax.swing.JTextField FldDomicilio;

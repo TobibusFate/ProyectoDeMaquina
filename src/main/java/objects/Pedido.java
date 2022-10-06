@@ -1,22 +1,29 @@
 package objects;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class Pedido {
     private int codigo;
-    private Date fechaPedido, fechaEntrega;
+    private LocalDate fechaPedido, fechaEntrega;
     private Administrador admin;
     private Proveedor prov;
     
-    public Pedido(int codigo, Date fechaPedido, Date fechaEntrega, Administrador admin, Proveedor prov) {
+    public Pedido(int codigo, LocalDate fechaPedido, LocalDate fechaEntrega, Administrador admin, Proveedor prov) {
         this.codigo = codigo;
         this.fechaPedido = fechaPedido;
         this.fechaEntrega = fechaEntrega;
         this.admin = admin;
         this.prov = prov;
+    }
+    public Pedido(int codigo, Administrador admin, Proveedor prov) {
+        this.codigo = codigo;
+        this.admin = admin;
+        this.prov = prov;
+        this.fechaPedido = LocalDate.now();
     }
 
     public int getCodigo() {
@@ -27,19 +34,19 @@ public class Pedido {
         this.codigo = codigo;
     }
 
-    public Date getFechaPedido() {
+    public LocalDate getFechaPedido() {
         return fechaPedido;
     }
 
-    public void setFechaPedido(Date fechaPedido) {
+    public void setFechaPedido(LocalDate fechaPedido) {
         this.fechaPedido = fechaPedido;
     }
 
-    public Date getFechaEntrega() {
+    public LocalDate getFechaEntrega() {
         return fechaEntrega;
     }
 
-    public void setFechaEntrega(Date fechaEntrega) {
+    public void setFechaEntrega(LocalDate fechaEntrega) {
         this.fechaEntrega = fechaEntrega;
     }
 
@@ -78,7 +85,6 @@ public class Pedido {
         l.add("Ped_Admin_DNI");
         l.add("Ped_Admin_USUARIO");
         l.add("Ped_FECHAPEDIDO");
-        l.add("Ped_FECHAENTREGA");
         return l;
     }
     
@@ -88,8 +94,7 @@ public class Pedido {
         l.add(Long.toString(prov.getCuit()));
         l.add(Integer.toString(admin.getDni()));
         l.add(admin.getCuenta().getCuenta());
-        l.add("placeholder");
-        l.add("placeholder");
+        l.add(fechaPedido.toString());
         return l;
     }
 

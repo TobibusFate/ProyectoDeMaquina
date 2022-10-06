@@ -13,7 +13,7 @@ public class ManagerAdministrador {
 
         Trabajador trab = ManagerTrabajador.getTrabajador(DNI, user);
 
-        admin = new Administrador(trab.getApellido(), trab.getNombre(), DNI, trab.getTelefono(), trab.getCuenta());
+        admin = new Administrador(trab.getApellido(), trab.getNombre(), trab.getDni(), trab.getTelefono(), trab.getCuenta());
 
         return admin;
     }

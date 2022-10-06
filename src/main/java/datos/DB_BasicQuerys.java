@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class DB_BasicQuerys {
@@ -39,7 +41,7 @@ public class DB_BasicQuerys {
                     case 2: query += Long.parseLong(keyValues.get(0)); break;
                     case 3: query += Float.parseFloat(keyValues.get(0)); break;
                     case 4: query += Double.parseDouble(keyValues.get(0)); break;
-                    case 0: query += keyValues.get(0); break;
+                    case 0: query += "'"+keyValues.get(0)+"'"; break;
                 }
 
                 for (int i = 1; i < keyValues.size(); i++) {
@@ -49,7 +51,7 @@ public class DB_BasicQuerys {
                         case 2: query += Long.parseLong(keyValues.get(i)); break;
                         case 3: query += Float.parseFloat(keyValues.get(i)); break;
                         case 4: query += Double.parseDouble(keyValues.get(i)); break;
-                        case 0: query += keyValues.get(i); break;
+                        case 0: query += "'"+keyValues.get(i)+"'"; break;
                     }
                 }
 
@@ -106,6 +108,8 @@ public class DB_BasicQuerys {
                 case 2: p_query.setLong(1, Long.parseLong(newValue)); break;
                 case 3: p_query.setFloat(1, Float.parseFloat(newValue)); break;
                 case 4: p_query.setDouble(1, Double.parseDouble(newValue)); break;
+                case 5: //TODO: SetDate
+                    ; break;
                 case 0: p_query.setString(1, newValue); break;
             }
 
@@ -129,47 +133,68 @@ public class DB_BasicQuerys {
             if (keyNames.isEmpty() || attributeValues.isEmpty()) throw new SQLException("Missing attributes/columns");
 
             String query = "SELECT * FROM "+tableName+" WHERE "+keyNames.get(0)+" = ";
-
+            
+            
+            
             switch (matchesType(attributeValues.get(0))) {
                 case 1: query += Integer.parseInt(attributeValues.get(0)); break;
                 case 2: query += Long.parseLong(attributeValues.get(0)); break;
                 case 3: query += Float.parseFloat(attributeValues.get(0)); break;
                 case 4: query += Double.parseDouble(attributeValues.get(0)); break;
-                case 0: query += attributeValues.get(0); break;
+                case 0: query += "'"+attributeValues.get(0)+"'"; break;
             }
 
             for (int i = 1; i < keyNames.size(); i++) {
                 query += " AND "+keyNames.get(i)+" = ";
+                
                 switch (matchesType(attributeValues.get(i))) {
                     case 1: query += Integer.parseInt(attributeValues.get(i)); break;
                     case 2: query += Long.parseLong(attributeValues.get(i)); break;
                     case 3: query += Float.parseFloat(attributeValues.get(i)); break;
                     case 4: query += Double.parseDouble(attributeValues.get(i)); break;
-                    case 0: query += attributeValues.get(i); break;
+                    case 0: {
+                        String[] str = isEnumType(attributeValues.get(i));
+                        if (str == null) query += "'"+attributeValues.get(i)+"'";
+                        else query += "'"+str[0]+"'";
+                        
+                    }; break;
                 }
             }
 
             if (!tupleExists(query, conn)) {
+                String[] str;
                 String insert_query = "INSERT INTO "+tableName+" VALUES (?";
                 for (int i = 1; i < attributeValues.size(); i++) {
-                    insert_query += ", ?";
+                    str = isEnumType(attributeValues.get(i)); 
+                    if (str == null) insert_query += ", ?";
+                    else insert_query += ", ?::"+str[1];
                 }
                 insert_query += ")";
 
                 PreparedStatement p_query = conn.prepareStatement(insert_query);
 
                 for (int i = 0; i < attributeValues.size(); i++) {
+                    str = isEnumType(attributeValues.get(i));
                     switch (matchesType(attributeValues.get(i))) {
                         case 1: p_query.setInt((i+1), Integer.parseInt(attributeValues.get(i)));; break;
                         case 2: p_query.setLong((i+1), Long.parseLong(attributeValues.get(i))); break;
                         case 3: p_query.setFloat((i+1), Float.parseFloat(attributeValues.get(i))); break;
                         case 4: p_query.setDouble((i+1), Double.parseDouble(attributeValues.get(i))); break;
-                        case 0: p_query.setString((i+1), attributeValues.get(i)); break;
+                        case 5: p_query.setDate((i+1), java.sql.Date.valueOf(attributeValues.get(i))); break;
+                        case 0: {
+                            if (str == null) p_query.setString((i+1), attributeValues.get(i));
+                            else p_query.setString((i+1), str[0]);
+                            
+                        } break;
                     }
                 }
+                
 
                 p_query.executeUpdate();
                 return true;
+                
+                
+                
             }
             else return false;
 
@@ -195,7 +220,7 @@ public class DB_BasicQuerys {
                 case 2: query += Long.parseLong(keyValues.get(0)); break;
                 case 3: query += Float.parseFloat(keyValues.get(0)); break;
                 case 4: query += Double.parseDouble(keyValues.get(0)); break;
-                case 0: query += keyValues.get(0); break;
+                case 0: query += "'"+keyValues.get(0)+"'"; break;
             }
 
             for (int i = 1; i < keyValues.size(); i++) {
@@ -205,7 +230,7 @@ public class DB_BasicQuerys {
                     case 2: query += Long.parseLong(keyValues.get(i)); break;
                     case 3: query += Float.parseFloat(keyValues.get(i)); break;
                     case 4: query += Double.parseDouble(keyValues.get(i)); break;
-                    case 0: query += keyValues.get(i); break;
+                    case 0: query += "'"+keyValues.get(i)+"'"; break;
                 }
             }
             
@@ -246,7 +271,15 @@ public class DB_BasicQuerys {
         else if (s.matches("\\d+")) return 2; // long
         else if (s.matches("\\d{1,8}\\.\\d{1,8}")) return 3; // float
         else if (s.matches("\\d+\\.\\d+")) return 4; // double
+        else if (s.matches("\\d{2,4}\\-\\d{2}\\-\\d{2,4}")) return 5; // date
         return 0; // string
+    }
+    
+    public static String[] isEnumType(String s) {
+        String[] str = s.split("[:]{2}",2);
+        
+        if (str.length>1) return str;
+        else return null;
     }
 
 }

@@ -1,7 +1,11 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_Persona;
-import objects.*;
+import objects.Cliente;
+import objects.Cliente_Fisico;
+import objects.Cliente_Juridico;
+import objects.Persona;
+import objects.Trabajador;
 
 public class ManagerPersona {
 
@@ -14,6 +18,8 @@ public class ManagerPersona {
         return dao_Persona.readtobias((Persona) new Cliente_Juridico(dni)).get(0);
     }
     public static Persona getPersonaTrabajador(int DNI) {
+        
         return dao_Persona.read((Persona) new Trabajador("", "", DNI, 0, null)).get(0);
     }
+    
 }
