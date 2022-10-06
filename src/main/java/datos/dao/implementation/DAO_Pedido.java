@@ -35,8 +35,8 @@ public class DAO_Pedido implements IDAO<Pedido> {
             
                 list.add(new Pedido(
                     rs.getInt("Ped_CODIGO"),
-                    rs.getDate("Ped_FECHAPEDIDO"),
-                    rs.getDate("Ped_FECHAENTREGA"),
+                    rs.getDate("Ped_FECHAPEDIDO").toLocalDate(),
+                    rs.getDate("Ped_FECHAENTREGA").toLocalDate(),
                     admin,
                     prov
                     )

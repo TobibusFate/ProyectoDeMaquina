@@ -12,11 +12,11 @@ import interfaces_graficas.LogIn;
  */
 public class MenuAdministrador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form MenuAdministrador
-     */
-    public MenuAdministrador() {
+    private String username;
+    
+    public MenuAdministrador(String username) {
         initComponents();
+        this.username = username;
     }
 
     /**
@@ -77,7 +77,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private void boton_alta_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alta_pedidoActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        AltaPedido_Generador apg = new AltaPedido_Generador();
+        AltaPedido_Generador apg = new AltaPedido_Generador(username);
         apg.setVisible(true);
     }//GEN-LAST:event_boton_alta_pedidoActionPerformed
 
@@ -118,7 +118,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MenuAdministrador().setVisible(true);
+                new MenuAdministrador("").setVisible(true);
             }
         });
     }

@@ -13,10 +13,10 @@ public class DB_Init {
 
         try {
             query = conn.createStatement();
-
-            //query.execute("CREATE TYPE PERMISO AS ENUM('Empleado', 'Administrador')");
-            //query.execute("CREATE TYPE METODOPAGO AS ENUM('Fiado', 'Efectivo', 'TarjetaDebito','TarjetaCredito')");
-            //query.execute("CREATE TYPE TIPOCANTIDAD AS ENUM('Bolsones', 'BultosCerrados', 'Pallets')");
+            
+            query.execute("CREATE TYPE PERMISO AS ENUM('Empleado', 'Administrador')");
+            query.execute("CREATE TYPE METODOPAGO AS ENUM('Fiado', 'Efectivo', 'TarjetaDebito','TarjetaCredito')");
+            query.execute("CREATE TYPE TIPOCANTIDAD AS ENUM('Bolsones', 'BultosCerrados', 'Pallets')");
 
             query.execute("CREATE TABLE IF NOT EXISTS Productos ("
                 + "Prod_CODIGO INTEGER, "
@@ -222,6 +222,12 @@ public class DB_Init {
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
+        
+        query.execute("INSERT INTO Personas VALUES ('43840433', 'celso','fernandez','2664375249')");
+        query.execute("INSERT INTO Trabajadores VALUES ('admin', '43840433')");
+        query.execute("INSERT INTO Administradores VALUES ('admin', '43840433')");
+        
+        
         DatosBase.getInstance().closeConnection();
     }
     
@@ -244,6 +250,10 @@ public class DB_Init {
         query.execute("DROP TABLE IF EXISTS Ventas");
         query.execute("DROP TABLE IF EXISTS Cuentas");
         query.execute("DROP TABLE IF EXISTS Personas");
+        
+        query.execute("DROP TYPE IF EXISTS PERMISO");
+        query.execute("DROP TYPE IF EXISTS METODOPAGO");
+        query.execute("DROP TYPE IF EXISTS TIPOCANTIDAD");
         
         DatosBase.getInstance().closeConnection();
     }

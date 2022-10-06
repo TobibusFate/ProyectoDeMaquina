@@ -128,7 +128,7 @@ public class LogIn extends javax.swing.JFrame {
             break;
             case 2:
                 this.setVisible(false);
-                MenuAdministrador ma = new MenuAdministrador();
+                MenuAdministrador ma = new MenuAdministrador(entrada_usuario.getText());
                 ma.setVisible(true);
 
             break;

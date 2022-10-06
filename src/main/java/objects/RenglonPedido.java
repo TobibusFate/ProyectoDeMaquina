@@ -61,7 +61,7 @@ public class RenglonPedido extends Renglon {
     public List<String> getKeyNamesList() {
         List<String> l = new ArrayList<>();
         l.add("RenP_CODIGO");
-        l.add("RenV_Ped_CODIGO");
+        l.add("RenP_Ped_CODIGO");
         return l;
     }
     // valor del cuit
@@ -85,7 +85,7 @@ public class RenglonPedido extends Renglon {
         List<String> l = new ArrayList<>();
         l.add(Integer.toString(getCodigo()));
         l.add(Integer.toString(pedido.getCodigo()));
-        l.add(tipoCantidad.toString());
+        l.add(tipoCantidad.name()+"::TIPOCANTIDAD");
         l.add(Integer.toString(cantidad));
         return l;
     }

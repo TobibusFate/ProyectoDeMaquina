@@ -21,7 +21,15 @@ public class DAO_Trabajador implements IDAO<Trabajador>{
         ResultSet rs = null;
         
         try {
-            if (t != null) rs = DB_BasicQuerys.findTuple(t.getKeyNamesList(), t.getKeyValuesList(), "Trabajadores", conn);
+            if (t != null) {
+                if (t.getDni() != -1) rs = DB_BasicQuerys.findTuple(t.getKeyNamesList(), t.getKeyValuesList(), "Trabajadores", conn);
+                else {
+                    List<String> tempList = new ArrayList<>();
+                    List<String> tempList2 = new ArrayList<>() {{add("Trab_USUARIO");}};
+                    tempList.add(t.getCuenta().getCuenta());
+                    rs = DB_BasicQuerys.findTuple(tempList2, tempList, "Trabajadores", conn);
+                }
+            }
             else rs = DB_BasicQuerys.findTuple(null, null, "Trabajadores", conn);
             while (rs.next()) {     
                 Trabajador trab = (Trabajador) ManagerPersona.getPersonaTrabajador(rs.getInt("Trab_DNI"));

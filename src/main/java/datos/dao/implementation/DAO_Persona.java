@@ -23,7 +23,10 @@ public class DAO_Persona implements IDAO<Persona> {
         List<Persona> list = new ArrayList<>();
         ResultSet rs = null;
         try {
-            if (p != null) rs = DB_BasicQuerys.findTuple(p.getKeyNamesList(), p.getKeyValuesList(), "Personas", conn);
+            List<String> tempList1 = new ArrayList<>() {{add("Pers_DNI");}};
+            List<String> tempList2 = new ArrayList<>();
+            tempList2.add(String.valueOf(p.getDni()));
+            if (p != null) rs = DB_BasicQuerys.findTuple(tempList1, tempList2, "Personas", conn);
             else rs = DB_BasicQuerys.findTuple(null, null, "Personas", conn);
             while (rs.next()) {
 
