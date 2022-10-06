@@ -26,6 +26,8 @@ public abstract class Cliente extends Persona {
         this.deuda = deuda;
     }
 
+
+
     public String getCondicion_IVA() {
         return condicion_IVA;
     }
@@ -41,7 +43,7 @@ public abstract class Cliente extends Persona {
     public void setCondicion_IVA(String condicion_IVA) {
         this.condicion_IVA = condicion_IVA;
     }
-    public boolean isMoroso() {
+    public boolean getMoroso() {
         return moroso;
     }
 

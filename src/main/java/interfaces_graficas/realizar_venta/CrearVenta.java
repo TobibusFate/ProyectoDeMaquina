@@ -8,11 +8,13 @@ import logica.managers.ManagerCliente;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerVenta;
 import objects.*;
-
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,6 +47,7 @@ public class CrearVenta extends javax.swing.JFrame {
         listaProductos = ManagerProducto.getHashMapProductos();
         updateCombobox();
     }
+    
     public void addPago (Pago p) {
         listaPagos.add(p);
         if (!listaPagos.isEmpty()) {
@@ -82,27 +85,45 @@ public class CrearVenta extends javax.swing.JFrame {
         });
 
         tabla_renglones.addFocusListener(new FocusAdapter() {
+            private static int valorActual;
+            @Override
+            public void focusLost(FocusEvent e) {
+                int fila = tabla_renglones.getSelectedRow();
+                int columna = tabla_renglones.getSelectedColumn();
+                valorActual = Integer.parseInt(tabla_renglones.getValueAt(fila,columna).toString());
+            }
+
             @Override
             public void focusGained(FocusEvent e) {
-                super.focusGained(e);
+                //super.focusGained(e);
                 int fila = tabla_renglones.getSelectedRow();
                 int columna = tabla_renglones.getSelectedColumn();
                 String nuevoValor = tabla_renglones.getValueAt(fila,columna).toString();
                 String nombreFila = tabla_renglones.getValueAt(fila,1).toString();
-                updateRenglonVenta(nombreFila,nuevoValor,columna);
+                updateRenglonVenta(nombreFila,nuevoValor,columna,valorActual);
                 updateTable();
             }
+
         });
     }
 
-    private void updateRenglonVenta (String nombreFila, String nuevoValor, int columna){
+    private void updateRenglonVenta (String nombreFila, String nuevoValor, int columna, int valorActual){
         RenglonVenta renglonVenta = listaRenglon.get(nombreFila);
         switch (columna){
             case 2: //unidades
-                renglonVenta.setUnidades(Integer.parseInt(nuevoValor));
+                if (Integer.parseInt(nuevoValor) > listaProductos.get(nombreFila).getStockP()) {
+                    JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
+                } else {
+                    renglonVenta.setUnidades(Integer.parseInt(nuevoValor));
+                }
                 break;
             case 5: //descuento
-                renglonVenta.setDescuento(Float.parseFloat(nuevoValor));
+                if (Float.parseFloat(nuevoValor) > 100 || Float.parseFloat(nuevoValor) < 0) {
+                    JOptionPane.showMessageDialog(null, "El descuento toma valores entre 0 y 100");
+                } else {
+                    renglonVenta.setDescuento(Float.parseFloat(nuevoValor));
+                }
+
         }
         listaRenglon.replace(nombreFila,renglonVenta);
     }
@@ -241,38 +262,37 @@ public class CrearVenta extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combobox_listado_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(unidades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(boton_salir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(boton_vaciar_pagos))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(398, 398, 398)
+                        .addComponent(boton_vaciar_pagos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(boton_realizar_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(boton_agregar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(buscador_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(combobox_listado_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(113, 113, 113)
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(unidades, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(text_monto_restante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(boton_quitar)
                             .addComponent(monto_restante_value, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(text_valor_total, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(valor_total_value, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(22, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(boton_realizar_pago, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                            .addComponent(valor_total_value, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boton_agregar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(boton_quitar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +370,6 @@ public class CrearVenta extends javax.swing.JFrame {
                     break;
                 }
             }
-
             Venta v = new Venta(Float.parseFloat(valor_total_value.getText()), cerrada, this.usuario);
             ManagerVenta.cargarVenta(v,listaRenglon.values(),listaPagos);
             JOptionPane.showMessageDialog(null, "Venta Exitosa");
@@ -378,14 +397,28 @@ public class CrearVenta extends javax.swing.JFrame {
     private void boton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_agregarActionPerformed
         // TODO add your handling code here:
         String text = combobox_listado_productos.getSelectedItem().toString();
+        int unidades_value = Integer.parseInt(unidades.getText());
+
         if (listaRenglon.containsKey(text)) {
             /** MODIFICAR CANTIDAD*/
             RenglonVenta renglonVenta = listaRenglon.get(text);
-            renglonVenta.setUnidades(renglonVenta.getUnidades()+Integer.parseInt(unidades.getText()));
-            listaRenglon.replace(text,renglonVenta);
+            if ((unidades_value + renglonVenta.getUnidades()) >
+                    listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
+                JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
+            } else {
+                renglonVenta.setUnidades(renglonVenta.getUnidades()+unidades_value);
+                listaRenglon.replace(text,renglonVenta);
+            }
+
         } else {
             /** NUEVA ENTRADA*/
-            listaRenglon.put(text,new RenglonVenta(Integer.parseInt(unidades.getText()),listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
+            if (unidades_value > listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
+                JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
+            } else {
+                listaRenglon.put(text,new RenglonVenta(unidades_value,listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
+            }
+
+
         }
         if (!listaRenglon.isEmpty()){
             boton_realizar_pago.setEnabled(true);

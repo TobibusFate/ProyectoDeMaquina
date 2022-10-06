@@ -13,9 +13,7 @@ public class ManagerPersona {
     public static Persona getPersonaClienteJuridico(int dni) {
         return dao_Persona.readtobias((Persona) new Cliente_Juridico(dni)).get(0);
     }
-
     public static Persona getPersonaTrabajador(int DNI) {
         return dao_Persona.read((Persona) new Trabajador("", "", DNI, 0, null)).get(0);
     }
-    
 }
