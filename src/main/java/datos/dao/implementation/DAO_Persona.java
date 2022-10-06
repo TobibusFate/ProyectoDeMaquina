@@ -5,6 +5,7 @@ package datos.dao.implementation;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -61,6 +62,29 @@ public class DAO_Persona implements IDAO<Persona> {
     public boolean delete(Persona p) {
         // TODO Auto-generated method stub
         return false;
+    }
+    public List<Persona> readtobias(Persona p) {
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        List<Persona> list = new ArrayList<>();
+        ResultSet rs;
+        try {
+            statement = conn.createStatement();
+            if (p != null) {
+                rs = statement.executeQuery("SELECT * FROM Personas WHERE (Pers_DNI = '" +p.getDni()+"')");
+                while (rs.next()) {
+                    p.setDni(rs.getInt("Pers_DNI"));
+                    p.setApellido(rs.getString("Pers_Apellido"));
+                    p.setNombre(rs.getString("Pers_Nombre"));
+                    p.setTelefono(rs.getLong("Pers_Telefono"));
+                    list.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DatosBase.getInstance().closeConnection();
+        return list;
     }
     
 }

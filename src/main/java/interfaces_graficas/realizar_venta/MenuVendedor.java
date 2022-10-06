@@ -4,8 +4,8 @@
  */
 package interfaces_graficas.realizar_venta;
 
+
 import interfaces_graficas.LogIn;
-import interfaces_graficas.realizar_venta.CrearVenta;
 
 /**
  *
@@ -20,6 +20,11 @@ public class MenuVendedor extends javax.swing.JFrame {
     public MenuVendedor(String usuario) {
         initComponents();
         this.usuario = usuario;
+        jButton1.setEnabled(false);
+        jButton3.setEnabled(false);
+        jButton4.setEnabled(false);
+        jButton6.setEnabled(false);
+       
     }
 
     /**
@@ -31,7 +36,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton5 = new javax.swing.JButton();
+        boton_cerrar_sesion = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         realizar_venta = new javax.swing.JButton();
@@ -40,16 +45,21 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton5.setText("Cerrar Sesion");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        boton_cerrar_sesion.setText("Cerrar Sesion");
+        boton_cerrar_sesion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                boton_cerrar_sesionActionPerformed(evt);
             }
         });
 
         jButton6.setText("Buscar Ciente");
 
         jButton1.setText("Buscar Venta");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         realizar_venta.setText("Realizar Venta");
         realizar_venta.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +88,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(realizar_venta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jButton5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boton_cerrar_sesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(49, Short.MAX_VALUE))
         );
@@ -96,7 +106,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 .addGap(36, 36, 36)
                 .addComponent(jButton4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
-                .addComponent(jButton5)
+                .addComponent(boton_cerrar_sesion)
                 .addGap(24, 24, 24))
         );
 
@@ -110,12 +120,16 @@ public class MenuVendedor extends javax.swing.JFrame {
         cv.setVisible(true);
     }//GEN-LAST:event_realizar_ventaActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void boton_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cerrar_sesionActionPerformed
         // TODO add your handling code here:
         LogIn li = new LogIn();
         li.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,10 +167,10 @@ public class MenuVendedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_cerrar_sesion;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton realizar_venta;
     // End of variables declaration//GEN-END:variables

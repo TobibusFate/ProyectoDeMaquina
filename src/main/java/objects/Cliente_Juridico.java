@@ -6,8 +6,22 @@ import java.util.List;
 public class Cliente_Juridico extends Cliente {
     private long cuit;
 
-    public Cliente_Juridico(String apell, String name, int dni, long tel, String condicion_IVA, boolean moroso, long cuit) {
-        super(apell, name, dni, tel, condicion_IVA, moroso);
+    public Cliente_Juridico(int dni) {
+        super(dni);
+    }
+
+    public Cliente_Juridico(int dni, long cuit) {
+        super(dni);
+        this.cuit = cuit;
+    }
+
+    public Cliente_Juridico(int dni, String condicion_IVA, boolean moroso, float deuda, long cuit) {
+        super(dni, condicion_IVA, moroso, deuda);
+        this.cuit = cuit;
+    }
+
+    public Cliente_Juridico(String apellido, String nombre, int dni, long telefono, String condicion_IVA, boolean moroso, float deuda, long cuit) {
+        super(apellido, nombre, dni, telefono, condicion_IVA, moroso, deuda);
         this.cuit = cuit;
     }
 

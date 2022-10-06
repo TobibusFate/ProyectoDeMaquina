@@ -43,6 +43,7 @@ public class DB_Init {
                 + "Cli_DNI INTEGER, "
                 + "Cli_IVA VARCHAR(255), "
                 + "Cli_MOROSO BOOLEAN NOT NULL, "
+                + "Cli_DEUDA REAL NOT NULL, "
                 + "PRIMARY KEY(Cli_DNI), "
                 + "FOREIGN KEY(Cli_DNI) REFERENCES Personas(Pers_DNI)"
                 + ")"
@@ -169,11 +170,6 @@ public class DB_Init {
                 + "FOREIGN KEY(RenP_Ped_CODIGO) REFERENCES Pedidos(Ped_CODIGO)"
                 + ")"
             );
-            //query.execute("drop table Renglon_Venta");
-            //query.execute("drop table Renglon_Pedido");
-            //query.execute("drop table Renglon");
-            //query.execute("drop table Productos");
-
         }
         catch (SQLException ex) {
             ex.printStackTrace();
@@ -181,10 +177,6 @@ public class DB_Init {
         finally { // finally se ejecuta siempre, no importa si hubo excepcion, así aseguramos que se cierra la conexión
             DatosBase.getInstance().closeConnection();
         }
-
-
-
-        
     }
 
     public static void initTables () throws SQLException {
@@ -192,7 +184,8 @@ public class DB_Init {
 
         var conn = DatosBase.getInstance().getConnection();
         query = conn.createStatement();
-        
+
+        /** USUARIOS */
         query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('user', '123', 'Empleado', 'correo1234') ");
         query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
@@ -200,12 +193,43 @@ public class DB_Init {
         query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                     "VALUES ('admin', '123', 'Administrador', 'correo1234') ");
 
+        /** CLIENTES */
+
         query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
                 "VALUES (0, '_', 'Anonimo', '0') ");
 
-        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO) " +
-                "VALUES (0, 'patata', 'false') ");
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (0, 'patata', 'false', 0) ");
+/////////////////////////////////////////////
+        query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
+                "VALUES (901855, 'JUAN CARLOS', 'ADI', '266648') ");
 
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (901855, 'IVA', 'false', 0) ");
+
+        query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
+                "VALUES (901855, 10000) ");
+/////////////////////////////////////////////
+        query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
+                "VALUES (450151, 'ROBERTO', 'MIN', '255460') ");
+
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (450151, 'IVA2', 'false', 10) ");
+
+        query.execute("INSERT INTO ClientesJuridicos (CliJ_DNI, CliJ_CUIT) " +
+                "VALUES (450151, 55500) ");
+/////////////////////////////////////////////
+        query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
+                "VALUES (2269211, 'OTRAP', 'SI', '0') ");
+
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (2269211, 'IVA3', 'false', 0) ");
+
+        query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
+                "VALUES (2269211, 5412) ");
+/////////////////////////////////////////////
+
+        /** PRODUCTOS */
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('12', 'leche', 'comestible', '150', '200', '50')");
@@ -219,7 +243,9 @@ public class DB_Init {
                     "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
-         
+
+        /** PROVEEDORES */
+
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
         
