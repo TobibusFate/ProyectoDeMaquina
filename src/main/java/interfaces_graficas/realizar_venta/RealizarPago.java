@@ -31,6 +31,7 @@ public class RealizarPago extends javax.swing.JFrame {
         text_cuotas.setText("1");
         texto_dni.setEditable(false);
         monto_faltante.setText(monto);
+        boton_cargar_cliente.setEnabled(false);
     }
 
     public void addList() {
@@ -143,7 +144,7 @@ public class RealizarPago extends javax.swing.JFrame {
         monto_faltante = new javax.swing.JLabel();
         boton_pagar_restante = new javax.swing.JButton();
         text_cuotas = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        boton_cargar_cliente = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -205,7 +206,7 @@ public class RealizarPago extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cargar Cliente");
+        boton_cargar_cliente.setText("Cargar Cliente");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -244,7 +245,7 @@ public class RealizarPago extends javax.swing.JFrame {
                         .addComponent(boton_cargar))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(boton_cargar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(boton_pagar_restante, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -256,7 +257,7 @@ public class RealizarPago extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(88, 88, 88)
-                        .addComponent(jButton1))
+                        .addComponent(boton_cargar_cliente))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
                         .addComponent(jLabel8)
@@ -301,46 +302,61 @@ public class RealizarPago extends javax.swing.JFrame {
 
     private void boton_cargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cargarActionPerformed
         // TODO add your handling code here:
-        
+        boolean terminar = true;
         if (texto_monto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El Monto es obligatorio");
-        } else {
-            if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) && texto_dni.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
-            } else {
-                LocalDate now = LocalDate.now();
-                String tipoPago;
-                if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_CREDITO.getTipo())) {
-                    tipoPago = "TarjetaCredito";
-                } else if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_DEBITO.getTipo())) {
-                    tipoPago = "TarjetaDebito";
-                } else {
-                    tipoPago = tipo_pago.getSelectedItem().toString();
-                }
-
-                Pago pago = new Pago(
-                        Float.parseFloat(texto_monto.getText()),
-                        Integer.parseInt(text_cuotas.getText()),
-                        tipoPago);
-                if (pago.getMetodoPago().equals(TipoDePago.FIADO.getTipo())) {
-                    //pago.setCliente();
-                    pago.setFechaP(now);
-                    pago.setFechaLimiteP(now.plusMonths(1));
-                } else if (pago.getMetodoPago().equals(TipoDePago.EFECTIVO.getTipo())) {
-                    pago.setFechaP(now);
-                    pago.setFechaLimiteP(now);
-                } else if (pago.getCuotas() > 1 ) { //tarjeta
-                    pago.setFechaP(now);
-                    pago.setFechaLimiteP(now.plusMonths(pago.getCuotas()));
-                } else {
-                    pago.setFechaP(now);
-                    pago.setFechaLimiteP(now);
-                }
-                crearVenta.addPago(pago);
-                this.dispose();
-            }
+        }
+        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) && texto_dni.getText().equals("")) {
+            JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
+            terminar = false;
+        }
+        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
+                !crearVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+            JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
+            terminar = false;
+        }
+        if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
+            JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
+            terminar = false;
+        }
+        if (terminar) {
+            terminarPago();
         }
     }//GEN-LAST:event_boton_cargarActionPerformed
+
+    public void terminarPago() {
+        LocalDate now = LocalDate.now();
+        String tipoPago;
+        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_CREDITO.getTipo())) {
+            tipoPago = "TarjetaCredito";
+        } else if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_DEBITO.getTipo())) {
+            tipoPago = "TarjetaDebito";
+        } else {
+            tipoPago = tipo_pago.getSelectedItem().toString();
+        }
+        Pago pago = new Pago(
+                Float.parseFloat(texto_monto.getText()),
+                Integer.parseInt(text_cuotas.getText()),
+                tipoPago);
+
+        if (pago.getMetodoPago().equals(TipoDePago.FIADO.getTipo())) {
+            pago.setCliente(crearVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));
+            pago.setFechaP(now);
+            pago.setFechaLimiteP(now.plusMonths(1));
+        } else if (pago.getMetodoPago().equals(TipoDePago.EFECTIVO.getTipo())) {
+            pago.setFechaP(now);
+            pago.setFechaLimiteP(now);
+        } else if (pago.getCuotas() > 1 ) { //tarjeta
+            pago.setFechaP(now);
+            pago.setFechaLimiteP(now.plusMonths(pago.getCuotas()));
+        } else {
+            pago.setFechaP(now);
+            pago.setFechaLimiteP(now);
+        }
+        crearVenta.addPago(pago);
+        this.dispose();
+
+    }
 
     private void boton_pagar_restanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_pagar_restanteActionPerformed
         // TODO add your handling code here:
@@ -394,8 +410,8 @@ public class RealizarPago extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton_cancelar;
     private javax.swing.JButton boton_cargar;
+    private javax.swing.JButton boton_cargar_cliente;
     private javax.swing.JButton boton_pagar_restante;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
