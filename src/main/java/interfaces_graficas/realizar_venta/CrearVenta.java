@@ -11,7 +11,11 @@ import objects.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,6 +87,21 @@ public class CrearVenta extends javax.swing.JFrame {
                 String nombreFila = tabla_renglones.getValueAt(fila,1).toString();
                 updateRenglonVenta(nombreFila,nuevoValor,columna);
                 updateTable();
+            }
+        });
+
+        unidades.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(unidades.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
             }
         });
     }
