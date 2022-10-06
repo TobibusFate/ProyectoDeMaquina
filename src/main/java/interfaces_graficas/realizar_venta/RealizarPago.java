@@ -24,7 +24,7 @@ public class RealizarPago extends javax.swing.JFrame {
      */
     public RealizarPago(String monto, CrearVenta cv) {
         initComponents();
-        initCombobox();
+        addList();
         cerrar();
         crearVenta = cv;
         tipo_pago.setSelectedItem(TipoDePago.EFECTIVO.getTipo());
@@ -34,7 +34,7 @@ public class RealizarPago extends javax.swing.JFrame {
         boton_cargar_cliente.setEnabled(false);
     }
 
-    public void initCombobox() {
+    public void addList() {
 
         for (TipoDePago tipoDePago: TipoDePago.values()){
             tipo_pago.addItem(tipoDePago.getTipo());
@@ -57,10 +57,50 @@ public class RealizarPago extends javax.swing.JFrame {
                     
                     }
                 }
-                
-                
             }
         });
+        text_cuotas.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(text_cuotas.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
+        texto_monto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Float.parseFloat(texto_monto.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
+        /*texto_dni.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(texto_dni.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });*/
     }
 
     public void cerrar () {
