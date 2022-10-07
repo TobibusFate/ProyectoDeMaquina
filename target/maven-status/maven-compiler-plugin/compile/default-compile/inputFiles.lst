@@ -11,6 +11,7 @@ C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\Manage
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\DatosBase.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Venta.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerProveedor.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\BajaPedido\BajaPedido_Preview.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCliente.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Trabajador.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCuenta.java
@@ -45,6 +46,7 @@ C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Pago.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\LogicaBase.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\TipoDePago.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_ClienteFisico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\BuscarPedido\BuscarPedido.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerTrabajador.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Renglon.java
 C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\LogIn.java
