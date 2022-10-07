@@ -1,60 +1,62 @@
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\AltaPedido_Preview.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Pedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\RealizarPago.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Persona.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\MenuAdministrador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglonPedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\Main.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerProducto.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Cuenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Renglon.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerAdministrador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPersona.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerVenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\TipoCantidad.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglon.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Renglon.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Pago.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\LogicaBase.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Cliente_Fisico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\TipoDePago.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Cliente_Juridico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Venta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\DB_Init.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\AltaPedido_Generador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerClienteFisico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\DB_BasicQuerys.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCuenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\IDAO.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerProveedor.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_ClienteFisico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Venta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Producto.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\CrearVenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Cliente.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Persona.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\LogIn.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\RenglonVenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_RenglonPedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglonVenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Cuenta.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_ClienteJuridico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\DatosBase.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Cliente.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\MenuVendedor.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Producto.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\RenglonPedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Pedido.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCliente.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Proveedor.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Trabajador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPago.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerClienteJuridico.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Administrador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\logica\managers\ManagerTrabajador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Pago.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Proveedor.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Administrador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\objects\Trabajador.java
-C:\Users\Cell9870\Documents\[School]\Ingeniería de Software II\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_RenglonVenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglonPedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Pedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Cliente_Fisico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Cliente.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerProducto.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\AltaPedido_Generador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\AltaPedido_Preview.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\IDAO.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerAdministrador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\DatosBase.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Venta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerProveedor.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\BajaPedido\BajaPedido_Preview.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCliente.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Trabajador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerCuenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\TipoCantidad.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_ClienteJuridico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\RenglonPedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\DB_Init.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Proveedor.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Cliente.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Persona.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerVenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Trabajador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Administrador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_RenglonPedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Cuenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Producto.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\RenglonVenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Cliente_Juridico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_RenglonVenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\AltaPedido\MenuAdministrador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Administrador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Pago.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\MenuVendedor.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\RealizarPago.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\DB_BasicQuerys.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Renglon.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Persona.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Venta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPersona.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerPago.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\Pago.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\LogicaBase.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\objects\TipoDePago.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_ClienteFisico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\BuscarPedido\BuscarPedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerTrabajador.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Renglon.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\LogIn.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\interfaces_graficas\realizar_venta\CrearVenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Proveedor.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\Main.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglon.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Pedido.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerClienteFisico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerClienteJuridico.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Producto.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\datos\dao\implementation\DAO_Cuenta.java
+C:\Users\Cell9870\Desktop\ProyectoDeMaquina\src\main\java\logica\managers\ManagerRenglonVenta.java

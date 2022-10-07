@@ -5,19 +5,64 @@
  */
 package interfaces_graficas.AltaPedido;
 
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import logica.managers.ManagerPedido;
+import objects.Administrador;
+import objects.Pedido;
+import objects.Proveedor;
+import objects.RenglonPedido;
+
 /**
  *
  * @author Cell9870
  */
-public class AltaPedido_Preview extends javax.swing.JPanel {
+public class AltaPedido_Preview extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AltaPedido_Preview
-     */
-    public AltaPedido_Preview() {
+    private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
+    private Proveedor proveedor;
+    private Administrador admin;
+    private DefaultTableModel model;
+    private AltaPedido_Generador generadorPedido;
+    
+    public AltaPedido_Preview(AltaPedido_Generador generadorPedido) {
         initComponents();
+        this.generadorPedido = generadorPedido;
+        this.mapRenglones = generadorPedido.getRenglones();
+        this.proveedor = generadorPedido.getProveedor();
+        this.admin = generadorPedido.getAdministrador();
+        updateText();
+        updateTable();
     }
 
+    
+    private void updateText() {
+        LblPedidoCodigo.setText("Preview Pedido #"+ManagerPedido.generarKey());
+        LblNameProv.setText(proveedor.getNombre());
+        LblCUITProv.setText("CUIT: "+proveedor.getCuit());
+        LblEmailProv.setText("Email: "+proveedor.getEmail());
+        LblDirProv.setText("Domicilio: "+proveedor.getDireccion());
+        LblNombreAdmin.setText(admin.getApellido()+" "+admin.getNombre());
+        LblDNIAdmin.setText("DNI: "+admin.getDni());
+        LblTelAdmin.setText("Telefono: "+admin.getTelefono());
+    }
+    
+    private void updateTable() {
+        model = (DefaultTableModel) TblRenglones.getModel();
+        while(model.getRowCount() > 0) {
+            model.removeRow(0);
+        }
+        for (RenglonPedido rp: mapRenglones.values()) {
+            model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
+        }
+        float value = 0;
+        for (RenglonPedido rp: mapRenglones.values()) {
+            value += rp.getMontoTotal();
+        }
+        FldMontoFinal.setText(Float.toString(value));
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,9 +87,11 @@ public class AltaPedido_Preview extends javax.swing.JPanel {
         TblRenglones = new javax.swing.JTable();
         BtnCrear = new javax.swing.JButton();
         BtnVolver = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        FldMontoFinal = new javax.swing.JTextField();
 
-        setBackground(new java.awt.Color(204, 204, 204));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         content.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -88,19 +135,24 @@ public class AltaPedido_Preview extends javax.swing.JPanel {
         });
         TblRenglones.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(TblRenglones);
-        if (TblRenglones.getColumnModel().getColumnCount() > 0) {
-            TblRenglones.getColumnModel().getColumn(0).setPreferredWidth(10);
-            TblRenglones.getColumnModel().getColumn(1).setPreferredWidth(20);
-            TblRenglones.getColumnModel().getColumn(2).setPreferredWidth(10);
-            TblRenglones.getColumnModel().getColumn(3).setPreferredWidth(15);
-            TblRenglones.getColumnModel().getColumn(4).setPreferredWidth(10);
-            TblRenglones.getColumnModel().getColumn(5).setPreferredWidth(5);
-            TblRenglones.getColumnModel().getColumn(6).setPreferredWidth(15);
-        }
 
         BtnCrear.setText("Crear Pedido");
+        BtnCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearActionPerformed(evt);
+            }
+        });
 
         BtnVolver.setText("Volver Atrás");
+        BtnVolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVolverActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Monto Final:");
+
+        FldMontoFinal.setEditable(false);
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -140,6 +192,10 @@ public class AltaPedido_Preview extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
                                 .addComponent(BtnVolver)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(91, 91, 91)
                                 .addComponent(BtnCrear)))))
                 .addContainerGap())
         );
@@ -172,17 +228,85 @@ public class AltaPedido_Preview extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCrear)
-                    .addComponent(BtnVolver))
+                    .addComponent(BtnVolver)
+                    .addComponent(jLabel1)
+                    .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
-        add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 510));
+        getContentPane().add(content, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 860, 510));
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearActionPerformed
+        if (JOptionPane.showOptionDialog(content, "¿Está seguro que desea cargar este pedido?",
+                    "Confirmación de Alta de Pedido", 
+                    JOptionPane.YES_NO_OPTION, 
+                    JOptionPane.QUESTION_MESSAGE, 
+                    null, null, null) == 0) {
+        
+            Pedido pedido = new Pedido(
+                ManagerPedido.generarKey(),
+                admin,
+                proveedor
+            );
+
+            ManagerPedido.cargarPedido(pedido, mapRenglones.values());
+            JOptionPane.showMessageDialog(content, "El pedido fue cargado en el sistema","Alta de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
+            this.setVisible(false);
+            generadorPedido.setVisible(true);
+            
+            this.dispose();
+        }        
+    }//GEN-LAST:event_BtnCrearActionPerformed
+
+    private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
+        this.setVisible(false);
+        generadorPedido.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnVolverActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Preview.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Preview.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Preview.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(AltaPedido_Preview.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AltaPedido_Preview(null).setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCrear;
     private javax.swing.JButton BtnVolver;
+    private javax.swing.JTextField FldMontoFinal;
     private javax.swing.JLabel LblCUITProv;
     private javax.swing.JLabel LblDNIAdmin;
     private javax.swing.JLabel LblDirProv;
@@ -193,6 +317,7 @@ public class AltaPedido_Preview extends javax.swing.JPanel {
     private javax.swing.JLabel LblTelAdmin;
     private javax.swing.JTable TblRenglones;
     private javax.swing.JPanel content;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;

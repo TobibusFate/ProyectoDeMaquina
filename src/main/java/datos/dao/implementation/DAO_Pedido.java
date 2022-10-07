@@ -33,14 +33,26 @@ public class DAO_Pedido implements IDAO<Pedido> {
                 Proveedor prov = ManagerProveedor.getProveedor(rs.getLong("Ped_Prov_CUIT"));
                 Administrador admin = ManagerAdministrador.getAdministrador(rs.getInt("Ped_Admin_DNI"), rs.getString("Ped_Admin_USUARIO"));
             
-                list.add(new Pedido(
-                    rs.getInt("Ped_CODIGO"),
-                    rs.getDate("Ped_FECHAPEDIDO").toLocalDate(),
-                    rs.getDate("Ped_FECHAENTREGA").toLocalDate(),
-                    admin,
-                    prov
-                    )
-                );   
+                if (rs.getDate("Ped_FECHAENTREGA") != null) { 
+                    list.add(new Pedido(
+                        rs.getInt("Ped_CODIGO"),
+                        rs.getDate("Ped_FECHAPEDIDO").toLocalDate(),
+                        rs.getDate("Ped_FECHAENTREGA").toLocalDate(),
+                        admin,
+                        prov
+                        )
+                    );   
+                }
+                else {
+                    list.add(new Pedido(
+                        rs.getInt("Ped_CODIGO"),
+                        rs.getDate("Ped_FECHAPEDIDO").toLocalDate(),
+                        null,
+                        admin,
+                        prov
+                        )
+                    );
+                }
             }
             rs.close();
         } catch (SQLException e) {

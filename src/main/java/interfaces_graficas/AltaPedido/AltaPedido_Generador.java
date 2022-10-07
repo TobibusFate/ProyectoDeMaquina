@@ -5,6 +5,7 @@
  */
 package interfaces_graficas.AltaPedido;
 
+import interfaces_graficas.realizar_venta.MenuVendedor;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
@@ -118,8 +119,20 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void updateRenglonPedido(String rowName, String newValue, int column) {
         RenglonPedido rp = mapRenglones.get(rowName);
         switch (column) {
-            case 2: rp.setCantidad(Integer.parseInt(newValue)); break;
-            case 5: rp.setDescuento(Float.parseFloat(newValue)); break;
+            case 2: {
+                if ("".matches(newValue) || Integer.parseInt(newValue) <= 0) {
+                    JOptionPane.showMessageDialog(content, "Valor inválido, solo valores enteros positivos. \nIntente nuevamente.");
+                    rp.setCantidad(1);
+                }
+                else rp.setCantidad(Integer.parseInt(newValue));
+            } break;
+            case 5: {
+                if ("".matches(newValue) || !newValue.matches("\\d*(\\.\\d{0,2})?") || Float.parseFloat(newValue) < 0F || Float.parseFloat(newValue) > 100F) {
+                    JOptionPane.showMessageDialog(content, "Valor inválido, solo valores positivos (max 100%), con dos decimales como máximo. \nIntente nuevamente.");
+                    rp.setDescuento(0.0F);
+                }
+                else rp.setDescuento(Float.parseFloat(newValue));
+            } break;
         }
         mapRenglones.replace(rowName, rp);
     }
@@ -205,9 +218,16 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                 "Codigo", "Producto", "Cantidad", "U. Medida", "Precio Unitario", "% Bonif", "Subtotal"
             }
         ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+            };
             boolean[] canEdit = new boolean [] {
                 false, false, true, false, false, true, false
             };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -409,6 +429,9 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                 proveedor = ManagerProveedor.getProveedor(prov.getCuit());
             }
         }
+        if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
+            Btn_Continuar.setEnabled(true);
+        }
     }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
 
     private void FldCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUITActionPerformed
@@ -424,7 +447,9 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     }//GEN-LAST:event_FldDomicilioActionPerformed
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        // TODO add your handling code here:
+        MenuAdministrador mv = new MenuAdministrador(this.admin.getCuenta().getCuenta());
+        mv.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
     private void Btn_removeProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_removeProdActionPerformed
@@ -435,7 +460,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         else {
             // TODO: MessageDialog
         }
-        if (mapRenglones.isEmpty()) {
+        if (mapRenglones.isEmpty() || "CUIT".matches(FldCUIT1.getText())) {
             Btn_Continuar.setEnabled(false);
         }
         updateTable();
@@ -443,18 +468,10 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private void Btn_ContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_ContinuarActionPerformed
         // TODO add your handling code here:
-        Pedido pedido = new Pedido(
-                ManagerPedido.generarKey(),
-                admin,
-                proveedor
-        );
         
-        
-        ManagerPedido.cargarPedido(pedido, mapRenglones.values());
-        JOptionPane.showMessageDialog(null, "Alta de Pedido exitosa");
-        
-        // limpiar venta
-        
+        AltaPedido_Preview previewWindow = new AltaPedido_Preview(this);
+        this.setVisible(false);
+        previewWindow.setVisible(true);
     }//GEN-LAST:event_Btn_ContinuarActionPerformed
 
     private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
@@ -486,7 +503,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             }
             mapRenglones.replace(cbxText, rp);
         }
-        if (!mapRenglones.isEmpty()) {
+        if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
             Btn_Continuar.setEnabled(true);
         }
         updateTable();
@@ -556,6 +573,18 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         }
         FldMontoFinal.setText(Float.toString(value));
     }
+    
+    public Proveedor getProveedor() {
+        return proveedor;
+    }
+    public Administrador getAdministrador() {
+        return admin;
+    }
+    public Map<String, RenglonPedido> getRenglones() {
+        return mapRenglones;
+    }
+    
+    
     
     
     /**

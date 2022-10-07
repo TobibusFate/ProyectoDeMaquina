@@ -4,6 +4,7 @@
  */
 package interfaces_graficas.AltaPedido;
 
+import interfaces_graficas.BuscarPedido.BuscarPedido;
 import interfaces_graficas.LogIn;
 
 /**
@@ -30,6 +31,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         boton_cerrar_sesion = new javax.swing.JButton();
         boton_alta_pedido = new javax.swing.JButton();
+        boton_buscar_pedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,6 +49,13 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
+        boton_buscar_pedido.setText("Buscar Pedido");
+        boton_buscar_pedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_buscar_pedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -58,15 +67,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
                         .addComponent(boton_cerrar_sesion))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(45, 45, 45)
-                        .addComponent(boton_alta_pedido)))
-                .addContainerGap(264, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(boton_buscar_pedido)
+                            .addComponent(boton_alta_pedido))))
+                .addContainerGap(252, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(boton_alta_pedido)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(boton_buscar_pedido)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
                 .addComponent(boton_cerrar_sesion)
                 .addContainerGap())
         );
@@ -87,6 +100,12 @@ public class MenuAdministrador extends javax.swing.JFrame {
         LogIn li = new LogIn();
         li.setVisible(true);
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
+
+    private void boton_buscar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscar_pedidoActionPerformed
+        this.setVisible(false);
+        BuscarPedido bp = new BuscarPedido(username);
+        bp.setVisible(true);
+    }//GEN-LAST:event_boton_buscar_pedidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,6 +144,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton boton_alta_pedido;
+    private javax.swing.JButton boton_buscar_pedido;
     private javax.swing.JButton boton_cerrar_sesion;
     // End of variables declaration//GEN-END:variables
 }

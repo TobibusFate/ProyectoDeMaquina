@@ -4,6 +4,8 @@ import java.util.List;
 
 import datos.dao.implementation.DAO_Pedido;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import objects.Pedido;
 import objects.RenglonPedido;
 
@@ -19,6 +21,14 @@ public class ManagerPedido {
     
     public static int generarKey() {
         return dao_Pedido.generateNextKey();
+    }
+    
+    public static Map<Integer,Pedido> getMapPedidos() {
+        Map<Integer,Pedido> map = new HashMap<>();
+        for (Pedido p: dao_Pedido.read(null) ) {
+            map.put(p.getCodigo(), p);
+        }
+        return map;
     }
     
 }
