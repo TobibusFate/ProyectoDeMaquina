@@ -20,14 +20,16 @@ public class DAO_Producto implements IDAO<Producto> {
             // query para retornar el producto
             if (producto != null) {
                 rs = statement.executeQuery("SELECT * FROM Productos WHERE (Prod_CODIGO = '" +producto.getCodigoP()+"')");
-                list.add(new Producto(
-                        rs.getInt("Prod_CODIGO"),
-                        rs.getString("Prod_NOMBRE"),
-                        rs.getString("Prod_CATEGORIA"),
-                        rs.getInt("Prod_PRECIO"),
-                        rs.getInt("Prod_STOCK"),
-                        rs.getInt("Prod_STOCK_MINIMO")
-                        ));
+                while (rs.next()) {
+                    list.add(new Producto(
+                            rs.getInt("Prod_CODIGO"),
+                            rs.getString("Prod_NOMBRE"),
+                            rs.getString("Prod_CATEGORIA"),
+                            rs.getInt("Prod_PRECIO"),
+                            rs.getInt("Prod_STOCK"),
+                            rs.getInt("Prod_STOCK_MINIMO")
+                            ));
+                }
             // query para retornar lista de productos
             } else {
                 rs = statement.executeQuery("SELECT * FROM Productos ORDER BY Prod_CODIGO");

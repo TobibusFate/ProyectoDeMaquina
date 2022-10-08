@@ -66,7 +66,9 @@ public class DAO_Pedido implements IDAO<Pedido> {
     public boolean create(Pedido p) {
         Connection conn = DatosBase.getInstance().getConnection();
         
-        return DB_BasicQuerys.insertTuple(p.getKeyNamesList(), p.getAttributeValuesList(), "Pedidos", conn);
+        boolean result = DB_BasicQuerys.insertTuple(p.getKeyNamesList(), p.getAttributeValuesList(), "Pedidos", conn);
+        DatosBase.getInstance().closeConnection();
+        return result;
     }
 
     @Override
@@ -76,7 +78,11 @@ public class DAO_Pedido implements IDAO<Pedido> {
 
     @Override
     public boolean delete(Pedido p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = DatosBase.getInstance().getConnection();
+        
+        boolean result = DB_BasicQuerys.deleteTuple(p.getKeyNamesList(), p.getKeyValuesList(), "Pedidos", conn);
+        DatosBase.getInstance().closeConnection();
+        return result;
     }
 
     public int generateNextKey() {

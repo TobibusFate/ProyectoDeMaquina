@@ -136,6 +136,34 @@ public class DB_BasicQuerys {
             return false;
         }
     }
+    
+    public static ResultSet customFindQuery(String tableNames, String columns, List<String> names, List<String> values, Connection conn) {
+        try {
+            ResultSet rs = null;
+            if (conn == null) throw new SQLException("Connection error"); 
+            if (values.isEmpty() || names.isEmpty()) throw new SQLException("Missing columns");
+            if (values.size() != names.size()) throw new SQLException("Not matching quantities");
+            
+            String query_return = "SELECT DISTINCT "+columns+" FROM "+tableNames+" WHERE "+names.get(0)+" = ?";
+            for (int i = 1; i < names.size(); i++) {
+                String[] str = isEnumType(values.get(i));
+                if (str == null) query_return += " AND "+names.get(i)+" = ?";
+                else query_return += " AND "+names.get(i)+" = ?::"+str[1];
+            }
+
+            PreparedStatement p_query = conn.prepareStatement(query_return);
+            finishStatement(p_query, values);
+            rs = p_query.executeQuery();
+            
+            return rs;
+        }catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        
+    }
+    
+    
     /**************************************************************************/
     
     // A partir de una query: "select * from table where cod = x"

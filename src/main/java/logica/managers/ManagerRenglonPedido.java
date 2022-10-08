@@ -4,6 +4,7 @@ package logica.managers;
 import java.util.List;
 
 import datos.dao.implementation.DAO_RenglonPedido;
+import java.util.Map;
 import objects.Pedido;
 import objects.RenglonPedido;
 
@@ -16,6 +17,18 @@ public class ManagerRenglonPedido {
         rp.setCodigo(ManagerRenglon.generarKey());
         ManagerRenglon.cargarRenglon(rp);
         dao_renglonPedido.create(rp);
+    }
+    
+    public static boolean eliminarRenglonPedido(RenglonPedido rp) {
+        int i = 0;
+        if (!dao_renglonPedido.delete(rp)) i += 1;
+        if (!ManagerRenglon.eliminarRenglon(rp)) i += 1;
+        return i == 0;
+    }
+    
+    public static List<RenglonPedido> getReglonesPorPedido(Pedido p) {
+        
+        return dao_renglonPedido.read(new RenglonPedido(p.getCodigo(), null, null, 0, null, 0, 0));
     }
     
 }

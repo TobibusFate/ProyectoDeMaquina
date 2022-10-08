@@ -22,6 +22,21 @@ public class RenglonPedido extends Renglon {
         this.tipoCantidad = tipo;
     }
     
+    public RenglonPedido(int codigo, Producto prod, Pedido pedido, int cantidad, TipoCantidad tipo, float descuento) {
+        super(codigo, prod, prod.getPrecioP()*cantidad, descuento);
+        this.cantidad = cantidad;
+        this.pedido = pedido;
+        this.tipoCantidad = tipo;
+    }
+    
+    public RenglonPedido(int codigo, Producto prod, Pedido pedido, int cantidad, TipoCantidad tipo, float montoTotal, float descuento) {
+        super(codigo, prod, montoTotal, descuento);
+        this.cantidad = cantidad;
+        this.pedido = pedido;
+        this.tipoCantidad = tipo;
+    }
+    
+    
     public TipoCantidad getTipoCantidad() {
         return tipoCantidad;
     }

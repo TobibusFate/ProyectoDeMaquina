@@ -20,5 +20,9 @@ public class ManagerProducto {
         dao_producto.update(producto);
 
     }
+    
+    public static Producto getProducto(int codigo) {
+        return dao_producto.read(new Producto(codigo)).get(0);
+    }
     /** PARTE LOGICA ENCARGADA DE LOS PRODUCTOS */
 }
