@@ -39,7 +39,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
             throw new RuntimeException(e);
         }
 
-        /** query para crear venta*/
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 

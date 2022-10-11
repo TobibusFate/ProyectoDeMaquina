@@ -116,7 +116,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void realizar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_ventaActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
-        CrearVenta cv = new CrearVenta(this.usuario);
+        RegistrarVenta cv = new RegistrarVenta(this.usuario);
         cv.setVisible(true);
     }//GEN-LAST:event_realizar_ventaActionPerformed
 

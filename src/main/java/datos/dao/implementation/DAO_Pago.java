@@ -42,7 +42,7 @@ public class DAO_Pago implements IDAO<Pago> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        /** query para crear venta*/
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 

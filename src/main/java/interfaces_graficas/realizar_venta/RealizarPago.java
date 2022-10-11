@@ -18,15 +18,15 @@ import objects.Pago;
  */
 public class RealizarPago extends javax.swing.JFrame {
     
-    private static  CrearVenta crearVenta = null;
+    private static RegistrarVenta registrarVenta = null;
     /**
      * Creates new form RealizarPago
      */
-    public RealizarPago(String monto, CrearVenta cv) {
+    public RealizarPago(String monto, RegistrarVenta cv) {
         initComponents();
         addList();
         cerrar();
-        crearVenta = cv;
+        registrarVenta = cv;
         tipo_pago.setSelectedItem(TipoDePago.EFECTIVO.getTipo());
         text_cuotas.setText("1");
         texto_dni.setEditable(false);
@@ -311,7 +311,7 @@ public class RealizarPago extends javax.swing.JFrame {
             terminar = false;
         }
         if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
-                !crearVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+                !registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
             JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
             terminar = false;
         }
@@ -340,7 +340,7 @@ public class RealizarPago extends javax.swing.JFrame {
                 tipoPago);
 
         if (pago.getMetodoPago().equals(TipoDePago.FIADO.getTipo())) {
-            pago.setCliente(crearVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));
+            pago.setCliente(registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));
             pago.setFechaP(now);
             pago.setFechaLimiteP(now.plusMonths(1));
         } else if (pago.getMetodoPago().equals(TipoDePago.EFECTIVO.getTipo())) {
@@ -353,7 +353,7 @@ public class RealizarPago extends javax.swing.JFrame {
             pago.setFechaP(now);
             pago.setFechaLimiteP(now);
         }
-        crearVenta.addPago(pago);
+        registrarVenta.addPago(pago);
         this.dispose();
 
     }
