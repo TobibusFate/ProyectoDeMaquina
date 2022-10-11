@@ -1,5 +1,6 @@
 package datos.dao.implementation;
 
+import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Renglon;
@@ -10,12 +11,41 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
+import logica.managers.ManagerProducto;
+import objects.Persona;
+import objects.Producto;
 
 public class DAO_Renglon implements IDAO<Renglon> {
+    
     @Override
     public List<Renglon> read(Renglon renglon) {
-        return null;
+        Connection conn = DatosBase.getInstance().getConnection();
+        List<Renglon> list = new ArrayList<>();
+        ResultSet rs = null;
+        try {
+            List<String> tempList1 = new ArrayList<>() {{add("Ren_CODIGO");}};
+            List<String> tempList2 = new ArrayList<>();
+            tempList2.add(String.valueOf(renglon.getCodigo()));
+            if (renglon != null) rs = DB_BasicQuerys.findTuple(tempList1, tempList2, "Renglon", conn);
+            else rs = DB_BasicQuerys.findTuple(null, null, "Renglon", conn);
+            
+            while (rs.next()) {
+                Producto prod = ManagerProducto.getProducto(rs.getInt("Ren_Prod_CODIGO"));
+                renglon.setCodigo(rs.getInt("Ren_CODIGO"));
+                renglon.setProducto(prod);
+                renglon.setDescuento(rs.getFloat("Ren_DESCUENTO"));
+                renglon.setMontoTotal(rs.getFloat("Ren_MONTOTOTAL"));
+                list.add(renglon);
+            }
+            
+            rs.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DatosBase.getInstance().closeConnection();
+        return list;
     }
 
     @Override
@@ -50,7 +80,15 @@ public class DAO_Renglon implements IDAO<Renglon> {
 
     @Override
     public boolean delete(Renglon renglon) {
-        return false;
+        Connection conn = DatosBase.getInstance().getConnection();
+        
+        List<String> names = new ArrayList<>() {{add("Ren_CODIGO");}};
+        List<String> values = new ArrayList<>();
+        values.add(String.valueOf(renglon.getCodigo()));
+        
+        boolean result = DB_BasicQuerys.deleteTuple(names, values, "Renglon", conn);
+        DatosBase.getInstance().closeConnection();
+        return result;
     }
 
     public int generateNextKey() {

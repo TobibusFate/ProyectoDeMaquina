@@ -45,7 +45,9 @@ public class DAO_Proveedor implements IDAO<Proveedor> {
     public boolean create(Proveedor p) {
         Connection conn = DatosBase.getInstance().getConnection();
         
-        return DB_BasicQuerys.insertTuple(p.getKeyNamesList(), p.getAttributeValuesList(), "Proveedores", conn);
+        boolean result = DB_BasicQuerys.insertTuple(p.getKeyNamesList(), p.getAttributeValuesList(), "Proveedores", conn);
+        DatosBase.getInstance().closeConnection();
+        return result;
     }
 
     @Override
@@ -57,7 +59,9 @@ public class DAO_Proveedor implements IDAO<Proveedor> {
     public boolean delete(Proveedor p) {
         Connection conn = DatosBase.getInstance().getConnection();
         
-        return DB_BasicQuerys.deleteTuple(p.getKeyNamesList(), p.getKeyValuesList(), "Proveedores", conn); 
+        boolean result = DB_BasicQuerys.deleteTuple(p.getKeyNamesList(), p.getKeyValuesList(), "Proveedores", conn); 
+        DatosBase.getInstance().closeConnection();
+        return result;
     }
     
     

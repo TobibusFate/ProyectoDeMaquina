@@ -19,6 +19,15 @@ public class ManagerPedido {
         }
     }
     
+    public static boolean eliminarPedido(Pedido p, Collection<RenglonPedido> lrp) {
+        int i = 0;
+        for (RenglonPedido rp: lrp) {
+            if (!ManagerRenglonPedido.eliminarRenglonPedido(rp)) i += 1;
+        }
+        if (!dao_Pedido.delete(p)) i += 1;
+        return i == 0;
+    }
+    
     public static int generarKey() {
         return dao_Pedido.generateNextKey();
     }
@@ -29,6 +38,10 @@ public class ManagerPedido {
             map.put(p.getCodigo(), p);
         }
         return map;
+    }
+    
+    public static Pedido getPedido(Pedido p) {
+        return dao_Pedido.read(p).get(0);
     }
     
 }
