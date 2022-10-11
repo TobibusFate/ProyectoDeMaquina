@@ -9,7 +9,6 @@ public class ManagerProducto {
     private static DAO_Producto dao_producto = new DAO_Producto();
     public static HashMap<String, Producto> getHashMapProductos() {
         HashMap <String, Producto> map = new HashMap<>();
-
         for (Producto producto : dao_producto.read(null)) {
             map.put(producto.getNombreP(),producto);
         }
@@ -18,7 +17,6 @@ public class ManagerProducto {
     public static void updateStock(Producto producto, int unidades) {
         producto.setStockP(producto.getStockP() - unidades);
         dao_producto.update(producto);
-
     }
     
     public static Producto getProducto(int codigo) {

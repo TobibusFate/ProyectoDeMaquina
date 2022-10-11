@@ -48,7 +48,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
         listaProductos = ManagerProducto.getHashMapProductos();
         updateCombobox();
     }
-    
     public void addPago (Pago p) {
         listaPagos.add(p);
         if (!listaPagos.isEmpty()) {
@@ -56,11 +55,9 @@ public class RegistrarVenta extends javax.swing.JFrame {
         }
         updateMontoRestante();
     }
-
     public HashMap<Integer, Cliente> getListaClientes() {
         return listaClientes;
     }
-
     private void addList() {
         buscador_productos.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -114,7 +111,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
             }
         });
     }
-
     private void updateRenglonVenta (String nombreFila, String nuevoValor, int columna){
         RenglonVenta renglonVenta = listaRenglon.get(nombreFila);
         switch (columna){
@@ -135,6 +131,74 @@ public class RegistrarVenta extends javax.swing.JFrame {
         }
         listaRenglon.replace(nombreFila,renglonVenta);
     }
+    private void updateCombobox(){
+        List<String> lista = new ArrayList<>();
+        for (int i = 0;i<combobox_listado_productos.getItemCount();i++) {
+            lista.add(combobox_listado_productos.getItemAt(i).toLowerCase());
+        }
+        for (Producto p: listaProductos.values()){
+            if (p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
+                if (!lista.contains(p.getNombreP().toLowerCase())) {
+                    combobox_listado_productos.addItem(p.getNombreP().toLowerCase());
+                }
+            }
+            if (lista.contains(p.getNombreP().toLowerCase())) {
+                if (!p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
+                    combobox_listado_productos.removeItem(p.getNombreP().toLowerCase());
+                }
+            }
+        }
+    }
+    public void prepararNuevaCompra() {
+        listaPagos.clear();
+        boton_vaciar_pagos.setEnabled(false);
+        boton_realizar_pago.setText("Realizar Pago");
+        boton_realizar_pago.setEnabled(false);
+        listaRenglon.clear();
+        listaProductos = ManagerProducto.getHashMapProductos();
+        listaClientes = ManagerCliente.getHashMapClientes();
+        updateTable();
+    }
+
+    public void updateTable (){
+        model = (DefaultTableModel) this.tabla_renglones.getModel();
+        /** LIMPIAR TABLA*/
+        while (model.getRowCount()>0){
+            model.removeRow(0);
+        }
+        /** CARGAR  TABLA*/
+        for (RenglonVenta rv: listaRenglon.values()){
+            model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento()});
+        }
+        float value = 0;
+        for (RenglonVenta rv : listaRenglon.values()) {
+            value += rv.getMontoTotal();
+        }
+        valor_total_value.setText(String.valueOf(value));
+        updateMontoRestante();
+    }
+
+    public void updateMontoRestante() {
+        float monto_pagado = 0;
+        for (Pago p: listaPagos) {
+            monto_pagado+= p.getMontoP();
+        }
+        float restanteActual = Float.parseFloat(valor_total_value.getText()) - monto_pagado;
+        if (restanteActual <= 0) {
+            //actualizar restante actual
+            //informar vuelto
+            text_monto_restante.setText("Vuelto");
+            monto_restante_value.setText(String.valueOf(restanteActual));
+            if (!listaRenglon.isEmpty()) {
+                boton_realizar_pago.setText("Finalizar Compra");
+            }
+        } else {
+            text_monto_restante.setText("Monto Restante");
+            monto_restante_value.setText(String.valueOf(restanteActual));
+            boton_realizar_pago.setText("Realizar Pago");
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -341,29 +405,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
     private void buscador_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscador_productosActionPerformed
         // TODO add your handling code here:
-
-
-
     }//GEN-LAST:event_buscador_productosActionPerformed
-
-    private void updateCombobox(){
-        List<String> lista = new ArrayList<>();
-        for (int i = 0;i<combobox_listado_productos.getItemCount();i++) {
-            lista.add(combobox_listado_productos.getItemAt(i).toLowerCase());
-        }
-        for (Producto p: listaProductos.values()){
-            if (p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
-                if (!lista.contains(p.getNombreP().toLowerCase())) {
-                    combobox_listado_productos.addItem(p.getNombreP().toLowerCase());
-                }
-            }
-            if (lista.contains(p.getNombreP().toLowerCase())) {
-                if (!p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
-                    combobox_listado_productos.removeItem(p.getNombreP().toLowerCase());
-                }
-            }
-        }
-    }
 
     private void boton_realizar_pagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_realizar_pagoActionPerformed
         // TODO add your handling code here:
@@ -387,16 +429,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         
         /** ejecutar seleccion pago la cantidad de veces que indique value*/
     }//GEN-LAST:event_boton_realizar_pagoActionPerformed
-    public void prepararNuevaCompra() {
-        listaPagos.clear();
-        boton_vaciar_pagos.setEnabled(false);
-        boton_realizar_pago.setText("Realizar Pago");
-        boton_realizar_pago.setEnabled(false);
-        listaRenglon.clear();
-        listaProductos = ManagerProducto.getHashMapProductos();
-        listaClientes = ManagerCliente.getHashMapClientes();
-        updateTable();
-    }
+
 
     private void combobox_listado_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combobox_listado_productosActionPerformed
         // TODO add your handling code here:
@@ -425,8 +458,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
             } else {
                 listaRenglon.put(text,new RenglonVenta(unidades_value,listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
             }
-
-
         }
         if (!listaRenglon.isEmpty()){
             boton_realizar_pago.setEnabled(true);
@@ -436,44 +467,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
                 
     }//GEN-LAST:event_boton_agregarActionPerformed
 
-    public void updateTable (){
-        model = (DefaultTableModel) this.tabla_renglones.getModel();
-        /** LIMPIAR TABLA*/
-        while (model.getRowCount()>0){
-            model.removeRow(0);
-        }
-        /** CARGAR  TABLA*/
-        for (RenglonVenta rv: listaRenglon.values()){
-            model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento()});
-        }
-        float value = 0;
-        for (RenglonVenta rv : listaRenglon.values()) {
-            value += rv.getMontoTotal();
-        }
-        valor_total_value.setText(String.valueOf(value));
-        updateMontoRestante();
-    }
 
-    public void updateMontoRestante() {
-        float monto_pagado = 0;
-        for (Pago p: listaPagos) {
-            monto_pagado+= p.getMontoP();
-        }
-        float restanteActual = Float.parseFloat(valor_total_value.getText()) - monto_pagado;
-        if (restanteActual <= 0) {
-            //actualizar restante actual
-            //informar vuelto
-            text_monto_restante.setText("Vuelto");
-            monto_restante_value.setText(String.valueOf(restanteActual));
-            if (!listaRenglon.isEmpty()) {
-                boton_realizar_pago.setText("Finalizar Compra");
-            }
-        } else {
-            text_monto_restante.setText("Monto Restante");
-            monto_restante_value.setText(String.valueOf(restanteActual));
-            boton_realizar_pago.setText("Realizar Pago");
-        }
-    }
     
 
     private void unidadesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unidadesActionPerformed

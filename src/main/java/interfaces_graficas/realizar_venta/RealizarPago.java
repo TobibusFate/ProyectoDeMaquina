@@ -103,7 +103,7 @@ public class RealizarPago extends javax.swing.JFrame {
         });*/
     }
 
-    public void cerrar () {
+    private void cerrar () {
         try {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             addWindowListener(new WindowAdapter() {
@@ -117,7 +117,7 @@ public class RealizarPago extends javax.swing.JFrame {
         }
     }
 
-    public void destruir () {
+    private void destruir () {
         this.dispose();
     }
 
