@@ -6,6 +6,7 @@ import objects.TipoDePago;
 import objects.Venta;
 
 import java.util.Collection;
+import java.util.HashMap;
 
 public class ManagerPago {
     private static DAO_Pago dao_pago = new DAO_Pago();
@@ -18,5 +19,13 @@ public class ManagerPago {
                 ManagerCliente.agregarDeuda(p.getCliente(),p.getMontoP());
             }
         }
+    }
+
+    public static HashMap<Integer, Pago> getPagosToVenta(Venta venta) {
+        HashMap<Integer, Pago> pagoHashMap = new HashMap<>();
+        for (Pago p: dao_pago.readPagoToVenta(venta)) {
+            pagoHashMap.put(p.getCodigoP(),p); /** REVISAR CONSULTA */
+        }
+        return pagoHashMap;
     }
 }
