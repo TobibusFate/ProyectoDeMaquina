@@ -8,7 +8,6 @@ import logica.managers.ManagerVenta;
 import objects.Venta;
 
 import java.util.HashMap;
-import java.util.List;
 
 /**
  *
@@ -16,13 +15,16 @@ import java.util.List;
  */
 public class BuscarVenta extends javax.swing.JFrame {
     private static HashMap<Integer, Venta> listaVentas = new HashMap<>();
-
+    private int tipo;
+    
     /**
      * Creates new form BuscarVenta
      */
-    public BuscarVenta() {
+    public BuscarVenta(int tipo) {
         initComponents();
+        this.tipo = tipo;
         listaVentas = ManagerVenta.getAllVentas();
+        System.out.println("a");
     }
 
     /**
@@ -47,15 +49,30 @@ public class BuscarVenta extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "Vendedor", "Estado (Cerrada)", "Monto", "Hora", "Fecha", "Productos", "Pagos"
             }
-        ));
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, true, true
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Mostrar");
@@ -131,7 +148,7 @@ public class BuscarVenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarVenta().setVisible(true);
+                new BuscarVenta(-1).setVisible(true);
             }
         });
     }

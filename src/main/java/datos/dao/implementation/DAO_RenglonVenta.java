@@ -3,11 +3,14 @@ package datos.dao.implementation;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.RenglonVenta;
+import objects.Venta;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
@@ -49,5 +52,27 @@ public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
     @Override
     public boolean delete(RenglonVenta renglonVenta) {
         return false;
+    }
+
+    public List<RenglonVenta> readRenglonVentaToVenta(Venta venta ) {
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        List<RenglonVenta> list = new ArrayList<>();
+        ResultSet rs;
+
+        try {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM Renglon_Venta WHERE (RenV_Venta_CODIGO = '" +venta.getCodigoV()+"')");
+            while (rs.next()) {
+                list.add(new RenglonVenta(
+                        rs.getInt("RenV_CODIGO"),
+                        rs.getInt("RenV_UNIDADES")
+                ));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return list;
     }
 }

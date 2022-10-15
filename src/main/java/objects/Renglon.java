@@ -26,6 +26,7 @@ public abstract class Renglon {
         this.descuento = descuento;
     }
 
+
     public int getCodigo() {
         return codigo;
     }

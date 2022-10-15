@@ -6,6 +6,7 @@ package interfaces_graficas.realizar_venta;
 
 
 import interfaces_graficas.LogIn;
+import interfaces_graficas.buscar_venta.BuscarVenta;
 
 /**
  *
@@ -20,7 +21,6 @@ public class MenuVendedor extends javax.swing.JFrame {
     public MenuVendedor(String usuario) {
         initComponents();
         this.usuario = usuario;
-        jButton1.setEnabled(false);
         jButton3.setEnabled(false);
         jButton4.setEnabled(false);
         jButton6.setEnabled(false);
@@ -38,7 +38,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         boton_cerrar_sesion = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        boton_buscar_venta = new javax.swing.JButton();
         realizar_venta = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
@@ -54,10 +54,10 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         jButton6.setText("Buscar Ciente");
 
-        jButton1.setText("Buscar Venta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        boton_buscar_venta.setText("Buscar Venta");
+        boton_buscar_venta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                boton_buscar_ventaActionPerformed(evt);
             }
         });
 
@@ -82,7 +82,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(boton_buscar_venta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(64, 64, 64)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -97,7 +97,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(boton_buscar_venta)
                     .addComponent(realizar_venta))
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -115,9 +115,10 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void realizar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_realizar_ventaActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
-        RegistrarVenta cv = new RegistrarVenta(this.usuario);
+        RegistrarVenta cv = new RegistrarVenta(this.usuario,0);
         cv.setVisible(true);
+        this.dispose();
+
     }//GEN-LAST:event_realizar_ventaActionPerformed
 
     private void boton_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cerrar_sesionActionPerformed
@@ -127,9 +128,12 @@ public class MenuVendedor extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void boton_buscar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscar_ventaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        BuscarVenta bv = new BuscarVenta(0);
+        bv.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_boton_buscar_ventaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,8 +171,8 @@ public class MenuVendedor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boton_buscar_venta;
     private javax.swing.JButton boton_cerrar_sesion;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;

@@ -1,7 +1,5 @@
 import datos.DB_Init;
-import datos.dao.implementation.DAO_Venta;
 import interfaces_graficas.LogIn;
-import objects.Venta;
 
 
 public class Main {

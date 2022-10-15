@@ -3,6 +3,7 @@ package logica.managers;
 import datos.dao.implementation.DAO_Renglon;
 import objects.Renglon;
 import objects.RenglonPedido;
+import objects.RenglonVenta;
 
 public class ManagerRenglon {
     private static DAO_Renglon dao_renglon = new DAO_Renglon();
@@ -11,6 +12,7 @@ public class ManagerRenglon {
         dao_renglon.create(renglon);
         return renglon;
     }
+
 
     public static int generarKey (){
         return dao_renglon.generateNextKey();
@@ -22,5 +24,9 @@ public class ManagerRenglon {
     
     public static boolean eliminarRenglon(Renglon renglon) {
         return dao_renglon.delete(renglon);
+    }
+
+    public static Renglon getRenglonVenta(int codigo) {
+        return dao_renglon.read((Renglon) new RenglonVenta(codigo)).get(0);
     }
 }

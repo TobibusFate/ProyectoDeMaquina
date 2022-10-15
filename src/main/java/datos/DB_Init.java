@@ -140,7 +140,6 @@ public class DB_Init {
                 + "FOREIGN KEY(Pago_Venta_CODIGO) REFERENCES Ventas(Venta_CODIGO)"
                 + ")"
             );
-            
 
             query.execute("CREATE TABLE IF NOT EXISTS Renglon ("
                 + "Ren_CODIGO INTEGER, "

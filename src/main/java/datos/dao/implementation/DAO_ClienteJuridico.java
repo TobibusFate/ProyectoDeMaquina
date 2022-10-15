@@ -2,8 +2,6 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
-import objects.Cliente;
-import objects.Cliente_Fisico;
 import objects.Cliente_Juridico;
 
 import java.sql.Connection;

@@ -3,15 +3,13 @@ package datos.dao.implementation;
 import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
+import objects.Proveedor;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import objects.Producto;
-import objects.Proveedor;
 
 
 public class DAO_Proveedor implements IDAO<Proveedor> {

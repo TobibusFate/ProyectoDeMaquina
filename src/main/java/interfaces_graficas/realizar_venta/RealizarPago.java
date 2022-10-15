@@ -4,13 +4,12 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import objects.Pago;
 import objects.TipoDePago;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-
-import objects.Pago;
 
 /**
  *
@@ -326,6 +325,7 @@ public class RealizarPago extends javax.swing.JFrame {
 
     public void terminarPago() {
         LocalDate now = LocalDate.now();
+
         String tipoPago;
         if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_CREDITO.getTipo())) {
             tipoPago = "TarjetaCredito";

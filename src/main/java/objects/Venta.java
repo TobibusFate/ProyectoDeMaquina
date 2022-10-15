@@ -1,47 +1,53 @@
 package objects;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Venta {
     private int codigoV;
-    private LocalDate fechaV;
-    private LocalDateTime horaV;
+    private Date fechaV;
+    private Time horaV;
     private boolean cerradaV;
     private float montoV;
     private String cuentaVendedor;
-
-    private List<RenglonVenta> renglonesDeProductos;
 
     public Venta(int codigoV) {
         this.codigoV = codigoV;
     }
 
-    public Venta( float montoV, boolean cerradaV, String cuentaVendedor) {
-        this.cerradaV = cerradaV;
-        this.montoV = montoV;
-        this.cuentaVendedor = cuentaVendedor;
-    }
-
-    public Venta(int codigoV, boolean cerradaV, float montoV, List<RenglonVenta> renglonesDeProductos) {
-        this.codigoV = codigoV;
-        this.cerradaV = cerradaV;
-        this.montoV = montoV;
-        this.renglonesDeProductos = renglonesDeProductos;
-    }
-
-    public Venta(int codigoV, LocalDate fechaV, LocalDateTime horaV, boolean cerradaV, float montoV, String cuentaVendedor, List<RenglonVenta> renglonesDeProductos) {
+    public Venta(int codigoV, String cuentaVendedor, boolean cerradaV, float montoV , Date fechaV, Time horaV) {
         this.codigoV = codigoV;
         this.fechaV = fechaV;
         this.horaV = horaV;
         this.cerradaV = cerradaV;
         this.montoV = montoV;
         this.cuentaVendedor = cuentaVendedor;
-        this.renglonesDeProductos = renglonesDeProductos;
     }
+
+    public Venta(float montoV, boolean cerradaV, String cuentaVendedor) {
+        this.cerradaV = cerradaV;
+        this.montoV = montoV;
+        this.cuentaVendedor = cuentaVendedor;
+    }
+
+    public Venta(int codigoV, boolean cerradaV, float montoV) {
+        this.codigoV = codigoV;
+        this.cerradaV = cerradaV;
+        this.montoV = montoV;
+    }
+
+    public Venta(int codigoV, Date fechaV, Time horaV, boolean cerradaV, float montoV, String cuentaVendedor) {
+        this.codigoV = codigoV;
+        this.fechaV = fechaV;
+        this.horaV = horaV;
+        this.cerradaV = cerradaV;
+        this.montoV = montoV;
+        this.cuentaVendedor = cuentaVendedor;
+    }
+
+
 
     public int getCodigoV() {
         return codigoV;
@@ -59,19 +65,19 @@ public class Venta {
         this.cuentaVendedor = cuentaVendedor;
     }
 
-    public LocalDate getFechaV() {
+    public Date getFechaV() {
         return fechaV;
     }
 
-    public void setFechaV(LocalDate fechaV) {
+    public void setFechaV(Date fechaV) {
         this.fechaV = fechaV;
     }
 
-    public LocalDateTime getHoraV() {
+    public Time getHoraV() {
         return horaV;
     }
 
-    public void setHoraV(LocalDateTime horaV) {
+    public void setHoraV(Time horaV) {
         this.horaV = horaV;
     }
 
@@ -91,13 +97,6 @@ public class Venta {
         this.montoV = montoV;
     }
 
-    public List<RenglonVenta> getRenglonesDeProductos() {
-        return renglonesDeProductos;
-    }
-
-    public void setRenglonesDeProductos(List<RenglonVenta> renglonesDeProductos) {
-        this.renglonesDeProductos = renglonesDeProductos;
-    }
 
     public List<String> getKeyNamesList() {
         List<String> l = new ArrayList<>();

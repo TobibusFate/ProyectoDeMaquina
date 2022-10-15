@@ -1,12 +1,11 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_RenglonVenta;
-import objects.Renglon;
 import objects.RenglonVenta;
 import objects.Venta;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 
 public class ManagerRenglonVenta {
     private static DAO_RenglonVenta dao_renglonVenta = new DAO_RenglonVenta();
@@ -21,4 +20,16 @@ public class ManagerRenglonVenta {
         }
     }
 
+    public static ArrayList<RenglonVenta> getRenglonesToVenta(Venta venta) {
+        ArrayList<RenglonVenta> listaRenglonVenta = new ArrayList<>();
+        for (RenglonVenta rv: dao_renglonVenta.readRenglonVentaToVenta(venta)) {
+            rv.setVenta(venta);
+            RenglonVenta local = (RenglonVenta) ManagerRenglon.getRenglonVenta(rv.getCodigo());
+            rv.setDescuento(local.getDescuento());
+            rv.setMontoTotal(local.getMontoTotal());
+            rv.setProducto(local.getProducto());
+            listaRenglonVenta.add(rv);
+        }
+        return listaRenglonVenta;
+    }
 }

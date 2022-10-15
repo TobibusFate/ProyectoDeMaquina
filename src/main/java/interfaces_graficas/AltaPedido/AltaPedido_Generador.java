@@ -5,27 +5,21 @@
  */
 package interfaces_graficas.AltaPedido;
 
-import interfaces_graficas.realizar_venta.MenuVendedor;
+import logica.managers.ManagerAdministrador;
+import logica.managers.ManagerProducto;
+import logica.managers.ManagerProveedor;
+import objects.*;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JOptionPane;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableModel;
-import logica.managers.ManagerAdministrador;
-import logica.managers.ManagerPedido;
-import logica.managers.ManagerProducto;
-import logica.managers.ManagerProveedor;
-import objects.Administrador;
-import objects.Pedido;
-import objects.Producto;
-import objects.Proveedor;
-import objects.RenglonPedido;
-import objects.TipoCantidad;
 
 /**
  *

@@ -1,12 +1,10 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_Proveedor;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import objects.Proveedor;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ManagerProveedor {
     private static DAO_Proveedor dao_Proveedor = new DAO_Proveedor();

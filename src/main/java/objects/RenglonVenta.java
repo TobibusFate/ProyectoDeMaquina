@@ -6,24 +6,29 @@ import java.util.List;
 public class RenglonVenta extends Renglon {
     private int unidades;
     private Venta venta;
-    
+
+    public RenglonVenta(int codigo) {
+        super(codigo);
+    }
+
+    public RenglonVenta(int codigo, int unidades) {
+        super(codigo);
+        this.unidades = unidades;
+    }
+
     public RenglonVenta(int unidades, Producto producto) {
         super(producto, producto.getPrecioP()*unidades,0F);
         this.unidades = unidades;
-        this.venta = venta;
     }
 
     public RenglonVenta(float montoTotal, float descuento, int unidades, Producto producto) {
         super(producto, montoTotal, descuento);
         this.unidades = unidades;
-        this.venta = venta;
     }
 
     public int getUnidades() {
         return unidades;
     }
-
-
 
     public Venta getVenta() {
         return venta;

@@ -33,4 +33,13 @@ public class ManagerCliente {
         cliente.setDeuda(cliente.getDeuda()+monto);
         dao_cliente.update(cliente);
     }
+
+    public static Cliente getCliente(int dni) {
+        Cliente c = null;
+        c = ManagerClienteFisico.getClienteFisico(dni);
+        if (c == null) {
+            c = ManagerClienteJuridico.getCLienteJurudico(dni);
+        }
+        return c;
+    }
 }

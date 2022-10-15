@@ -1,5 +1,4 @@
 interfaces_graficas\realizar_venta\RealizarPago$4.class
-interfaces_graficas\realizar_venta\CrearVenta$3.class
 datos\dao\implementation\DAO_Trabajador.class
 logica\managers\ManagerClienteJuridico.class
 objects\RenglonPedido.class
@@ -8,7 +7,6 @@ datos\dao\implementation\DAO_Venta.class
 interfaces_graficas\AltaPedido\MenuAdministrador$2.class
 interfaces_graficas\realizar_venta\RealizarPago$1.class
 logica\managers\ManagerRenglon.class
-interfaces_graficas\realizar_venta\CrearVenta$6.class
 objects\Cuenta.class
 interfaces_graficas\BuscarPedido\BuscarPedido$2.class
 objects\Pago.class
@@ -19,10 +17,8 @@ datos\dao\implementation\DAO_Cuenta.class
 objects\Trabajador.class
 objects\Venta.class
 datos\dao\implementation\DAO_Administrador.class
-interfaces_graficas\realizar_venta\CrearVenta$9.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador.class
 logica\managers\ManagerCuenta.class
-interfaces_graficas\realizar_venta\CrearVenta$12.class
 interfaces_graficas\realizar_venta\RealizarPago$7.class
 logica\managers\ManagerProveedor.class
 interfaces_graficas\BuscarPedido\BuscarPedido.class
@@ -31,16 +27,13 @@ interfaces_graficas\BuscarPedido\BuscarPedido$1.class
 interfaces_graficas\LogIn$3.class
 datos\DatosBase.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$13.class
-interfaces_graficas\realizar_venta\CrearVenta$8.class
 logica\managers\ManagerAdministrador.class
 objects\Administrador.class
 Main.class
 datos\DB_BasicQuerys.class
-interfaces_graficas\realizar_venta\CrearVenta$1.class
 interfaces_graficas\AltaPedido\AltaPedido_Preview$2.class
 interfaces_graficas\realizar_venta\RealizarPago.class
 interfaces_graficas\realizar_venta\RealizarPago$6.class
-interfaces_graficas\realizar_venta\CrearVenta$13.class
 objects\Cliente_Fisico.class
 interfaces_graficas\BuscarPedido\BuscarPedido$7.class
 objects\Proveedor.class
@@ -54,7 +47,6 @@ logica\managers\ManagerCliente.class
 interfaces_graficas\AltaPedido\AltaPedido_Preview$3.class
 interfaces_graficas\BuscarPedido\BuscarPedido$8.class
 datos\dao\IDAO.class
-interfaces_graficas\realizar_venta\CrearVenta$7.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$14.class
 datos\dao\implementation\DAO_Trabajador$1.class
 interfaces_graficas\BuscarPedido\BuscarPedido$6.class
@@ -82,7 +74,6 @@ datos\dao\implementation\DAO_RenglonPedido.class
 interfaces_graficas\AltaPedido\AltaPedido_Preview$4.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$1.class
 interfaces_graficas\realizar_venta\RealizarPago$3.class
-interfaces_graficas\realizar_venta\CrearVenta.class
 interfaces_graficas\AltaPedido\AltaPedido_Preview$1.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$12.class
 interfaces_graficas\BuscarPedido\BuscarPedido$9.class
@@ -92,7 +83,6 @@ interfaces_graficas\AltaPedido\MenuAdministrador$4.class
 logica\managers\ManagerRenglonPedido.class
 logica\managers\ManagerProducto.class
 datos\dao\implementation\DAO_Renglon.class
-interfaces_graficas\realizar_venta\CrearVenta$2.class
 interfaces_graficas\realizar_venta\RealizarPago$11.class
 objects\Pedido.class
 interfaces_graficas\BuscarPedido\BuscarPedido$3.class
@@ -102,11 +92,9 @@ interfaces_graficas\AltaPedido\AltaPedido_Generador$7.class
 objects\Cliente_Juridico.class
 interfaces_graficas\realizar_venta\MenuVendedor$3.class
 objects\Producto.class
-interfaces_graficas\realizar_venta\CrearVenta$5.class
 datos\dao\implementation\DAO_ClienteJuridico.class
 interfaces_graficas\realizar_venta\RealizarPago$9.class
 datos\DB_Init.class
-interfaces_graficas\realizar_venta\CrearVenta$10.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$16.class
 objects\TipoDePago.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$10.class
@@ -117,13 +105,11 @@ objects\Persona.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$3.class
 datos\dao\implementation\DAO_Pago.class
 logica\managers\ManagerTrabajador.class
-interfaces_graficas\realizar_venta\CrearVenta$4.class
 logica\managers\ManagerPersona.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$8.class
 interfaces_graficas\BuscarPedido\BuscarPedido$5.class
 interfaces_graficas\AltaPedido\AltaPedido_Generador$17.class
 interfaces_graficas\BajaPedido\BajaPedido_Preview$3.class
-interfaces_graficas\realizar_venta\CrearVenta$11.class
 interfaces_graficas\realizar_venta\MenuVendedor$4.class
 logica\managers\ManagerPedido.class
 interfaces_graficas\LogIn$1.class

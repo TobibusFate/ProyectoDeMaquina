@@ -7,14 +7,15 @@
 package interfaces_graficas.BajaPedido;
 
 import interfaces_graficas.BuscarPedido.BuscarPedido;
-import java.util.ArrayList;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import logica.managers.ManagerPedido;
 import logica.managers.ManagerRenglonPedido;
 import objects.Pedido;
 import objects.RenglonPedido;
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *

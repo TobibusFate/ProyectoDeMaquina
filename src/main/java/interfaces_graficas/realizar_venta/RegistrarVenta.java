@@ -4,14 +4,16 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import interfaces_graficas.AltaPedido.MenuAdministrador;
 import logica.managers.ManagerCliente;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerVenta;
 import objects.*;
-import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
@@ -30,15 +32,18 @@ public class RegistrarVenta extends javax.swing.JFrame {
      * Creates new form RegistrarVenta
      */
     private String usuario;
+
+    private int tipo;
     private static HashMap <String, Producto> listaProductos = new HashMap<>();
     private static HashMap <Integer, Cliente> listaClientes = new HashMap<>();
     private static HashMap <String, RenglonVenta> listaRenglon = new HashMap<>();
     private static ArrayList<Pago> listaPagos = new ArrayList<>();
     private DefaultTableModel model;
 
-    public RegistrarVenta(String usuario) {
+    public RegistrarVenta(String usuario, int tipo) {
         initComponents();
         this.usuario = usuario;
+        this.tipo = tipo;
         addList();
         listaRenglon.clear();
         unidades.setText("1");
@@ -483,8 +488,13 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
     private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
         // TODO add your handling code here:
-        MenuVendedor mv = new MenuVendedor(this.usuario);
-        mv.setVisible(true);
+        if (this.tipo == 0) {
+            MenuVendedor mv = new MenuVendedor(this.usuario);
+            mv.setVisible(true);
+        } else {
+            MenuAdministrador ma = new MenuAdministrador(this.usuario);
+            ma.setVisible(true);
+        }
         this.dispose();
     }//GEN-LAST:event_boton_salirActionPerformed
 
@@ -534,7 +544,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistrarVenta("").setVisible(true);
+                new RegistrarVenta("",-1).setVisible(true);
             }
         });
     }
