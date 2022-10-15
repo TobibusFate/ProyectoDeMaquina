@@ -327,9 +327,13 @@ public class RealizarPago extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
             terminar = false;
         }
-        if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
-            JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
-            terminar = false;
+        try {
+            if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
+                JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
+                terminar = false;
+            }
+        } catch (NumberFormatException e) {
+            terminar = false;   /** CUIDADO CON ESTE FALSE, CAPAS DE ERROR, PERO POR AHORA NO LO HIZO*/
         }
         if (terminar) {
             terminarPago();
@@ -338,7 +342,6 @@ public class RealizarPago extends javax.swing.JFrame {
 
     public void terminarPago() {
         LocalDate now = LocalDate.now();
-
         String tipoPago;
         if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.TARJETA_CREDITO.getTipo())) {
             tipoPago = "TarjetaCredito";
@@ -347,10 +350,8 @@ public class RealizarPago extends javax.swing.JFrame {
         } else {
             tipoPago = tipo_pago.getSelectedItem().toString();
         }
-        Pago pago = new Pago(
-                Float.parseFloat(texto_monto.getText()),
-                Integer.parseInt(text_cuotas.getText()),
-                tipoPago);
+
+        Pago pago = new Pago(Float.parseFloat(texto_monto.getText()), Integer.parseInt(text_cuotas.getText()), tipoPago);
 
         if (pago.getMetodoPago().equals(TipoDePago.FIADO.getTipo())) {
             pago.setCliente(registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));

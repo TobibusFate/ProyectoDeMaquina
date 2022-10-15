@@ -101,7 +101,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
                 updateRenglonVenta(nombreFila,nuevoValor,columna);
                 updateTable();
             }
-
         });
 
         unidades.addKeyListener(new KeyAdapter() {
@@ -123,10 +122,15 @@ public class RegistrarVenta extends javax.swing.JFrame {
         RenglonVenta renglonVenta = listaRenglon.get(nombreFila);
         switch (columna){
             case 2: //unidades
+
                 if (Integer.parseInt(nuevoValor) > listaProductos.get(nombreFila).getStockP()) {
                     JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
                 } else {
-                    renglonVenta.setUnidades(Integer.parseInt(nuevoValor));
+                    if (Integer.parseInt(nuevoValor) > 0) {
+                        renglonVenta.setUnidades(Integer.parseInt(nuevoValor));
+                    } else {
+                        break;
+                    }
                 }
                 break;
             case 5: //descuento
