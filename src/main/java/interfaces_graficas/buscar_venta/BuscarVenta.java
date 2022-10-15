@@ -5,8 +5,12 @@
 package interfaces_graficas.buscar_venta;
 
 import logica.managers.ManagerVenta;
+import objects.RenglonVenta;
 import objects.Venta;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
 
 /**
@@ -14,8 +18,9 @@ import java.util.HashMap;
  * @author tovib
  */
 public class BuscarVenta extends javax.swing.JFrame {
-    private static HashMap<Integer, Venta> listaVentas = new HashMap<>();
+    private static HashMap<String, Venta> listaVentas = new HashMap<>();
     private int tipo;
+    private DefaultTableModel model;
     
     /**
      * Creates new form BuscarVenta
@@ -24,8 +29,56 @@ public class BuscarVenta extends javax.swing.JFrame {
         initComponents();
         this.tipo = tipo;
         listaVentas = ManagerVenta.getAllVentas();
-        System.out.println("a");
+        addList();
+        updateTable(listaVentas);
     }
+
+    public void updateTable(HashMap<String, Venta> localList ) {
+        model = (DefaultTableModel) this.tabla_ventas.getModel();
+        /** LIMPIAR TABLA*/
+        while (model.getRowCount()>0){
+            model.removeRow(0);
+        }
+        /** CARGAR  TABLA*/
+        for (Venta venta: localList.values()) {
+            String cerrada = "";
+            if (venta.getCerradaV()){
+                cerrada = "Cerrada";
+            } else {
+                cerrada = "Abierta";
+            }
+            model.addRow(new Object[]{venta.getCodigoV(), venta.getCuentaVendedor(), cerrada, venta.getMontoV(),venta.getHoraV(),venta.getFechaV()});
+        }
+    }
+    public HashMap<String, Venta> coincidencia () {
+        HashMap<String, Venta> map = new HashMap<>();
+        for (Venta v : listaVentas.values()) {
+            if (String.valueOf(v.getCodigoV()).contains(buscador_venta.getText())) {
+                map.put(String.valueOf(v.getCodigoV()),v);
+            }
+        }
+        return map;
+    }
+
+    public void addList(){
+        buscador_venta.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateTable(coincidencia());
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateTable(coincidencia());
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateTable(coincidencia());
+            }
+        });
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -36,33 +89,33 @@ public class BuscarVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField1 = new javax.swing.JTextField();
+        buscador_venta = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        tabla_ventas = new javax.swing.JTable();
+        boton_mostar = new javax.swing.JButton();
+        boton_salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Buscardor");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo", "Vendedor", "Estado (Cerrada)", "Monto", "Hora", "Fecha", "Productos", "Pagos"
+                "Codigo", "Vendedor", "Estado ", "Monto", "Hora", "Fecha"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, true, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -73,11 +126,16 @@ public class BuscarVenta extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla_ventas);
 
-        jButton1.setText("Mostrar");
+        boton_mostar.setText("Mostrar");
+        boton_mostar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_mostarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Salir");
+        boton_salir.setText("Salir");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,37 +144,51 @@ public class BuscarVenta extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 668, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
                         .addComponent(jLabel1)
-                        .addGap(60, 60, 60)
-                        .addComponent(jTextField1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addComponent(buscador_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(332, 332, 332))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(boton_salir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boton_mostar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscador_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(boton_mostar)
+                    .addComponent(boton_salir))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boton_mostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_mostarActionPerformed
+        // TODO add your handling code here:
+        if (tabla_ventas.getSelectedRow() != -1) {
+            Venta v = listaVentas.get(model.getValueAt(tabla_ventas.getSelectedRow(),0).toString());
+
+            System.out.println("a");
+            MostrarVenta mv = new MostrarVenta(listaVentas.get(model.getValueAt(tabla_ventas.getSelectedRow(),0).toString()));
+            mv.setVisible(true);
+
+        } else {
+
+        }
+    }//GEN-LAST:event_boton_mostarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,11 +226,11 @@ public class BuscarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton boton_mostar;
+    private javax.swing.JButton boton_salir;
+    private javax.swing.JTextField buscador_venta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tabla_ventas;
     // End of variables declaration//GEN-END:variables
 }

@@ -10,6 +10,7 @@ import objects.Pago;
 import objects.RenglonVenta;
 import objects.Venta;
 
+import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,7 @@ public class MostrarVenta extends javax.swing.JFrame {
 
     private static ArrayList<Pago> listaPagos = new ArrayList<>();
     private static ArrayList<RenglonVenta> listaRenglonVenta = new ArrayList<>();
+    private DefaultTableModel model;
 
     /**
      * Creates new form MostrarVenta
@@ -28,6 +30,61 @@ public class MostrarVenta extends javax.swing.JFrame {
         initComponents();
         listaPagos = ManagerPago.getPagosToVenta(venta);
         listaRenglonVenta = ManagerRenglonVenta.getRenglonesToVenta(venta);
+        setDatosVenta(venta);
+        updateTablaRenglonesVenta();
+        updateTablaPagos();
+    }
+
+    public void setDatosVenta(Venta datosVenta) {
+        codigo_venta.setText(String.valueOf(datosVenta.getCodigoV()));
+        if (datosVenta.getCerradaV()) {
+            estado_venta.setText("Cerrada");
+        } else {
+            estado_venta.setText("Abierta");
+        }
+        fecha_venta.setText(datosVenta.getFechaV().toString());
+        monto_venta.setText(String.valueOf(datosVenta.getMontoV()));
+        hora_venta.setText(datosVenta.getHoraV().toString());
+        vendedor_venta.setText(datosVenta.getCuentaVendedor());
+
+        codigo_venta.setEditable(false);
+        estado_venta.setEditable(false);
+        fecha_venta.setEditable(false);
+        monto_venta.setEditable(false);
+        hora_venta.setEditable(false);
+        vendedor_venta.setEditable(false);
+    }
+
+    public void updateTablaPagos () {
+        model = (DefaultTableModel) this.tabla_renglon_pagos.getModel();
+
+        for (Pago p : listaPagos){
+            String cliente = "-";
+            if (p.getCliente().getDni() != 0 ) {
+                cliente = String.valueOf(p.getCliente().getDni());
+            }
+            model.addRow(new Object[]{
+                    p.getCodigoP(),
+                    cliente,
+                    p.getMontoP(),
+                    p.getMetodoPago(),
+                    p.getCuotas(),
+                    p.getFechaP(),
+                    p.getFechaLimiteP()
+            });
+        }
+    }
+    public void updateTablaRenglonesVenta () {
+        model = (DefaultTableModel) this.tabla_renglon_venta.getModel();
+        for (RenglonVenta rv : listaRenglonVenta){
+            model.addRow(new Object[]{
+                    rv.getProducto().getCodigoP(),
+                    rv.getProducto().getNombreP(),
+                    rv.getUnidades(),
+                    rv.getDescuento(),
+                    rv.getMontoTotal()
+            });
+        }
     }
 
     /**
@@ -41,95 +98,185 @@ public class MostrarVenta extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla_renglon_venta = new javax.swing.JTable();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        tabla_renglon_pagos = new javax.swing.JTable();
+        boton_salir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        codigo_venta = new javax.swing.JTextField();
+        estado_venta = new javax.swing.JTextField();
+        monto_venta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        vendedor_venta = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        fecha_venta = new javax.swing.JTextField();
+        hora_venta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_renglon_venta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Codigo producto", "Nombre", "Unidades", "Monto"
+                "Codigo", "Producto", "Unidades", "Descuento", " Monto Total"
             }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tabla_renglon_venta);
 
         jTabbedPane1.addTab("Productos", jScrollPane1);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tabla_renglon_pagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Codigo", "Cliente", "Monto", "Metodo De Pago", "Cuotas", "Fecha", "Fecha Limite"
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Float.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tabla_renglon_pagos);
 
         jTabbedPane1.addTab("Pagos", jScrollPane2);
 
-        jButton1.setText("Salir");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        boton_salir.setText("Salir");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                boton_salirActionPerformed(evt);
             }
         });
 
-        jLabel1.setText("Renglon Venta");
+        jLabel1.setText("Venta nº");
 
-        jLabel2.setText("Renglon pagos");
+        jLabel2.setText("Estado");
+
+        jLabel3.setText("Monto Total");
+
+        jLabel4.setText("Vendedor");
+
+        jLabel5.setText("Fecha");
+
+        jLabel6.setText("Hora");
+
+        hora_venta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                hora_ventaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 582, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(boton_salir)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(64, 64, 64)
-                                .addComponent(jLabel2))
-                            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(15, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(codigo_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(estado_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(monto_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(vendedor_venta)
+                                    .addComponent(fecha_venta)
+                                    .addComponent(hora_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(vendedor_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(fecha_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(hora_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(codigo_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(estado_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(monto_venta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(boton_salir)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_boton_salirActionPerformed
+
+    private void hora_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_hora_ventaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_hora_ventaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,13 +314,23 @@ public class MostrarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton boton_salir;
+    private javax.swing.JTextField codigo_venta;
+    private javax.swing.JTextField estado_venta;
+    private javax.swing.JTextField fecha_venta;
+    private javax.swing.JTextField hora_venta;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTextField monto_venta;
+    private javax.swing.JTable tabla_renglon_pagos;
+    private javax.swing.JTable tabla_renglon_venta;
+    private javax.swing.JTextField vendedor_venta;
     // End of variables declaration//GEN-END:variables
 }

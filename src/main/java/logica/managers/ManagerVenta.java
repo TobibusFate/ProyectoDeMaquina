@@ -18,10 +18,10 @@ public class ManagerVenta {
         ManagerRenglonVenta.cargarRenglon(crv,v);
     }
 
-    public static HashMap<Integer, Venta> getAllVentas() {
-        HashMap<Integer, Venta> ventaHashMap = new HashMap<>();
+    public static HashMap<String, Venta> getAllVentas() {
+        HashMap<String, Venta> ventaHashMap = new HashMap<>();
         for (Venta v: dao_venta.read(null)) {
-            ventaHashMap.put(v.getCodigoV(),v);
+            ventaHashMap.put(String.valueOf(v.getCodigoV()),v);
         }
         return ventaHashMap;
     }

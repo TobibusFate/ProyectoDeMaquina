@@ -36,9 +36,14 @@ public class ManagerCliente {
 
     public static Cliente getCliente(int dni) {
         Cliente c = null;
-        c = ManagerClienteFisico.getClienteFisico(dni);
-        if (c == null) {
-            c = ManagerClienteJuridico.getCLienteJurudico(dni);
+        if (dni != 0) {
+            c = ManagerClienteFisico.getClienteFisico(dni);
+            if (c == null) {
+                c = ManagerClienteJuridico.getCLienteJurudico(dni);
+            }
+            //c = dao_cliente.read(c).get(0);
+        } else {
+            c = dao_cliente.read(new Cliente_Fisico(0)).get(0);
         }
         return c;
     }

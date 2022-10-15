@@ -25,9 +25,9 @@ public class ManagerRenglonVenta {
         for (RenglonVenta rv: dao_renglonVenta.readRenglonVentaToVenta(venta)) {
             rv.setVenta(venta);
             RenglonVenta local = (RenglonVenta) ManagerRenglon.getRenglonVenta(rv.getCodigo());
+            rv.setProducto(local.getProducto());
             rv.setDescuento(local.getDescuento());
             rv.setMontoTotal(local.getMontoTotal());
-            rv.setProducto(local.getProducto());
             listaRenglonVenta.add(rv);
         }
         return listaRenglonVenta;
