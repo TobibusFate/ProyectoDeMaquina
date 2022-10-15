@@ -1,5 +1,5 @@
 import datos.DB_Init;
-import interfaces_graficas.LogIn;
+import interfaces_graficas.menus.LogIn;
 
 
 public class Main {

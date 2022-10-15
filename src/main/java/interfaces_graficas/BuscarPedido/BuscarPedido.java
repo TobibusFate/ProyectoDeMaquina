@@ -5,7 +5,7 @@
  */
 package interfaces_graficas.BuscarPedido;
 
-import interfaces_graficas.AltaPedido.MenuAdministrador;
+import interfaces_graficas.menus.MenuAdministrador;
 import interfaces_graficas.BajaPedido.BajaPedido_Preview;
 import logica.managers.ManagerPedido;
 import objects.Pedido;

@@ -4,8 +4,9 @@
  */
 package interfaces_graficas.buscar_venta;
 
+import interfaces_graficas.menus.MenuAdministrador;
+import interfaces_graficas.menus.MenuVendedor;
 import logica.managers.ManagerVenta;
-import objects.RenglonVenta;
 import objects.Venta;
 
 import javax.swing.event.DocumentEvent;
@@ -20,20 +21,23 @@ import java.util.HashMap;
 public class BuscarVenta extends javax.swing.JFrame {
     private static HashMap<String, Venta> listaVentas = new HashMap<>();
     private int tipo;
+
+    private String usuario;
     private DefaultTableModel model;
     
     /**
      * Creates new form BuscarVenta
      */
-    public BuscarVenta(int tipo) {
+    public BuscarVenta(String usuario, int tipo) {
         initComponents();
         this.tipo = tipo;
+        this.usuario = usuario;
         listaVentas = ManagerVenta.getAllVentas();
         addList();
-        updateTable(listaVentas);
+        updateTabla(listaVentas);
     }
 
-    public void updateTable(HashMap<String, Venta> localList ) {
+    public void updateTabla(HashMap<String, Venta> localList ) {
         model = (DefaultTableModel) this.tabla_ventas.getModel();
         /** LIMPIAR TABLA*/
         while (model.getRowCount()>0){
@@ -64,17 +68,17 @@ public class BuscarVenta extends javax.swing.JFrame {
         buscador_venta.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                updateTable(coincidencia());
+                updateTabla(coincidencia());
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                updateTable(coincidencia());
+                updateTabla(coincidencia());
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                updateTable(coincidencia());
+                updateTabla(coincidencia());
             }
         });
     }
@@ -136,6 +140,11 @@ public class BuscarVenta extends javax.swing.JFrame {
         });
 
         boton_salir.setText("Salir");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -179,16 +188,26 @@ public class BuscarVenta extends javax.swing.JFrame {
     private void boton_mostarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_mostarActionPerformed
         // TODO add your handling code here:
         if (tabla_ventas.getSelectedRow() != -1) {
-            Venta v = listaVentas.get(model.getValueAt(tabla_ventas.getSelectedRow(),0).toString());
-
-            System.out.println("a");
             MostrarVenta mv = new MostrarVenta(listaVentas.get(model.getValueAt(tabla_ventas.getSelectedRow(),0).toString()));
             mv.setVisible(true);
 
         } else {
-
+            // seleccione algo
         }
     }//GEN-LAST:event_boton_mostarActionPerformed
+
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
+        // TODO add your handling code here:
+        if (this.tipo == 0) { //Vendedor
+            MenuVendedor mv = new MenuVendedor(this.usuario);
+            mv.setVisible(true);
+
+        } else { //Administrador
+            MenuAdministrador ma = new MenuAdministrador(this.usuario);
+            ma.setVisible(true);
+        }
+        this.dispose();
+    }//GEN-LAST:event_boton_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,7 +239,7 @@ public class BuscarVenta extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BuscarVenta(-1).setVisible(true);
+                new BuscarVenta("",-1).setVisible(true);
             }
         });
     }

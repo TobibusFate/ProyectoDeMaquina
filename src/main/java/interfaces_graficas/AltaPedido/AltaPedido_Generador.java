@@ -5,6 +5,7 @@
  */
 package interfaces_graficas.AltaPedido;
 
+import interfaces_graficas.menus.MenuAdministrador;
 import logica.managers.ManagerAdministrador;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerProveedor;

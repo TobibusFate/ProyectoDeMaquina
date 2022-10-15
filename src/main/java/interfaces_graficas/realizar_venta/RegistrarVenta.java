@@ -4,7 +4,8 @@
  */
 package interfaces_graficas.realizar_venta;
 
-import interfaces_graficas.AltaPedido.MenuAdministrador;
+import interfaces_graficas.menus.MenuAdministrador;
+import interfaces_graficas.menus.MenuVendedor;
 import logica.managers.ManagerCliente;
 import logica.managers.ManagerProducto;
 import logica.managers.ManagerVenta;
