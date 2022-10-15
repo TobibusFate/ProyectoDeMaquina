@@ -57,11 +57,13 @@ public class MostrarVenta extends javax.swing.JFrame {
 
     public void updateTablaPagos () {
         model = (DefaultTableModel) this.tabla_renglon_pagos.getModel();
-
         for (Pago p : listaPagos){
-            String cliente = "-";
+            String cliente = "-", fechaLimite = p.getFechaLimiteP().toString();
             if (p.getCliente().getDni() != 0 ) {
                 cliente = String.valueOf(p.getCliente().getDni());
+            }
+            if (p.getFechaLimiteP().toString().equals(p.getFechaP().toString())){
+                fechaLimite = "-";
             }
             model.addRow(new Object[]{
                     p.getCodigoP(),
@@ -70,7 +72,7 @@ public class MostrarVenta extends javax.swing.JFrame {
                     p.getMetodoPago(),
                     p.getCuotas(),
                     p.getFechaP(),
-                    p.getFechaLimiteP()
+                    fechaLimite
             });
         }
     }

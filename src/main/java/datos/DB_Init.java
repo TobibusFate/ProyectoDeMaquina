@@ -131,7 +131,7 @@ public class DB_Init {
                 + "Pago_Venta_CODIGO INTEGER, "
                 + "Pago_Cliente_DNI INTEGER, "
                 + "Pago_MONTO REAL NOT NULL, "
-                + "Pago_FECHAPAGO DATE NOT NULL, "
+                + "Pago_FECHAPAGO DATE, "
                 + "Pago_FECHALIMITE DATE, "
                 + "Pago_CUOTAS INTEGER NOT NULL, "
                 + "Pago_TIPO METODOPAGO, "

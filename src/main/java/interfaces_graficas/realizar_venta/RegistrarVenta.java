@@ -63,6 +63,9 @@ public class RegistrarVenta extends javax.swing.JFrame {
     public HashMap<Integer, Cliente> getListaClientes() {
         return listaClientes;
     }
+    public ArrayList<Pago> getListaPagos() {
+        return listaPagos;
+    }
     private void addList() {
         buscador_productos.getDocument().addDocumentListener(new DocumentListener() {
             @Override
