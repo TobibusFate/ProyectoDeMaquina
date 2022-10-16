@@ -29,8 +29,8 @@ import java.util.Map;
 public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private Map<Long,Proveedor> mapProveedores = new HashMap<>();
-    private Map<String,Producto> mapProductos = new HashMap<>();
-    private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
+    Map<String,Producto> mapProductos = new HashMap<>();
+    Map<String, RenglonPedido> mapRenglones = new HashMap<>();
     private Proveedor proveedor;
     private DefaultTableModel model;
     private Administrador admin;
@@ -112,7 +112,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     }
     
     private void updateRenglonPedido(String rowName, String newValue, int column) {
-        RenglonPedido rp = mapRenglones.get(rowName);
+        RenglonPedido rp = getMapRenglones().get(rowName);
         switch (column) {
             case 2: {
                 if ("".matches(newValue) || Integer.parseInt(newValue) <= 0) {
@@ -129,7 +129,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                 else rp.setDescuento(Float.parseFloat(newValue));
             } break;
         }
-        mapRenglones.replace(rowName, rp);
+        getMapRenglones().replace(rowName, rp);
     }
     
     /**
@@ -162,6 +162,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         FldMontoFinal = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         Cbx_ListaTipos = new javax.swing.JComboBox<>();
+        BtnSugerencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -298,6 +299,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             }
         });
 
+        BtnSugerencias.setText("Sugerencias");
+        BtnSugerencias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSugerenciasActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -337,11 +345,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                                 .addGroup(contentLayout.createSequentialGroup()
                                     .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addGroup(contentLayout.createSequentialGroup()
-                                                .addComponent(jLabel3)
+                                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(BtnSugerencias)
+                                                    .addComponent(jLabel3))
                                                 .addGap(18, 18, 18)
-                                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(FldMontoFinal, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                         .addGroup(contentLayout.createSequentialGroup()
                                             .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                 .addComponent(jLabel2)
@@ -403,7 +413,8 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btn_Continuar)
-                    .addComponent(BtnCancelar))
+                    .addComponent(BtnCancelar)
+                    .addComponent(BtnSugerencias))
                 .addContainerGap())
         );
 
@@ -449,13 +460,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private void Btn_removeProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_removeProdActionPerformed
         if (TblRenglones.getSelectedRow() != -1) {
-            mapRenglones.remove(model.getValueAt(TblRenglones.getSelectedRow(), 1).toString());
+            getMapRenglones().remove(model.getValueAt(TblRenglones.getSelectedRow(), 1).toString());
             model.removeRow(TblRenglones.getSelectedRow());
         }
         else {
             // TODO: MessageDialog
         }
-        if (mapRenglones.isEmpty() || "CUIT".matches(FldCUIT1.getText())) {
+        if (getMapRenglones().isEmpty() || "CUIT".matches(FldCUIT1.getText())) {
             Btn_Continuar.setEnabled(false);
         }
         updateTable();
@@ -483,20 +494,20 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         String cbxTipo = Cbx_ListaTipos.getSelectedItem().toString();
         if (!mapRenglones.containsKey(cbxText)) {
             switch (cbxTipo) {
-                case "Bolsones": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
-                case "Bultos Cerrados": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.BultosCerrados,0F)); break;
-                case "Pallets": mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Pallets,0F)); break;
-                default: mapRenglones.put(cbxText, new RenglonPedido(mapProductos.get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+                case "Bolsones": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+                case "Bultos Cerrados": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.BultosCerrados,0F)); break;
+                case "Pallets": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Pallets,0F)); break;
+                default: getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
             }
         }
         else {
-            RenglonPedido rp = mapRenglones.get(cbxText);
+            RenglonPedido rp = getMapRenglones().get(cbxText);
             switch (cbxTipo) {
                 case "Bolsones": rp.setTipoCantidad(TipoCantidad.Bolsones);; break;
                 case "Bultos Cerrados": rp.setTipoCantidad(TipoCantidad.BultosCerrados);; break;
                 case "Pallets": rp.setTipoCantidad(TipoCantidad.Pallets);; break;
             }
-            mapRenglones.replace(cbxText, rp);
+            getMapRenglones().replace(cbxText, rp);
         }
         if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
             Btn_Continuar.setEnabled(true);
@@ -515,6 +526,11 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void Cbx_ListaTiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaTiposActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Cbx_ListaTiposActionPerformed
+
+    private void BtnSugerenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSugerenciasActionPerformed
+        AltaPedido_Sugerencias aps = new AltaPedido_Sugerencias(this);
+        aps.setVisible(true);
+    }//GEN-LAST:event_BtnSugerenciasActionPerformed
 
     private void updateComboboxProveedores(){
         List<String> listaProv = new ArrayList<>();
@@ -540,7 +556,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         for (int i = 0;i<Cbx_ListaProductos.getItemCount();i++) {
             listaProd.add(Cbx_ListaProductos.getItemAt(i).toLowerCase());
         }
-        for (Producto p: mapProductos.values()){
+        for (Producto p: getMapProductos().values()){
             if (p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
                 if (!listaProd.contains(p.getNombreP().toLowerCase())) {
                     Cbx_ListaProductos.addItem(p.getNombreP().toLowerCase());
@@ -554,16 +570,16 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         }
     }
     
-    private void updateTable() {
+    public void updateTable() {
         model = (DefaultTableModel) TblRenglones.getModel();
         while(model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        for (RenglonPedido rp: mapRenglones.values()) {
+        for (RenglonPedido rp: getMapRenglones().values()) {
             model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
         }
         float value = 0;
-        for (RenglonPedido rp: mapRenglones.values()) {
+        for (RenglonPedido rp: getMapRenglones().values()) {
             value += rp.getMontoTotal();
         }
         FldMontoFinal.setText(Float.toString(value));
@@ -576,7 +592,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         return admin;
     }
     public Map<String, RenglonPedido> getRenglones() {
-        return mapRenglones;
+        return getMapRenglones();
     }
     
     
@@ -620,6 +636,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCancelar;
+    private javax.swing.JButton BtnSugerencias;
     private javax.swing.JButton Btn_CargarProv;
     private javax.swing.JButton Btn_Continuar;
     private javax.swing.JButton Btn_addProd;
@@ -641,4 +658,18 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    /**
+     * @return the mapProductos
+     */
+    public Map<String,Producto> getMapProductos() {
+        return mapProductos;
+    }
+
+    /**
+     * @return the mapRenglones
+     */
+    public Map<String, RenglonPedido> getMapRenglones() {
+        return mapRenglones;
+    }
 }

@@ -230,6 +230,12 @@ public class DB_Init {
                     "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('300', 'ositos de goma', 'comestible', '220', '50', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('301', 'gomitas', 'comestible', '220', '50', '200')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('302', 'galletas de animales', 'comestible', '220', '50', '51')");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
