@@ -157,19 +157,26 @@ public class AltaPedido_Sugerencias extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnGoBackActionPerformed
 
     private void BtnSelectAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSelectAllActionPerformed
-        // TODO add your handling code here:
+        TblProd.selectAll();
     }//GEN-LAST:event_BtnSelectAllActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
         for (int prodRow: TblProd.getSelectedRows()) {
-            Producto prod = mapProductos.get((String)TblProd.getModel().getValueAt(prodRow, 2));
+            Producto prod = mapProductos.get((String)TblProd.getModel().getValueAt(prodRow, 1));
             int cant = prod.getStockMinimoP() - prod.getStockP();
-            mapRenglones.put(
-                    prod.getNombreP(),
-                    new RenglonPedido(prod,
-                            cant > 0 ? cant : 1,
-                            TipoCantidad.Bolsones,
-                            0F));
+            if (!mapRenglones.containsKey(prod.getNombreP())) {
+                mapRenglones.put(
+                        prod.getNombreP(),
+                        new RenglonPedido(prod,
+                                cant > 0 ? cant : 1,
+                                TipoCantidad.Bolsones,
+                                0F));
+            }
+            else if (mapRenglones.get(prod.getNombreP()).getCantidad() < cant) {
+                RenglonPedido rp =  mapRenglones.get(prod.getNombreP());
+                rp.setCantidad(cant);
+                mapRenglones.replace(prod.getNombreP(), rp);
+            }
         }
         apg.updateTable();
     }//GEN-LAST:event_BtnAddActionPerformed
