@@ -2,10 +2,11 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
-import objects.Producto;
 import objects.Venta;
-
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -16,13 +17,53 @@ public class DAO_Venta implements IDAO<Venta> {
 
     @Override
     public List<Venta> read(Venta venta) {
-        if (venta != null) {
-            /** query para recuperar venta*/
-        } else {
-            /** query para retornar lista de ventas*/
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        List<Venta> list = new ArrayList<>();
+        ResultSet rs;
+
+        try {
+            statement = conn.createStatement();
+            if (venta != null) {
+                rs = statement.executeQuery("SELECT * FROM Ventas WHERE (Venta_CODIGO = '" +venta.getCodigoV()+"')");
+                while (rs.next()) {
+                    list.add(new Venta(
+                            rs.getInt("Venta_CODIGO"),
+                            rs.getString("Venta_Cuen_USUARIO"),
+                            rs.getBoolean("Venta_CERRADA"),
+                            rs.getFloat("Venta_MONTO"),
+                            rs.getDate("Venta_FECHA"),
+                            rs.getTime("Venta_HORA")
+                    ));
+                }
+                // query para retornar lista de productos
+            } else {
+                rs = statement.executeQuery("SELECT * FROM Ventas ORDER BY Venta_CODIGO");
+                while (rs.next()) {
+                    list.add(new Venta(
+                            rs.getInt("Venta_CODIGO"),
+                            rs.getString("Venta_Cuen_USUARIO"),
+                            rs.getBoolean("Venta_CERRADA"),
+                            rs.getFloat("Venta_MONTO"),
+                            rs.getDate("Venta_FECHA"),
+                            rs.getTime("Venta_HORA")
+                    ));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
-        return null;
+        return list;
     }
+
+    /*
+    "Venta_CODIGO INTEGER, "
+                + "Venta_Cuen_USUARIO VARCHAR(255) NOT NULL, "
+                + "Venta_CERRADA BOOLEAN NOT NULL, "
+                + "Venta_MONTO REAL NOT NULL, "
+                + "Venta_FECHA DATE, "
+                + "Venta_HORA TIME, "
+     */
 
     @Override
     public boolean create(Venta venta) {
@@ -46,8 +87,7 @@ public class DAO_Venta implements IDAO<Venta> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        /** query para crear venta*/
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 

@@ -3,7 +3,6 @@ package datos.dao.implementation;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Cliente;
-import objects.Producto;
 
 import java.sql.*;
 import java.util.ArrayList;

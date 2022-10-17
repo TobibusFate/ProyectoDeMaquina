@@ -2,9 +2,7 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
-import objects.Cliente;
 import objects.Cliente_Fisico;
-import objects.Producto;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

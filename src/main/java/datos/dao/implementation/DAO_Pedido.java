@@ -6,6 +6,9 @@ import datos.DatosBase;
 import datos.dao.IDAO;
 import logica.managers.ManagerAdministrador;
 import logica.managers.ManagerProveedor;
+import objects.Administrador;
+import objects.Pedido;
+import objects.Proveedor;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,10 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import objects.Administrador;
-import objects.Pedido;
-import objects.Proveedor;
 
 
 public class DAO_Pedido implements IDAO<Pedido> {

@@ -4,13 +4,12 @@
  */
 package interfaces_graficas.realizar_venta;
 
+import objects.Pago;
 import objects.TipoDePago;
 
 import javax.swing.*;
 import java.awt.event.*;
 import java.time.LocalDate;
-
-import objects.Pago;
 
 /**
  *
@@ -18,20 +17,23 @@ import objects.Pago;
  */
 public class RealizarPago extends javax.swing.JFrame {
     
-    private static  CrearVenta crearVenta = null;
+    private static RegistrarVenta registrarVenta = null;
     /**
      * Creates new form RealizarPago
      */
-    public RealizarPago(String monto, CrearVenta cv) {
+    public RealizarPago(String monto, RegistrarVenta cv) {
         initComponents();
         addList();
         cerrar();
-        crearVenta = cv;
+        registrarVenta = cv;
         tipo_pago.setSelectedItem(TipoDePago.EFECTIVO.getTipo());
         text_cuotas.setText("1");
         texto_dni.setEditable(false);
         monto_faltante.setText(monto);
         boton_cargar_cliente.setEnabled(false);
+        titulo.setText("Realizar Pago: "+(cv.getListaPagos().size()+1));
+        boton_ver_pagos.setEnabled(cv.getListaPagos().size() > 0);
+
     }
 
     public void addList() {
@@ -103,7 +105,7 @@ public class RealizarPago extends javax.swing.JFrame {
         });*/
     }
 
-    public void cerrar () {
+    private void cerrar () {
         try {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
             addWindowListener(new WindowAdapter() {
@@ -117,7 +119,7 @@ public class RealizarPago extends javax.swing.JFrame {
         }
     }
 
-    public void destruir () {
+    private void destruir () {
         this.dispose();
     }
 
@@ -140,11 +142,12 @@ public class RealizarPago extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        titulo = new javax.swing.JLabel();
         monto_faltante = new javax.swing.JLabel();
         boton_pagar_restante = new javax.swing.JButton();
         text_cuotas = new javax.swing.JTextField();
         boton_cargar_cliente = new javax.swing.JButton();
+        boton_ver_pagos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -187,7 +190,7 @@ public class RealizarPago extends javax.swing.JFrame {
 
         jLabel7.setText("Monto Restante    $");
 
-        jLabel8.setText("Realizar Pago");
+        titulo.setText("Realizar Pago");
 
         monto_faltante.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         monto_faltante.setText("1000");
@@ -208,15 +211,19 @@ public class RealizarPago extends javax.swing.JFrame {
 
         boton_cargar_cliente.setText("Cargar Cliente");
 
+        boton_ver_pagos.setText("Ver Pagos");
+        boton_ver_pagos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_ver_pagosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(boton_cancelar))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(22, 22, 22)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,7 +245,13 @@ public class RealizarPago extends javax.swing.JFrame {
                                         .addComponent(monto_faltante, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(118, 118, 118)
-                                .addComponent(jLabel8)))))
+                                .addComponent(titulo))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(boton_cancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(boton_ver_pagos)
+                        .addGap(23, 23, 23)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(65, 65, 65)
@@ -246,9 +259,7 @@ public class RealizarPago extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addComponent(boton_cargar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(boton_pagar_restante, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(boton_pagar_restante, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -260,7 +271,7 @@ public class RealizarPago extends javax.swing.JFrame {
                         .addComponent(boton_cargar_cliente))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(14, 14, 14)
-                        .addComponent(jLabel8)
+                        .addComponent(titulo)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -285,7 +296,8 @@ public class RealizarPago extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 61, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boton_cancelar)
-                    .addComponent(boton_cargar))
+                    .addComponent(boton_cargar)
+                    .addComponent(boton_ver_pagos))
                 .addContainerGap())
         );
 
@@ -311,13 +323,17 @@ public class RealizarPago extends javax.swing.JFrame {
             terminar = false;
         }
         if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
-                !crearVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+                !registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
             JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
             terminar = false;
         }
-        if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
-            JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
-            terminar = false;
+        try {
+            if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
+                JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
+                terminar = false;
+            }
+        } catch (NumberFormatException e) {
+            terminar = false;   /** CUIDADO CON ESTE FALSE, CAPAS DE ERROR, PERO POR AHORA NO LO HIZO*/
         }
         if (terminar) {
             terminarPago();
@@ -334,13 +350,11 @@ public class RealizarPago extends javax.swing.JFrame {
         } else {
             tipoPago = tipo_pago.getSelectedItem().toString();
         }
-        Pago pago = new Pago(
-                Float.parseFloat(texto_monto.getText()),
-                Integer.parseInt(text_cuotas.getText()),
-                tipoPago);
+
+        Pago pago = new Pago(Float.parseFloat(texto_monto.getText()), Integer.parseInt(text_cuotas.getText()), tipoPago);
 
         if (pago.getMetodoPago().equals(TipoDePago.FIADO.getTipo())) {
-            pago.setCliente(crearVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));
+            pago.setCliente(registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())));
             pago.setFechaP(now);
             pago.setFechaLimiteP(now.plusMonths(1));
         } else if (pago.getMetodoPago().equals(TipoDePago.EFECTIVO.getTipo())) {
@@ -353,7 +367,7 @@ public class RealizarPago extends javax.swing.JFrame {
             pago.setFechaP(now);
             pago.setFechaLimiteP(now);
         }
-        crearVenta.addPago(pago);
+        registrarVenta.addPago(pago);
         this.dispose();
 
     }
@@ -371,6 +385,12 @@ public class RealizarPago extends javax.swing.JFrame {
     private void text_cuotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_text_cuotasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_text_cuotasActionPerformed
+
+    private void boton_ver_pagosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_ver_pagosActionPerformed
+        // TODO add your handling code here:
+        MostrarPagos mp = new MostrarPagos(registrarVenta.getListaPagos());
+        mp.setVisible(true);
+    }//GEN-LAST:event_boton_ver_pagosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -412,16 +432,17 @@ public class RealizarPago extends javax.swing.JFrame {
     private javax.swing.JButton boton_cargar;
     private javax.swing.JButton boton_cargar_cliente;
     private javax.swing.JButton boton_pagar_restante;
+    private javax.swing.JButton boton_ver_pagos;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel monto_faltante;
     private javax.swing.JTextField text_cuotas;
     private javax.swing.JTextField texto_dni;
     private javax.swing.JTextField texto_monto;
     private javax.swing.JComboBox<String> tipo_pago;
+    private javax.swing.JLabel titulo;
     // End of variables declaration//GEN-END:variables
 }

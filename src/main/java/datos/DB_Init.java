@@ -43,6 +43,7 @@ public class DB_Init {
                 + "Cli_DNI INTEGER, "
                 + "Cli_IVA VARCHAR(255), "
                 + "Cli_MOROSO BOOLEAN NOT NULL, "
+                + "Cli_DEUDA REAL NOT NULL, "
                 + "PRIMARY KEY(Cli_DNI), "
                 + "FOREIGN KEY(Cli_DNI) REFERENCES Personas(Pers_DNI)"
                 + ")"
@@ -130,7 +131,7 @@ public class DB_Init {
                 + "Pago_Venta_CODIGO INTEGER, "
                 + "Pago_Cliente_DNI INTEGER, "
                 + "Pago_MONTO REAL NOT NULL, "
-                + "Pago_FECHAPAGO DATE NOT NULL, "
+                + "Pago_FECHAPAGO DATE, "
                 + "Pago_FECHALIMITE DATE, "
                 + "Pago_CUOTAS INTEGER NOT NULL, "
                 + "Pago_TIPO METODOPAGO, "
@@ -139,7 +140,6 @@ public class DB_Init {
                 + "FOREIGN KEY(Pago_Venta_CODIGO) REFERENCES Ventas(Venta_CODIGO)"
                 + ")"
             );
-            
 
             query.execute("CREATE TABLE IF NOT EXISTS Renglon ("
                 + "Ren_CODIGO INTEGER, "
@@ -203,8 +203,19 @@ public class DB_Init {
         query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
                 "VALUES (0, '_', 'Anonimo', '0') ");
 
-        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO) " +
-                "VALUES (0, 'patata', 'false') ");
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (0, 'patata', 'false', 0) ");
+
+
+        query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
+                "VALUES (121212, 'Juanio', 'Perez', '011101') ");
+
+        query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
+                "VALUES (121212, 'algo', 'false', 0) ");
+
+        query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
+                "VALUES (121212, '54545') ");
+
 
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
@@ -219,6 +230,12 @@ public class DB_Init {
                     "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('300', 'ositos de goma', 'comestible', '220', '50', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('301', 'gomitas', 'comestible', '220', '50', '200')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
+                    "VALUES ('302', 'galletas de animales', 'comestible', '220', '50', '51')");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");

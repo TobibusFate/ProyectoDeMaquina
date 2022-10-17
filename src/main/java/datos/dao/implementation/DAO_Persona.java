@@ -1,20 +1,17 @@
 package datos.dao.implementation;
 
 
+import datos.DB_BasicQuerys;
+import datos.DatosBase;
+import datos.dao.IDAO;
+import objects.Persona;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import datos.DB_BasicQuerys;
-import datos.DatosBase;
-import datos.dao.IDAO;
 import java.sql.Statement;
-import objects.Persona;
-import objects.Trabajador;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DAO_Persona implements IDAO<Persona> {
 

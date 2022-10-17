@@ -4,7 +4,7 @@
  */
 package interfaces_graficas.ModificarPedido;
 
-import interfaces_graficas.AltaPedido.MenuAdministrador;
+import interfaces_graficas.altaPedido.MenuAdministrador;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.SimpleDateFormat;

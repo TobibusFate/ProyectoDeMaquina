@@ -1,7 +1,6 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_Persona;
-import objects.Cliente;
 import objects.Cliente_Fisico;
 import objects.Cliente_Juridico;
 import objects.Persona;

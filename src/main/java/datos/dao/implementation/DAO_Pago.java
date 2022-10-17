@@ -2,14 +2,16 @@ package datos.dao.implementation;
 
 import datos.DatosBase;
 import datos.dao.IDAO;
+import logica.managers.ManagerCliente;
 import objects.Cliente_Fisico;
 import objects.Pago;
+import objects.Venta;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Pago implements IDAO<Pago> {
@@ -42,7 +44,7 @@ public class DAO_Pago implements IDAO<Pago> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        /** query para crear venta*/
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 
@@ -72,6 +74,38 @@ public class DAO_Pago implements IDAO<Pago> {
         }
         DatosBase.getInstance().closeConnection();
         return value+1;
+    }
+
+    public List<Pago> readPagoToVenta (Venta venta) {
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        List<Pago> list = new ArrayList<>();
+        ResultSet rs;
+
+        try {
+            statement = conn.createStatement();
+            rs = statement.executeQuery("SELECT * FROM Pagos WHERE (Pago_Venta_CODIGO = '" +venta.getCodigoV()+"')");
+            while (rs.next()) {
+                list.add(new Pago(
+                        rs.getInt("Pago_CODIGO"),
+                        rs.getDate("Pago_FECHAPAGO").toLocalDate(),
+                        rs.getDate("Pago_FECHALIMITE").toLocalDate(),
+                        rs.getFloat("Pago_MONTO"),
+                        venta,rs.getInt("Pago_CUOTAS"),
+                        rs.getString("Pago_TIPO"),
+                        ManagerCliente.getCliente(rs.getInt("Pago_Cliente_DNI"))
+                        )
+                );
+            }
+            /** QUERY DE SI EXISTEN PAGOS CON ESTA VENTA*/
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        return list;
+
     }
 
 }

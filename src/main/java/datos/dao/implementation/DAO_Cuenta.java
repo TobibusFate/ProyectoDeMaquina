@@ -26,6 +26,7 @@ public class DAO_Cuenta implements IDAO<Cuenta> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        DatosBase.getInstance().closeConnection();
         return list;
     }
 

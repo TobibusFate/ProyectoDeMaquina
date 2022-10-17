@@ -1,8 +1,7 @@
 package logica.managers;
 
-import datos.dao.implementation.DAO_ClienteFisico;
+
 import datos.dao.implementation.DAO_ClienteJuridico;
-import objects.Cliente_Fisico;
 import objects.Cliente_Juridico;
 
 import java.util.ArrayList;
@@ -17,6 +16,16 @@ public class ManagerClienteJuridico {
             list.add(cf);
         }
         return list;
+    }
+
+    public static Cliente_Juridico getCLienteJurudico(int dni) {
+        List<Cliente_Juridico> list = dao_clienteJuridico.read(new Cliente_Juridico(dni));
+        if (list.isEmpty()){
+            return null;
+        }
+        else {
+            return list.get(0);
+        }
     }
 
 }

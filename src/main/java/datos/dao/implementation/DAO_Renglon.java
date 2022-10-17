@@ -3,19 +3,17 @@ package datos.dao.implementation;
 import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
+import logica.managers.ManagerProducto;
+import objects.Producto;
 import objects.Renglon;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import logica.managers.ManagerProducto;
-import objects.Persona;
-import objects.Producto;
 
 public class DAO_Renglon implements IDAO<Renglon> {
     
@@ -69,7 +67,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
             throw new RuntimeException(e);
         }
 
-        /** query para crear venta*/
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 
