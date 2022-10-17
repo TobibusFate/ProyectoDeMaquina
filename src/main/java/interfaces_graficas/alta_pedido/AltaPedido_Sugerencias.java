@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces_graficas.AltaPedido;
+package interfaces_graficas.alta_pedido;
 
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import objects.Producto;
 import objects.RenglonPedido;

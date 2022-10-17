@@ -4,8 +4,8 @@
  */
 package interfaces_graficas.menus;
 
-import interfaces_graficas.AltaPedido.AltaPedido_Generador;
-import interfaces_graficas.BuscarPedido.BuscarPedido;
+import interfaces_graficas.alta_pedido.AltaPedido_Generador;
+import interfaces_graficas.buscar_pedido.BuscarPedido;
 import interfaces_graficas.abm_producto.abm_producto;
 import interfaces_graficas.buscar_venta.BuscarVenta;
 import interfaces_graficas.realizar_venta.RegistrarVenta;

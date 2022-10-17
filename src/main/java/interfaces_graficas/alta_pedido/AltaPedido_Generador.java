@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces_graficas.AltaPedido;
+package interfaces_graficas.alta_pedido;
 
 import interfaces_graficas.menus.MenuAdministrador;
 import logica.managers.ManagerAdministrador;

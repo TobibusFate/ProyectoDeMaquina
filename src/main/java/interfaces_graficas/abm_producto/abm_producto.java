@@ -187,6 +187,16 @@ public class abm_producto extends javax.swing.JFrame {
 
     private void modificar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificar_productoActionPerformed
         // TODO add your handling code here:
+
+        if (tabla_productos.getSelectedRow() != -1) {
+            Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
+            ModificarProducto mp = new ModificarProducto(p);
+            mp.setVisible(true);
+        } else {
+            //No hay producto seleccionado
+        }
+
+
         //ManagerProducto.actualizarProducto
     }//GEN-LAST:event_modificar_productoActionPerformed
 

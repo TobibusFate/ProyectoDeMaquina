@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interfaces_graficas.BuscarPedido;
+package interfaces_graficas.buscar_pedido;
 
 import interfaces_graficas.menus.MenuAdministrador;
-import interfaces_graficas.BajaPedido.BajaPedido_Preview;
+import interfaces_graficas.baja_pedido.BajaPedido_Preview;
 import logica.managers.ManagerPedido;
 import objects.Pedido;
 
