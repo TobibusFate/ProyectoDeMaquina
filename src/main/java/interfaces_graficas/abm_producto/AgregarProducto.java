@@ -4,17 +4,61 @@
  */
 package interfaces_graficas.abm_producto;
 
-/**
- *
- * @author tovib
- */
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import logica.managers.ManagerProducto;
+
 public class AgregarProducto extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AgregarProducto
-     */
+    private List<JTextField> campos = new ArrayList<>();
+    
     public AgregarProducto() {
         initComponents();
+        AddListener();
+        BtnAgregar.setEnabled(false);
+    }
+    
+    private void AddListener() {
+        campos.add(FldCodigo);
+        campos.add(FldNombre);
+        campos.add(FldCategoria);
+        campos.add(FldPrecio);
+        campos.add(FldStock);
+        campos.add(FldStockMinimo);
+        DocumentListener listener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                boolean canEnable = true;
+                for (JTextField campo: campos) {
+                    if (campo.getText().isEmpty()) canEnable = false;
+                }
+                BtnAgregar.setEnabled(canEnable);
+            }
+        };
+        for (JTextField campo:campos) {
+            campo.getDocument().addDocumentListener(listener);
+        }
+    }
+    
+    private void limpiarCampos() {
+        for (JTextField campo : campos) {
+            campo.setText("");
+        }
+        BtnAgregar.setEnabled(false);
     }
 
     /**
@@ -26,22 +70,52 @@ public class AgregarProducto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
+        FldNombre = new javax.swing.JTextField();
+        FldCategoria = new javax.swing.JTextField();
+        FldPrecio = new javax.swing.JTextField();
+        FldStockMinimo = new javax.swing.JTextField();
+        FldStock = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        FldCodigo = new javax.swing.JTextField();
+        BtnAgregar = new javax.swing.JButton();
+        BtnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        FldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldNombreKeyTyped(evt);
+            }
+        });
+
+        FldCategoria.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldCategoriaKeyTyped(evt);
+            }
+        });
+
+        FldPrecio.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldPrecioKeyTyped(evt);
+            }
+        });
+
+        FldStockMinimo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldStockMinimoKeyTyped(evt);
+            }
+        });
+
+        FldStock.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldStockKeyTyped(evt);
+            }
+        });
 
         jLabel1.setText("Codigo");
 
@@ -55,14 +129,25 @@ public class AgregarProducto extends javax.swing.JFrame {
 
         jLabel6.setText("Precio");
 
-        jButton1.setText("Modificar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+        FldCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                FldCodigoKeyTyped(evt);
             }
         });
 
-        jButton2.setText("Cancelar");
+        BtnAgregar.setText("Agregar");
+        BtnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAgregarActionPerformed(evt);
+            }
+        });
+
+        BtnCancelar.setText("Cancelar");
+        BtnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,37 +156,31 @@ public class AgregarProducto extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel5)
+                            .addGap(18, 18, 18)
+                            .addComponent(FldStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(23, 23, 23)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel1)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel6))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(FldStock)
+                                .addComponent(FldCategoria)
+                                .addComponent(FldNombre, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FldCodigo, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(23, 23, 23)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
-                        .addGap(32, 32, 32))))
+                        .addComponent(BtnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 212, Short.MAX_VALUE)
+                        .addComponent(BtnAgregar)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -110,40 +189,100 @@ public class AgregarProducto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(FldCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1))
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(FldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FldCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FldPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FldStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(FldStockMinimo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(BtnCancelar)
+                    .addComponent(BtnAgregar))
                 .addGap(21, 21, 21))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
+        if (ManagerProducto.cargarProducto(FldCodigo.getText(),FldNombre.getText(),FldCategoria.getText(),FldPrecio.getText(),FldStock.getText(),FldStockMinimo.getText())) {
+            JOptionPane.showMessageDialog(this, "Se ha cargado el producto en el sistema", "Exito en Alta de Producto", JOptionPane.INFORMATION_MESSAGE);
+            limpiarCampos();
+        }
+        else {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la carga,\nya existe un producto con ese codigo o nombre", "Falla en Alta de Producto",JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_BtnAgregarActionPerformed
+
+    private void FldCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldCodigoKeyTyped
+        char c = evt.getKeyChar();
+        if (FldCodigo.getText().length() > 8 || !Character.isDigit(c)) evt.consume();
+    }//GEN-LAST:event_FldCodigoKeyTyped
+
+    private void FldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldNombreKeyTyped
+        char c = evt.getKeyChar();
+        if (FldNombre.getText().length() > 512 || (!Character.isLetterOrDigit(c) && c != ' ')) evt.consume();
+        if (FldNombre.getText().isEmpty() && c == ' ') evt.consume();
+    }//GEN-LAST:event_FldNombreKeyTyped
+
+    private void FldCategoriaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldCategoriaKeyTyped
+        char c = evt.getKeyChar();
+        if (FldCategoria.getText().length() > 512 || (!Character.isLetterOrDigit(c) && c != ' ')) evt.consume();
+        if (FldCategoria.getText().isEmpty() && c == ' ') evt.consume();
+    }//GEN-LAST:event_FldCategoriaKeyTyped
+
+    private void FldStockKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldStockKeyTyped
+        char c = evt.getKeyChar();
+        if (FldStock.getText().length() > 8 || !Character.isDigit(c)) evt.consume();
+    }//GEN-LAST:event_FldStockKeyTyped
+
+    private void FldStockMinimoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldStockMinimoKeyTyped
+        char c = evt.getKeyChar();
+        if (FldStockMinimo.getText().length() > 8 || !Character.isDigit(c)) evt.consume();
+    }//GEN-LAST:event_FldStockMinimoKeyTyped
+
+    private void FldPrecioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_FldPrecioKeyTyped
+        char text[] = FldPrecio.getText().toCharArray();
+        char c = evt.getKeyChar();
+        int count = 0;
+        for (int i = 0; i < text.length; i++) {
+            if (text[i] == '.') {
+                count++;
+            }
+        }
+        if (!Character.isDigit(c) && c == '.' && count >= 1) evt.consume();
+        if (!Character.isDigit(c) && c != '.') evt.consume();
+        
+        String[] partes = FldPrecio.getText().split("[.]",2);
+        if (partes.length > 1) {
+            if (partes[1].length() > 1) evt.consume();
+            if (partes[0].length() > 10) evt.consume();
+        }
+        else if (FldPrecio.getText().length() > 15) evt.consume();
+    }//GEN-LAST:event_FldPrecioKeyTyped
+
+    private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        abm_producto abm = new abm_producto();
+        this.setVisible(false);
+        abm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_BtnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -181,19 +320,19 @@ public class AgregarProducto extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton BtnAgregar;
+    private javax.swing.JButton BtnCancelar;
+    private javax.swing.JTextField FldCategoria;
+    private javax.swing.JTextField FldCodigo;
+    private javax.swing.JTextField FldNombre;
+    private javax.swing.JTextField FldPrecio;
+    private javax.swing.JTextField FldStock;
+    private javax.swing.JTextField FldStockMinimo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
     // End of variables declaration//GEN-END:variables
 }

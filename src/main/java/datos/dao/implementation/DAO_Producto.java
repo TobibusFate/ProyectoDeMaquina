@@ -1,5 +1,6 @@
 package datos.dao.implementation;
 
+import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Producto;
@@ -54,7 +55,11 @@ public class DAO_Producto implements IDAO<Producto> {
 
     @Override
     public boolean create(Producto producto) {
-        return false;
+        Connection conn = DatosBase.getInstance().getConnection();
+        boolean result = DB_BasicQuerys.insertTuple(producto.getKeyNamesList(), producto.getAttributeValuesList(), "Productos", conn);
+        DatosBase.getInstance().closeConnection();
+        
+        return result;
     }
 
     @Override

@@ -97,7 +97,7 @@ public class DB_BasicQuerys {
 
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            //ex.printStackTrace();
             return false;
         }
     }

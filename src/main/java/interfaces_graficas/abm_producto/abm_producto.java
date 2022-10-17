@@ -196,7 +196,10 @@ public class abm_producto extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminar_productoActionPerformed
 
     private void agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_productoActionPerformed
-        // TODO add your handling code here:
+        AgregarProducto ap = new AgregarProducto();
+        this.setVisible(false);
+        this.dispose();
+        ap.setVisible(true);
         //ManagerProducto.agregarProducto
     }//GEN-LAST:event_agregar_productoActionPerformed
 
