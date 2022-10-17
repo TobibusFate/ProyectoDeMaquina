@@ -2,6 +2,7 @@ package objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RenglonPedido extends Renglon {
     private int cantidad;
@@ -104,6 +105,4 @@ public class RenglonPedido extends Renglon {
         l.add(Integer.toString(cantidad));
         return l;
     }
-
-
 }

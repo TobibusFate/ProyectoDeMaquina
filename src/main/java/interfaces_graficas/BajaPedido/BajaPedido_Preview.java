@@ -31,7 +31,7 @@ public class BajaPedido_Preview extends javax.swing.JFrame {
         initComponents();
         this.username = username;
         pedido = p;
-        renglones = ManagerRenglonPedido.getReglonesPorPedido(pedido);
+        renglones = ManagerRenglonPedido.getRenglonesPorPedido(pedido);
         updateText();
         updateTable();
     }

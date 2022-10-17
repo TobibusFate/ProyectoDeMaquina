@@ -20,7 +20,7 @@ import objects.Proveedor;
 
 
 public class DAO_Pedido implements IDAO<Pedido> {
-
+    
     @Override
     public List<Pedido> read(Pedido p) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -73,7 +73,21 @@ public class DAO_Pedido implements IDAO<Pedido> {
 
     @Override
     public boolean update(Pedido p) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        boolean exito = false;
+        try{
+            statement = conn.createStatement();
+            exito = statement.execute(
+                "UPDATE Pedidos SET Ped_FECHAENTREGA = " +
+                        p.getFechaEntrega() +
+                        " WHERE Ped_CODIGO = " +
+                        p.getCodigo()
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exito;
     }
 
     @Override

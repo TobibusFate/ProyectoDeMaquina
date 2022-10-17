@@ -1,6 +1,6 @@
 package logica.managers;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import datos.dao.implementation.DAO_Pedido;
 import java.util.Collection;
@@ -44,4 +44,8 @@ public class ManagerPedido {
         return dao_Pedido.read(p).get(0);
     }
     
+    public static void modificarPedido(Pedido p, ArrayList<RenglonPedido> lrp){
+        dao_Pedido.update(p);
+        ManagerRenglonPedido.actualizarReglonPedido(p,lrp);
+    }
 }

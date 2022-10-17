@@ -5,8 +5,10 @@ import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import logica.managers.ManagerPedido;
@@ -72,7 +74,20 @@ public class DAO_RenglonPedido implements IDAO<RenglonPedido>{
 
     @Override
     public boolean update(RenglonPedido rp) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = DatosBase.getInstance().getConnection();
+        PreparedStatement ps;
+        boolean exito = false;
+        try{
+            ps = conn.prepareStatement("UPDATE Renglon_Pedido SET RenP_Tipo = ?::TIPOCANTIDAD, RenP_CANTIDAD = ? WHERE RenP_CODIGO = ? AND RenP_Ped_CODIGO = ?");
+            ps.setString(1, rp.getTipoCantidad().toString());
+            ps.setInt(2, rp.getCantidad());
+            ps.setInt(3, rp.getCodigo());
+            ps.setInt(4, rp.getPedido().getCodigo());
+            exito = ps.executeUpdate() != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exito;
     }
 
     @Override

@@ -7,6 +7,7 @@ package interfaces_graficas.BuscarPedido;
 
 import interfaces_graficas.AltaPedido.MenuAdministrador;
 import interfaces_graficas.BajaPedido.BajaPedido_Preview;
+import interfaces_graficas.ModificarPedido.ModificarPedido;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -271,7 +272,15 @@ public class BuscarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnVerPedidoActionPerformed
 
     private void BtnModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarPedidoActionPerformed
-        JOptionPane.showMessageDialog(content, "Funcionalidad no implementada","Not implemented error",JOptionPane.ERROR_MESSAGE);
+        int row = TblPedidos.getSelectedRow();
+        if (row != -1) {
+            Pedido p = mapPedidos.get((Integer) TblPedidos.getValueAt(row, 0));
+            this.setVisible(false);
+            ModificarPedido mp = new ModificarPedido(username, p);
+            mp.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(content, "Seleccione un pedido","Pedido no seleccionado",JOptionPane.ERROR_MESSAGE);
+        
     }//GEN-LAST:event_BtnModificarPedidoActionPerformed
 
     private void BtnEliminarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarPedidoActionPerformed

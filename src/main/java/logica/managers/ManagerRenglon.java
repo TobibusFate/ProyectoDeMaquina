@@ -23,4 +23,8 @@ public class ManagerRenglon {
     public static boolean eliminarRenglon(Renglon renglon) {
         return dao_renglon.delete(renglon);
     }
+    
+    public static boolean actualizarReglon(Renglon renglon){
+        return dao_renglon.update(renglon);
+    }
 }

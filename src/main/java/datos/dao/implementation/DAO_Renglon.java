@@ -75,7 +75,23 @@ public class DAO_Renglon implements IDAO<Renglon> {
 
     @Override
     public boolean update(Renglon renglon) {
-        return false;
+        Connection conn = DatosBase.getInstance().getConnection();
+        Statement statement;
+        boolean exito = false;
+        try{
+            statement = conn.createStatement();
+            exito = statement.execute(
+                "UPDATE Renglon SET Ren_MONTOTOTAL = " +
+                        renglon.getMontoTotal() +
+                        " ,Ren_DESCUENTO = " +
+                        renglon.getDescuento() +
+                        "WHERE Ren_CODIGO = " +
+                        renglon.getCodigo()
+            );
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return exito;
     }
 
     @Override
