@@ -1,9 +1,12 @@
 package logica.managers;
 
 import datos.dao.implementation.DAO_Renglon;
+import objects.Producto;
 import objects.Renglon;
 import objects.RenglonPedido;
 import objects.RenglonVenta;
+
+import java.util.HashMap;
 
 public class ManagerRenglon {
     private static DAO_Renglon dao_renglon = new DAO_Renglon();
@@ -31,5 +34,14 @@ public class ManagerRenglon {
     
     public static Renglon getRenglonVenta(int codigo) {
         return dao_renglon.read((Renglon) new RenglonVenta(codigo)).get(0);
+    }
+
+    public static void updateProductos(Producto productoViejo, Producto productoNuevo) {
+        for (Renglon r : dao_renglon.read(null)) {
+            if (r.getProducto().getCodigoP() == productoViejo.getCodigoP()) {
+                r.setProducto(productoNuevo);
+                dao_renglon.update(r);
+            }
+        }
     }
 }

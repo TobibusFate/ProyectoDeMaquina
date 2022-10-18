@@ -61,12 +61,11 @@ public class DAO_Producto implements IDAO<Producto> {
         
         return result;
     }
-
     @Override
     public boolean update(Producto producto) {
         Connection conn = DatosBase.getInstance().getConnection();
         PreparedStatement statement;
-        Boolean exito = false;
+        boolean exito = false;
         String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_CATEGORIA = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?" +
                 " WHERE (Prod_CODIGO = '" + producto.getCodigoP() + "')";
         try {
@@ -80,7 +79,7 @@ public class DAO_Producto implements IDAO<Producto> {
             exito = true;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            return false;
         }
         DatosBase.getInstance().closeConnection();
         return exito;
@@ -88,6 +87,21 @@ public class DAO_Producto implements IDAO<Producto> {
 
     @Override
     public boolean delete(Producto producto) {
-        return false;
+        Connection conn = DatosBase.getInstance().getConnection();
+        PreparedStatement statement;
+        Boolean exito = false;
+
+        String sqlDelete= " DELETE Productos WHERE(Prod_CODIGO = '" + producto.getCodigoP() + "')";
+
+        try {
+            statement = conn.prepareStatement(sqlDelete);
+            statement.executeUpdate();
+            exito = true;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        DatosBase.getInstance().closeConnection();
+        return exito;
     }
 }

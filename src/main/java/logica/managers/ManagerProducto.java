@@ -41,13 +41,13 @@ public class ManagerProducto {
         
         
     }
-    
-    public static boolean cargarProducto(Producto prod) {
-        return dao_producto.create(prod);
+
+    public static boolean updateProducto(Producto p) {
+       return dao_producto.update(p);
     }
 
-    public static void updateProducto(Producto p) {
-        dao_producto.update(p);
+    public static void deleteProducto(Producto producto) {
+        dao_producto.delete(producto);
     }
 
     /*public static void updateProducto(int codigoP, Producto p) {

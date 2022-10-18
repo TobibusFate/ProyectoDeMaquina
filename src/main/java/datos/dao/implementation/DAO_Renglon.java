@@ -89,6 +89,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        DatosBase.getInstance().closeConnection();
         return exito;
     }
 

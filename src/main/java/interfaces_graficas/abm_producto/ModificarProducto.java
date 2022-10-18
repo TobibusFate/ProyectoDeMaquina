@@ -5,6 +5,7 @@
 package interfaces_graficas.abm_producto;
 
 import logica.managers.ManagerProducto;
+import logica.managers.ManagerRenglon;
 import objects.Producto;
 
 import javax.swing.*;
@@ -216,19 +217,22 @@ public class ModificarProducto extends javax.swing.JFrame {
 
         //logica para cambiar codigo de producto
 
-        /*if (this.producto.getCodigoP() != Integer.parseInt(codigo_producto.getText()) ) {
+        /*if (this.producto.getCodigoP() != Integer.parseInt(codigo_producto.getText())) {
             Producto p = new Producto(Integer.parseInt(codigo_producto.getText()),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText()));
             ManagerProducto.deleteProducto(this.producto);
-            ManagerProducto.cargarProducto(p);
+            ManagerRenglon.updateProductos(this.producto, p);
+            ManagerProducto.cargarProducto(codigo_producto.getText(),nombre_producto.getText(),categoria_producto.getText(),precio_producto.getText(),stock_producto.getText(),stock_minimo_producto.getText());
         } else {
             ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
             abm_padre.updateProductos();
         }*/
+        if (ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())))) {
+            abm_padre.updateProductos();
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la carga,\nya existe un producto con ese nombre", "Falla en Alta de Producto",JOptionPane.ERROR_MESSAGE);
+        }
 
-        ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
-        abm_padre.updateProductos();
-
-        this.dispose();
 
     }//GEN-LAST:event_boton_modificarActionPerformed
 

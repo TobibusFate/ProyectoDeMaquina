@@ -219,23 +219,23 @@ public class DB_Init {
 
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('12', 'leche', 'comestible', '150', '200', '50')");
+                    "VALUES ('12', 'LECHE', 'COMESTIBLE', '150', '200', '50')");
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('15', 'galletas de chocolate', 'comestible', '200', '200', '50')");
+                    "VALUES ('15', 'GALLETAS DE CHOCOLATE', 'COMESTIBLE', '200', '200', '50')");
 
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('19', 'galletas de coco', 'comestible', '110', '200', '50')");
+                    "VALUES ('19', 'GALLETAS DE COCO', 'COMESTIBLE', '110', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('200', 'aceite', 'comestible', '300', '200', '50')");
+                    "VALUES ('200', 'ACEITE', 'COMESTIBLE', '300', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('111', 'chocolate', 'comestible', '220', '200', '50')");
+                    "VALUES ('111', 'CHOCOLATE', 'COMESTIBLE', '220', '200', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('300', 'ositos de goma', 'comestible', '220', '50', '50')");
+                    "VALUES ('300', 'OSITOS DE GOMA', 'COMESTIBLE', '220', '50', '50')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('301', 'gomitas', 'comestible', '220', '50', '200')");
+                    "VALUES ('301', 'GOMITAS', 'COMESTIBLE', '220', '50', '200')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('302', 'galletas de animales', 'comestible', '220', '50', '51')");
+                    "VALUES ('302', 'GALLETAS DE animales', 'COMESTIBLE', '220', '50', '51')");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
