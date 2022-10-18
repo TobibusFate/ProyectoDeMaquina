@@ -4,7 +4,7 @@
  */
 package interfaces_graficas.ModificarPedido;
 
-import interfaces_graficas.altaPedido.MenuAdministrador;
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.text.SimpleDateFormat;
@@ -18,6 +18,8 @@ import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+
+import interfaces_graficas.menus.MenuAdministrador;
 import logica.managers.ManagerAdministrador;
 import logica.managers.ManagerProducto;
 import objects.Pedido;

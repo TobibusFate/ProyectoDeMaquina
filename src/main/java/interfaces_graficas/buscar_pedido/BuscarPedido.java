@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package interfaces_graficas.buscar_pedido;
-import interfaces_graficas.AltaPedido.MenuAdministrador;
-import interfaces_graficas.BajaPedido.BajaPedido_Preview;
 import interfaces_graficas.ModificarPedido.ModificarPedido;
 import java.util.HashMap;
 import java.util.Map;
