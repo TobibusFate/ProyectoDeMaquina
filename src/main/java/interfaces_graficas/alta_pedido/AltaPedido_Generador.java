@@ -535,17 +535,17 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void updateComboboxProveedores(){
         List<String> listaProv = new ArrayList<>();
         for (int i = 0;i<Cbx_ListaProveedores.getItemCount();i++) {
-            listaProv.add(Cbx_ListaProveedores.getItemAt(i).toLowerCase());
+            listaProv.add(Cbx_ListaProveedores.getItemAt(i));
         }
         for (Proveedor p: mapProveedores.values()){
-            if (p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase()) || String.valueOf(p.getCuit()).toLowerCase().contains(FldCUIT.getText().toLowerCase()) ) {
-                if (!listaProv.contains(p.getNombre().toLowerCase())) {
-                    Cbx_ListaProveedores.addItem(p.getNombre().toLowerCase());
+            if (p.getNombre().contains(FldCUIT.getText()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
+                if (!listaProv.contains(p.getNombre())) {
+                    Cbx_ListaProveedores.addItem(p.getNombre());
                 }
             }
-            if (listaProv.contains(p.getNombre().toLowerCase())) {
-                if (!p.getNombre().toLowerCase().contains(FldCUIT.getText().toLowerCase())) {
-                    Cbx_ListaProveedores.removeItem(p.getNombre().toLowerCase());
+            if (listaProv.contains(p.getNombre())) {
+                if (!p.getNombre().contains(FldCUIT.getText())) {
+                    Cbx_ListaProveedores.removeItem(p.getNombre());
                 }
             }
         }
@@ -554,17 +554,17 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
     private void updateComboboxProductos(){
         List<String> listaProd = new ArrayList<>();
         for (int i = 0;i<Cbx_ListaProductos.getItemCount();i++) {
-            listaProd.add(Cbx_ListaProductos.getItemAt(i).toLowerCase());
+            listaProd.add(Cbx_ListaProductos.getItemAt(i));
         }
         for (Producto p: getMapProductos().values()){
-            if (p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
-                if (!listaProd.contains(p.getNombreP().toLowerCase())) {
-                    Cbx_ListaProductos.addItem(p.getNombreP().toLowerCase());
+            if (p.getNombreP().contains(FldProd.getText())) {
+                if (!listaProd.contains(p.getNombreP())) {
+                    Cbx_ListaProductos.addItem(p.getNombreP());
                 }
             }
-            if (listaProd.contains(p.getNombreP().toLowerCase())) {
-                if (!p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
-                    Cbx_ListaProductos.removeItem(p.getNombreP().toLowerCase());
+            if (listaProd.contains(p.getNombreP())) {
+                if (!p.getNombreP().contains(FldProd.getText())) {
+                    Cbx_ListaProductos.removeItem(p.getNombreP());
                 }
             }
         }

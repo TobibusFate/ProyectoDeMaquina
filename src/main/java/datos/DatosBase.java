@@ -5,9 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatosBase {
-    private static final String DB_NAME = "DataBase_IngSW2";
+    private static final String DB_NAME = "testeo";
     // private static final String MySQL_URL = "jdbc:mysql://localhost:3306/" + DB_NAME, MySQL_USER = "root", MySQL_PWD = "admin"; // Para MySQL
-    private static final String Postgre_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME, Postgre_USER = "postgres", Postgre_PWD = "admin"; // Para Postgres
+    private static final String Postgre_URL = "jdbc:postgresql://localhost:5432/" + DB_NAME, Postgre_USER = "postgres", Postgre_PWD = "323411"; // Para Postgres
 
     private static DatosBase instance;
     private static Connection conn;

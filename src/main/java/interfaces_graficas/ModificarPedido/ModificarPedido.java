@@ -451,17 +451,17 @@ public class ModificarPedido extends javax.swing.JFrame {
     private void updateComboboxProductos(){
         List<String> listaProd = new ArrayList<>();
         for (int i = 0;i<Cbx_ListaProductos.getItemCount();i++) {
-            listaProd.add(Cbx_ListaProductos.getItemAt(i).toLowerCase());
+            listaProd.add(Cbx_ListaProductos.getItemAt(i));
         }
         for (Producto p: mapProductos.values()){
-            if (p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
-                if (!listaProd.contains(p.getNombreP().toLowerCase())) {
-                    Cbx_ListaProductos.addItem(p.getNombreP().toLowerCase());
+            if (p.getNombreP().contains(FldProd.getText())) {
+                if (!listaProd.contains(p.getNombreP())) {
+                    Cbx_ListaProductos.addItem(p.getNombreP());
                 }
             }
-            if (listaProd.contains(p.getNombreP().toLowerCase())) {
-                if (!p.getNombreP().toLowerCase().contains(FldProd.getText().toLowerCase())) {
-                    Cbx_ListaProductos.removeItem(p.getNombreP().toLowerCase());
+            if (listaProd.contains(p.getNombreP())) {
+                if (!p.getNombreP().contains(FldProd.getText())) {
+                    Cbx_ListaProductos.removeItem(p.getNombreP());
                 }
             }
         }

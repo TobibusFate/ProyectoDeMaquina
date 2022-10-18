@@ -235,7 +235,7 @@ public class DB_Init {
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
                     "VALUES ('301', 'GOMITAS', 'COMESTIBLE', '220', '50', '200')");
         query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('302', 'GALLETAS DE animales', 'COMESTIBLE', '220', '50', '51')");
+                    "VALUES ('302', 'GALLETAS DE ANIMALES', 'COMESTIBLE', '220', '50', '51')");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");

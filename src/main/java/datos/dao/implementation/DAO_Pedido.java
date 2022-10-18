@@ -78,8 +78,8 @@ public class DAO_Pedido implements IDAO<Pedido> {
         try{
             statement = conn.createStatement();
             exito = statement.execute(
-                "UPDATE Pedidos SET Ped_FECHAENTREGA = " +
-                        p.getFechaEntrega() +
+                "UPDATE Pedidos SET Ped_FECHAENTREGA = " + "'" +
+                        p.getFechaEntrega().toString() + "'" +
                         " WHERE Ped_CODIGO = " +
                         p.getCodigo()
             );

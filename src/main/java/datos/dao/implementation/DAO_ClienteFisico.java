@@ -24,9 +24,11 @@ public class DAO_ClienteFisico implements IDAO<Cliente_Fisico> {
             statement = conn.createStatement();
             // query para retornar el producto
             if (cliente_fisico != null) {
+               
                 rs = statement.executeQuery("SELECT * FROM ClientesFisicos WHERE (CliF_DNI = '" +cliente_fisico.getDni()+"')");
+                while(rs.next()){
                 list.add(new Cliente_Fisico(rs.getInt("CliF_DNI"),rs.getLong("CliF_CUIL")));
-                // query para retornar lista de productos
+                }// query para retornar lista de productos
             } else {
                 rs = statement.executeQuery("SELECT * FROM ClientesFisicos ORDER BY CliF_DNI");
                 while (rs.next()){
