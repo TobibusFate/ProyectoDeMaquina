@@ -33,6 +33,21 @@ public class ABM_Producto extends javax.swing.JFrame {
         updateTabla(listaProductos);
         addList();
     }
+    
+    public void disableButtons() {
+        agregar_producto.setEnabled(false);
+        boton_salir.setEnabled(false);
+        modificar_producto.setEnabled(false);
+        eliminar_producto.setEnabled(false);
+    }
+    
+    public void enabledButtons() {
+        agregar_producto.setEnabled(true);
+        boton_salir.setEnabled(true);
+        modificar_producto.setEnabled(true);
+        eliminar_producto.setEnabled(true);
+    }
+    
     public void updateProductos () {
         listaProductos = ManagerProducto.getHashMapProductos();
         updateTabla(listaProductos);
@@ -207,11 +222,11 @@ public class ABM_Producto extends javax.swing.JFrame {
         if (tabla_productos.getSelectedRow() != -1) {
             Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
             ModificarProducto mp = new ModificarProducto(p,this);
+            disableButtons();
             mp.setVisible(true);
         } else {
             //No hay producto seleccionado
         }
-
 
         //ManagerProducto.actualizarProducto
     }//GEN-LAST:event_modificar_productoActionPerformed
@@ -223,6 +238,7 @@ public class ABM_Producto extends javax.swing.JFrame {
 
     private void agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_productoActionPerformed
         AgregarProducto ap = new AgregarProducto(this);
+        disableButtons();
         ap.setVisible(true);
         //ManagerProducto.agregarProducto
     }//GEN-LAST:event_agregar_productoActionPerformed

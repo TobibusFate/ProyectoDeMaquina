@@ -209,6 +209,7 @@ public class ModificarProducto extends javax.swing.JFrame {
 
     private void boton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cancelarActionPerformed
         // TODO add your handling code here:
+        abm_padre.enabledButtons();
         this.dispose();
     }//GEN-LAST:event_boton_cancelarActionPerformed
 
@@ -228,6 +229,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         }*/
         if (ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())))) {
             abm_padre.updateProductos();
+            abm_padre.enabledButtons();
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la carga,\nya existe un producto con ese nombre", "Falla en Alta de Producto",JOptionPane.ERROR_MESSAGE);

@@ -120,6 +120,7 @@ public class RealizarPago extends javax.swing.JFrame {
     }
 
     private void destruir () {
+        registrarVenta.enabledButtons();
         this.dispose();
     }
 
@@ -368,6 +369,7 @@ public class RealizarPago extends javax.swing.JFrame {
             pago.setFechaLimiteP(now);
         }
         registrarVenta.addPago(pago);
+        registrarVenta.enabledButtons();
         this.dispose();
 
     }
@@ -379,6 +381,7 @@ public class RealizarPago extends javax.swing.JFrame {
 
     private void boton_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cancelarActionPerformed
         // TODO add your handling code here:
+        registrarVenta.enabledButtons();
         this.dispose();
     }//GEN-LAST:event_boton_cancelarActionPerformed
 

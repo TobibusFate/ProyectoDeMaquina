@@ -54,6 +54,23 @@ public class RegistrarVenta extends javax.swing.JFrame {
         listaProductos = ManagerProducto.getHashMapProductos();
         updateCombobox();
     }
+    public void disableButtons() {
+        boton_agregar.setEnabled(false);
+        boton_salir.setEnabled(false);
+        boton_quitar.setEnabled(false);
+        boton_realizar_pago.setEnabled(false);
+        boton_vaciar_pagos.setEnabled(false);
+    }
+
+    public void enabledButtons() {
+        boton_agregar.setEnabled(true);
+        boton_salir.setEnabled(true);
+        boton_quitar.setEnabled(true);
+        boton_realizar_pago.setEnabled(true);
+        if (!listaPagos.isEmpty()) {
+            boton_vaciar_pagos.setEnabled(true);
+        }
+    }
     public void addPago (Pago p) {
         listaPagos.add(p);
         if (!listaPagos.isEmpty()) {
@@ -424,6 +441,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (boton_realizar_pago.getText().equals("Realizar Pago")) {
             RealizarPago rp = new RealizarPago(monto_restante_value.getText(),this);
+            disableButtons();
             rp.setVisible(true);
         } else {
             boolean cerrada = true;

@@ -12,17 +12,15 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 import logica.managers.ManagerProducto;
-import objects.Producto;
 
 public class AgregarProducto extends javax.swing.JFrame {
 
     private List<JTextField> campos = new ArrayList<>();
-    private static ABM_Producto abm = null;
+    private static ABM_Producto abm_padre = null;
 
     public AgregarProducto(ABM_Producto abm_producto) {
         initComponents();
-
-        abm = abm_producto;
+        abm_padre = abm_producto;
         AddListener();
         BtnAgregar.setEnabled(false);
     }
@@ -228,7 +226,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
         if (ManagerProducto.cargarProducto(FldCodigo.getText(),FldNombre.getText(),FldCategoria.getText(),FldPrecio.getText(),FldStock.getText(),FldStockMinimo.getText())) {
             JOptionPane.showMessageDialog(this, "Se ha cargado el producto en el sistema", "Exito en Alta de Producto", JOptionPane.INFORMATION_MESSAGE);
-            abm.updateProductos();
+            abm_padre.updateProductos();
             limpiarCampos();
         }
         else {
@@ -284,6 +282,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_FldPrecioKeyTyped
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
+        abm_padre.enabledButtons();
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
