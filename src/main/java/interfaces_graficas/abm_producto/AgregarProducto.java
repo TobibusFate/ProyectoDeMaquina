@@ -10,14 +10,19 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+
 import logica.managers.ManagerProducto;
+import objects.Producto;
 
 public class AgregarProducto extends javax.swing.JFrame {
 
     private List<JTextField> campos = new ArrayList<>();
-    
-    public AgregarProducto() {
+    private static ABM_Producto abm = null;
+
+    public AgregarProducto(ABM_Producto abm_producto) {
         initComponents();
+
+        abm = abm_producto;
         AddListener();
         BtnAgregar.setEnabled(false);
     }
@@ -223,6 +228,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private void BtnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAgregarActionPerformed
         if (ManagerProducto.cargarProducto(FldCodigo.getText(),FldNombre.getText(),FldCategoria.getText(),FldPrecio.getText(),FldStock.getText(),FldStockMinimo.getText())) {
             JOptionPane.showMessageDialog(this, "Se ha cargado el producto en el sistema", "Exito en Alta de Producto", JOptionPane.INFORMATION_MESSAGE);
+            abm.updateProductos();
             limpiarCampos();
         }
         else {
@@ -278,9 +284,6 @@ public class AgregarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_FldPrecioKeyTyped
 
     private void BtnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCancelarActionPerformed
-        abm_producto abm = new abm_producto();
-        this.setVisible(false);
-        abm.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnCancelarActionPerformed
 
@@ -314,7 +317,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AgregarProducto().setVisible(true);
+                new AgregarProducto(new ABM_Producto("")).setVisible(true);
             }
         });
     }

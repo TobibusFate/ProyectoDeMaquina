@@ -147,17 +147,17 @@ public class RegistrarVenta extends javax.swing.JFrame {
     private void updateCombobox(){
         List<String> lista = new ArrayList<>();
         for (int i = 0;i<combobox_listado_productos.getItemCount();i++) {
-            lista.add(combobox_listado_productos.getItemAt(i).toLowerCase());
+            lista.add(combobox_listado_productos.getItemAt(i).toUpperCase());
         }
         for (Producto p: listaProductos.values()){
-            if (p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
-                if (!lista.contains(p.getNombreP().toLowerCase())) {
-                    combobox_listado_productos.addItem(p.getNombreP().toLowerCase());
+            if (p.getNombreP().toUpperCase().contains(buscador_productos.getText().toUpperCase())) {
+                if (!lista.contains(p.getNombreP().toUpperCase())) {
+                    combobox_listado_productos.addItem(p.getNombreP().toUpperCase());
                 }
             }
-            if (lista.contains(p.getNombreP().toLowerCase())) {
-                if (!p.getNombreP().toLowerCase().contains(buscador_productos.getText().toLowerCase())) {
-                    combobox_listado_productos.removeItem(p.getNombreP().toLowerCase());
+            if (lista.contains(p.getNombreP().toUpperCase())) {
+                if (!p.getNombreP().toUpperCase().contains(buscador_productos.getText().toUpperCase())) {
+                    combobox_listado_productos.removeItem(p.getNombreP().toUpperCase());
                 }
             }
         }
@@ -181,7 +181,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
         }
         /** CARGAR  TABLA*/
         for (RenglonVenta rv: listaRenglon.values()){
-            model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento()});
+            model.addRow(new Object[]{rv.getProducto().getCodigoP(),rv.getProducto().getNombreP().toUpperCase(),rv.getUnidades(),rv.getProducto().getPrecioP(),rv.getMontoTotal(),rv.getDescuento()});
         }
         float value = 0;
         for (RenglonVenta rv : listaRenglon.values()) {

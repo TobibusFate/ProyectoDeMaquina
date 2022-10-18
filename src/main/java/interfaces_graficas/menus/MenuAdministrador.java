@@ -6,7 +6,7 @@ package interfaces_graficas.menus;
 
 import interfaces_graficas.alta_pedido.AltaPedido_Generador;
 import interfaces_graficas.buscar_pedido.BuscarPedido;
-import interfaces_graficas.abm_producto.abm_producto;
+import interfaces_graficas.abm_producto.ABM_Producto;
 import interfaces_graficas.buscar_venta.BuscarVenta;
 import interfaces_graficas.realizar_venta.RegistrarVenta;
 
@@ -196,7 +196,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void boton_productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_productosActionPerformed
         // TODO add your handling code here:
-        abm_producto abmp = new abm_producto();
+        ABM_Producto abmp = new ABM_Producto(this.username);
         abmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_boton_productosActionPerformed

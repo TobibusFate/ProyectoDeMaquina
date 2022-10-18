@@ -10,7 +10,7 @@ public class ManagerProducto {
     public static HashMap<String, Producto> getHashMapProductos() {
         HashMap <String, Producto> map = new HashMap<>();
         for (Producto producto : dao_producto.read(null)) {
-            map.put(producto.getNombreP(),producto);
+            map.put(producto.getNombreP().toUpperCase(),producto);
         }
         return map;
     }
@@ -45,5 +45,13 @@ public class ManagerProducto {
     public static boolean cargarProducto(Producto prod) {
         return dao_producto.create(prod);
     }
+
+    public static void updateProducto(Producto p) {
+        dao_producto.update(p);
+    }
+
+    /*public static void updateProducto(int codigoP, Producto p) {
+        dao_producto.update(p);
+    }*/
     /** PARTE LOGICA ENCARGADA DE LOS PRODUCTOS */
 }

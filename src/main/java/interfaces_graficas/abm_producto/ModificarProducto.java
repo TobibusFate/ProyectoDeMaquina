@@ -4,7 +4,15 @@
  */
 package interfaces_graficas.abm_producto;
 
+import logica.managers.ManagerProducto;
 import objects.Producto;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -15,20 +23,59 @@ public class ModificarProducto extends javax.swing.JFrame {
     /**
      * Creates new form ModificarProducto
      */
+    private List<JTextField> campos = new ArrayList<>();
+    private static ABM_Producto abm_padre = null;
     private Producto producto;
-    public ModificarProducto(Producto p) {
+    public ModificarProducto(Producto p, ABM_Producto abm_producto) {
         initComponents();
         this.producto = p;
+        abm_padre = abm_producto;
         initTextsFiles();
+        addListener();
+        this.boton_modificar.setEnabled(false);
     }
 
     private void initTextsFiles() {
         codigo_producto.setText(String.valueOf(producto.getCodigoP()));
+        codigo_producto.setEditable(false);
         nombre_producto.setText(producto.getNombreP());
         categoria_producto.setText(producto.getCategoriaP());
         precio_producto.setText(String.valueOf(producto.getPrecioP()));
         stock_producto.setText(String.valueOf(producto.getStockP()));
         stock_minimo_producto.setText(String.valueOf(producto.getStockMinimoP()));
+    }
+
+
+    private void addListener() {
+        campos.add(codigo_producto);
+        campos.add(nombre_producto);
+        campos.add(categoria_producto);
+        campos.add(precio_producto);
+        campos.add(stock_producto);
+        campos.add(stock_minimo_producto);
+        DocumentListener listener = new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                changedUpdate(e);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                boolean canEnable = true;
+                for (JTextField campo: campos) {
+                    if (campo.getText().isEmpty()) canEnable = false;
+                }
+                boton_modificar.setEnabled(canEnable);
+            }
+        };
+        for (JTextField campo:campos) {
+            campo.getDocument().addDocumentListener(listener);
+        }
     }
 
 
@@ -70,7 +117,12 @@ public class ModificarProducto extends javax.swing.JFrame {
 
         jLabel6.setText("Precio");
 
-        boton_modificar.setText("Agregar");
+        boton_modificar.setText("Modificar");
+        boton_modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_modificarActionPerformed(evt);
+            }
+        });
 
         boton_cancelar.setText("Cancelar");
         boton_cancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +211,27 @@ public class ModificarProducto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_boton_cancelarActionPerformed
 
+    private void boton_modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_modificarActionPerformed
+        // TODO add your handling code here:
+
+        //logica para cambiar codigo de producto
+
+        /*if (this.producto.getCodigoP() != Integer.parseInt(codigo_producto.getText()) ) {
+            Producto p = new Producto(Integer.parseInt(codigo_producto.getText()),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText()));
+            ManagerProducto.deleteProducto(this.producto);
+            ManagerProducto.cargarProducto(p);
+        } else {
+            ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
+            abm_padre.updateProductos();
+        }*/
+
+        ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
+        abm_padre.updateProductos();
+
+        this.dispose();
+
+    }//GEN-LAST:event_boton_modificarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -189,7 +262,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ModificarProducto(new Producto(0)).setVisible(true);
+                new ModificarProducto(new Producto(0), new ABM_Producto("")).setVisible(true);
             }
         });
     }

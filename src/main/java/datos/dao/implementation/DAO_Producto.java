@@ -67,14 +67,15 @@ public class DAO_Producto implements IDAO<Producto> {
         Connection conn = DatosBase.getInstance().getConnection();
         PreparedStatement statement;
         Boolean exito = false;
-        String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?" +
+        String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_CATEGORIA = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?" +
                 " WHERE (Prod_CODIGO = '" + producto.getCodigoP() + "')";
         try {
             statement = conn.prepareStatement(sqlUpdate);
             statement.setString(1,producto.getNombreP());
-            statement.setFloat(2,producto.getPrecioP());
-            statement.setInt(3,producto.getStockP());
-            statement.setInt(4,producto.getStockMinimoP());
+            statement.setString(2,producto.getCategoriaP());
+            statement.setFloat(3,producto.getPrecioP());
+            statement.setInt(4,producto.getStockP());
+            statement.setInt(5,producto.getStockMinimoP());
             statement.executeUpdate();
             exito = true;
 

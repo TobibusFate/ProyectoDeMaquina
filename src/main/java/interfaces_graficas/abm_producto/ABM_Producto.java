@@ -4,10 +4,9 @@
  */
 package interfaces_graficas.abm_producto;
 
+import interfaces_graficas.menus.MenuAdministrador;
 import logica.managers.ManagerProducto;
 import objects.Producto;
-import objects.RenglonVenta;
-import objects.Venta;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -18,19 +17,31 @@ import java.util.HashMap;
  *
  * @author tovib
  */
-public class abm_producto extends javax.swing.JFrame {
+public class ABM_Producto extends javax.swing.JFrame {
 
     /**
      * Creates new form abm_producto
      */
     private static HashMap<String, Producto> listaProductos = new HashMap<>();
     private DefaultTableModel model;
-    public abm_producto() {
+    private String user;
+    
+    public ABM_Producto(String user) {
         initComponents();
+        this.user = user;
         listaProductos = ManagerProducto.getHashMapProductos();
         updateTabla(listaProductos);
         addList();
     }
+    public void updateProductos () {
+        listaProductos = ManagerProducto.getHashMapProductos();
+        updateTabla(listaProductos);
+    }
+
+    public HashMap<String, Producto> getListaProductos() {
+        return listaProductos;
+    }
+
     public void addList(){
         texto_buscador.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -60,14 +71,14 @@ public class abm_producto extends javax.swing.JFrame {
     }
 
     public void updateTabla(HashMap<String, Producto> localMap) {
-        model = (DefaultTableModel) this.tabla_productos.getModel();
+        model = (DefaultTableModel) tabla_productos.getModel();
         /** LIMPIAR TABLA*/
         while (model.getRowCount()>0){
             model.removeRow(0);
         }
         /** CARGAR  TABLA*/
         for (Producto p: localMap.values()){
-            model.addRow(new Object[]{p.getCodigoP(),p.getNombreP(),p.getCategoriaP(),p.getPrecioP(),p.getStockP(),p.getStockMinimoP()});
+            model.addRow(new Object[]{p.getCodigoP(),p.getNombreP().toUpperCase(),p.getCategoriaP(),p.getPrecioP(),p.getStockP(),p.getStockMinimoP()});
         }
     }
 
@@ -80,7 +91,7 @@ public class abm_producto extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        boton_salir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_productos = new javax.swing.JTable();
         modificar_producto = new javax.swing.JButton();
@@ -91,7 +102,12 @@ public class abm_producto extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Salir");
+        boton_salir.setText("Salir");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_salirActionPerformed(evt);
+            }
+        });
 
         tabla_productos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -157,7 +173,7 @@ public class abm_producto extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 518, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton1)
+                        .addComponent(boton_salir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(eliminar_producto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -176,7 +192,7 @@ public class abm_producto extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(boton_salir)
                     .addComponent(modificar_producto)
                     .addComponent(eliminar_producto))
                 .addContainerGap())
@@ -190,7 +206,7 @@ public class abm_producto extends javax.swing.JFrame {
 
         if (tabla_productos.getSelectedRow() != -1) {
             Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
-            ModificarProducto mp = new ModificarProducto(p);
+            ModificarProducto mp = new ModificarProducto(p,this);
             mp.setVisible(true);
         } else {
             //No hay producto seleccionado
@@ -206,12 +222,17 @@ public class abm_producto extends javax.swing.JFrame {
     }//GEN-LAST:event_eliminar_productoActionPerformed
 
     private void agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_productoActionPerformed
-        AgregarProducto ap = new AgregarProducto();
-        this.setVisible(false);
-        this.dispose();
+        AgregarProducto ap = new AgregarProducto(this);
         ap.setVisible(true);
         //ManagerProducto.agregarProducto
     }//GEN-LAST:event_agregar_productoActionPerformed
+
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
+        // TODO add your handling code here:
+        MenuAdministrador ma = new MenuAdministrador(this.user);
+        ma.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_boton_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,28 +251,28 @@ public class abm_producto extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(abm_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ABM_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(abm_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ABM_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(abm_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ABM_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(abm_producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ABM_Producto.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new abm_producto().setVisible(true);
+                new ABM_Producto("").setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_producto;
+    private javax.swing.JButton boton_salir;
     private javax.swing.JButton eliminar_producto;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton modificar_producto;
