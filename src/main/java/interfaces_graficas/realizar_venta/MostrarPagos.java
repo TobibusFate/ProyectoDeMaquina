@@ -29,8 +29,6 @@ public class MostrarPagos extends javax.swing.JFrame {
         updateTablaPagos(listaPagos);
 
     }
-
-
     private void cerrar () {
         try {
             this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

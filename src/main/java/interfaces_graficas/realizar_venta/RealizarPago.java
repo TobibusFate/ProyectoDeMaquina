@@ -318,15 +318,22 @@ public class RealizarPago extends javax.swing.JFrame {
         boolean terminar = true;
         if (texto_monto.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "El Monto es obligatorio");
-        }
-        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) && texto_dni.getText().equals("")) {
-            JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
             terminar = false;
         }
-        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo()) &&
-                !registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
-            JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
-            terminar = false;
+
+        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo())) {
+            if (texto_dni.getText().equals("")) {
+                JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
+                terminar = false;
+            }
+            if (!registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+                JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
+                terminar = false;
+            }
+            if (registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())).getMoroso()) {
+                JOptionPane.showMessageDialog(null, "El Cliente no puede reazlizar fiados por ser moroso");
+                terminar = false;
+            }
         }
         try {
             if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
