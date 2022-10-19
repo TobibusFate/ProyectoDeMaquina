@@ -10,7 +10,10 @@ import objects.Pago;
 import objects.RenglonVenta;
 import objects.Venta;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -28,11 +31,30 @@ public class MostrarVenta extends javax.swing.JFrame {
      */
     public MostrarVenta(Venta venta) {
         initComponents();
+        cerrar();
         listaPagos = ManagerPago.getPagosToVenta(venta);
         listaRenglonVenta = ManagerRenglonVenta.getRenglonesToVenta(venta);
         setDatosVenta(venta);
         updateTablaRenglonesVenta();
         updateTablaPagos();
+    }
+
+    private void cerrar () {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    destruir();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void destruir () {
+        this.dispose();
     }
 
     public void setDatosVenta(Venta datosVenta) {

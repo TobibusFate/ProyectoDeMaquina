@@ -4,10 +4,11 @@
  */
 package interfaces_graficas.abm_producto;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -22,7 +23,27 @@ public class AgregarProducto extends javax.swing.JFrame {
         initComponents();
         abm_padre = abm_producto;
         AddListener();
+        cerrar();
         BtnAgregar.setEnabled(false);
+    }
+
+    private void cerrar () {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    destruir();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void destruir () {
+        abm_padre.enabledButtons();
+        this.dispose();
     }
     
     private void AddListener() {

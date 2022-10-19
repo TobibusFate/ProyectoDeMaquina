@@ -6,7 +6,10 @@ package interfaces_graficas.realizar_venta;
 
 import objects.Pago;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +25,28 @@ public class MostrarPagos extends javax.swing.JFrame {
     private DefaultTableModel model;
     public MostrarPagos(List<Pago> listaPagos) {
         initComponents();
+        cerrar();
         updateTablaPagos(listaPagos);
 
+    }
+
+
+    private void cerrar () {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    destruir();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void destruir () {
+        this.dispose();
     }
 
     public void updateTablaPagos (List<Pago> listaPagos) {
@@ -61,7 +84,7 @@ public class MostrarPagos extends javax.swing.JFrame {
 
         jScrollPane2 = new javax.swing.JScrollPane();
         tabla_renglon_pagos = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        boton_salir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,7 +113,12 @@ public class MostrarPagos extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tabla_renglon_pagos);
 
-        jButton1.setText("Salir");
+        boton_salir.setText("Salir");
+        boton_salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boton_salirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,7 +126,7 @@ public class MostrarPagos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jButton1)
+                .addComponent(boton_salir)
                 .addContainerGap(579, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -110,7 +138,7 @@ public class MostrarPagos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(299, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(boton_salir)
                 .addContainerGap())
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -121,6 +149,11 @@ public class MostrarPagos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void boton_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_salirActionPerformed
+        this.dispose();
+
+    }//GEN-LAST:event_boton_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,7 +191,7 @@ public class MostrarPagos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton boton_salir;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabla_renglon_pagos;
     // End of variables declaration//GEN-END:variables

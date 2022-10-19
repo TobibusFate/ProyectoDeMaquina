@@ -11,6 +11,8 @@ import objects.Producto;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +27,7 @@ public class ModificarProducto extends javax.swing.JFrame {
      * Creates new form ModificarProducto
      */
     private List<JTextField> campos = new ArrayList<>();
-    private static ABM_Producto abm_padre = null;
+    private ABM_Producto abm_padre = null;
     private Producto producto;
     public ModificarProducto(Producto p, ABM_Producto abm_producto) {
         initComponents();
@@ -44,6 +46,24 @@ public class ModificarProducto extends javax.swing.JFrame {
         precio_producto.setText(String.valueOf(producto.getPrecioP()));
         stock_producto.setText(String.valueOf(producto.getStockP()));
         stock_minimo_producto.setText(String.valueOf(producto.getStockMinimoP()));
+    }
+    private void cerrar () {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    destruir();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void destruir () {
+        abm_padre.enabledButtons();
+        this.dispose();
     }
 
 
