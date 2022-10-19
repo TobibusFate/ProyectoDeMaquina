@@ -35,6 +35,7 @@ public class ModificarProducto extends javax.swing.JFrame {
         abm_padre = abm_producto;
         initTextsFiles();
         addListener();
+        cerrar();
         this.boton_modificar.setEnabled(false);
     }
 
