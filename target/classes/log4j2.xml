@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+    <Properties>
+        <Property name="logPath">src/main/resources/log</Property>
+        <Property name="patternLogPath">src/main/resources/log/old</Property>
+        <Property name="rollingFileName">all</Property>
+        <Property name="errorFileName">error</Property>
+        <Property name="infoFileName">info</Property>
+        <Property name="logInFileName">logIn</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+        </Console>
+        <!-- ARCHIVO QUE GUARDA TODOS LOS LOGS 
+        <RollingFile name="rollingFile" fileName="${logPath}/${rollingFileName}.log" filePattern="${patternLogPath}/all/${rollingFileName}_%d{yyy-MM-dd}_%i.log">
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>-->
+        <!-- ARCHIVO QUE GUARDA LOS ERRORES -->
+        <RollingFile name="errorFile" fileName="${logPath}/${errorFileName}.log" filePattern="${patternLogPath}/error/${errorFileName}_%d{yyy-MM-dd}_%i.log">
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+        <!-- ARCHIVO QUE GUARDA LAS LLAMADAS A BASE DE DATOS (Alta, Baja, Modifciacion) -->
+        <RollingFile name="infoFile" fileName="${logPath}/${infoFileName}.log" filePattern="${patternLogPath}/info/${infoFileName}_%d{yyy-MM-dd}_%i.log">
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+        <!-- ARCHIVO QUE GUARDA LOS LOG IN's DE USUARIOS AL SISTEMA -->
+        <RollingFile name="logInFile" fileName="${logPath}/${logInFileName}.log" filePattern="${patternLogPath}/logIn/${logInFileName}_%d{yyy-MM-dd}_%i.log">
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <Policies>
+                <OnStartupTriggeringPolicy />
+                <TimeBasedTriggeringPolicy interval="1" modulate="true" />
+            </Policies>
+        </RollingFile>
+    </Appenders>
+    
+    <Loggers>
+        <Logger name="error-log" level="error" additivity="false">
+            <appender-ref ref="errorFile" level="error"/>
+        </Logger>
+        <Logger name="info-log" level="info" additivity="false">
+            <appender-ref ref="infoFile" level="info"/>
+        </Logger>
+        <Logger name="logIn-log" level="info" additivity="false">
+            <appender-ref ref="logInFile" level="info"/>
+        </Logger>
+        <Root level="all" additivity="false">
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>
