@@ -11,6 +11,8 @@ import objects.Producto;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 /**
@@ -29,8 +31,9 @@ public class ABM_Producto extends javax.swing.JFrame {
     public ABM_Producto(String user) {
         initComponents();
         this.user = user;
-        listaProductos = ManagerProducto.getHashMapProductos();
+        listaProductos = ManagerProducto.getHashMapAllProductos();
         updateTabla(listaProductos);
+        cambiar_visibilidad_producto.setEnabled(false);
         addList();
     }
     
@@ -38,18 +41,20 @@ public class ABM_Producto extends javax.swing.JFrame {
         agregar_producto.setEnabled(false);
         boton_salir.setEnabled(false);
         modificar_producto.setEnabled(false);
-        eliminar_producto.setEnabled(false);
+        cambiar_visibilidad_producto.setEnabled(false);
     }
     
     public void enabledButtons() {
         agregar_producto.setEnabled(true);
         boton_salir.setEnabled(true);
         modificar_producto.setEnabled(true);
-        eliminar_producto.setEnabled(true);
+        if (tabla_productos.getSelectedRow() != -1) {
+            cambiar_visibilidad_producto.setEnabled(true);
+        }
     }
     
     public void updateProductos () {
-        listaProductos = ManagerProducto.getHashMapProductos();
+        listaProductos = ManagerProducto.getHashMapAllProductos();
         updateTabla(listaProductos);
     }
 
@@ -74,6 +79,20 @@ public class ABM_Producto extends javax.swing.JFrame {
                 updateTabla(coincidencia());
             }
         });
+        tabla_productos.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                updateCambiarHabilitado();
+            }
+        });
+    }
+
+    private void updateCambiarHabilitado() {
+        if (tabla_productos.getSelectedRow() != -1) {
+            Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
+            cambiar_visibilidad_producto.setText(p.isVisible() ? "Deshabilitar" : "Habilitar");
+            cambiar_visibilidad_producto.setEnabled(true);
+        }
     }
     public HashMap<String, Producto> coincidencia () {
         HashMap<String, Producto> map = new HashMap<>();
@@ -93,7 +112,8 @@ public class ABM_Producto extends javax.swing.JFrame {
         }
         /** CARGAR  TABLA*/
         for (Producto p: localMap.values()){
-            model.addRow(new Object[]{p.getCodigoP(),p.getNombreP().toUpperCase(),p.getCategoriaP(),p.getPrecioP(),p.getStockP(),p.getStockMinimoP()});
+
+            model.addRow(new Object[]{p.getCodigoP(),p.getNombreP().toUpperCase(),p.getCategoriaP(),p.getPrecioP(),p.getStockP(),p.getStockMinimoP(),(p.isVisible()) ? "True" : "False"});
         }
     }
 
@@ -110,7 +130,7 @@ public class ABM_Producto extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla_productos = new javax.swing.JTable();
         modificar_producto = new javax.swing.JButton();
-        eliminar_producto = new javax.swing.JButton();
+        cambiar_visibilidad_producto = new javax.swing.JButton();
         texto_buscador = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         agregar_producto = new javax.swing.JButton();
@@ -129,14 +149,14 @@ public class ABM_Producto extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Categoria", "Precio", "Stock", "Stock Minimo"
+                "Codigo", "Nombre", "Categoria", "Precio", "Stock", "Stock Minimo", "Habilitado"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -148,6 +168,9 @@ public class ABM_Producto extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tabla_productos);
+        if (tabla_productos.getColumnModel().getColumnCount() > 0) {
+            tabla_productos.getColumnModel().getColumn(6).setResizable(false);
+        }
 
         modificar_producto.setText("Modificar");
         modificar_producto.addActionListener(new java.awt.event.ActionListener() {
@@ -156,10 +179,10 @@ public class ABM_Producto extends javax.swing.JFrame {
             }
         });
 
-        eliminar_producto.setText("Eliminar");
-        eliminar_producto.addActionListener(new java.awt.event.ActionListener() {
+        cambiar_visibilidad_producto.setText("Habilitar");
+        cambiar_visibilidad_producto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eliminar_productoActionPerformed(evt);
+                cambiar_visibilidad_productoActionPerformed(evt);
             }
         });
 
@@ -190,7 +213,7 @@ public class ABM_Producto extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(boton_salir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(eliminar_producto)
+                        .addComponent(cambiar_visibilidad_producto)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(modificar_producto)))
                 .addContainerGap())
@@ -209,7 +232,7 @@ public class ABM_Producto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(boton_salir)
                     .addComponent(modificar_producto)
-                    .addComponent(eliminar_producto))
+                    .addComponent(cambiar_visibilidad_producto))
                 .addContainerGap())
         );
 
@@ -231,10 +254,19 @@ public class ABM_Producto extends javax.swing.JFrame {
         //ManagerProducto.actualizarProducto
     }//GEN-LAST:event_modificar_productoActionPerformed
 
-    private void eliminar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eliminar_productoActionPerformed
+    private void cambiar_visibilidad_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiar_visibilidad_productoActionPerformed
         // TODO add your handling code here:
-        //ManagerProducto.eliminarProducto
-    }//GEN-LAST:event_eliminar_productoActionPerformed
+
+        if (tabla_productos.getSelectedRow() != -1) {
+            Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
+            p.setVisible(!p.isVisible());
+            ManagerProducto.updateProducto(p);
+            cambiar_visibilidad_producto.setEnabled(false);
+            updateProductos();
+        } else {
+            //No hay producto seleccionado
+        }
+    }//GEN-LAST:event_cambiar_visibilidad_productoActionPerformed
 
     private void agregar_productoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar_productoActionPerformed
         AgregarProducto ap = new AgregarProducto(this);
@@ -284,11 +316,15 @@ public class ABM_Producto extends javax.swing.JFrame {
             }
         });
     }
+    
+    public String getUsername() {
+        return user;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_producto;
     private javax.swing.JButton boton_salir;
-    private javax.swing.JButton eliminar_producto;
+    private javax.swing.JButton cambiar_visibilidad_producto;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton modificar_producto;

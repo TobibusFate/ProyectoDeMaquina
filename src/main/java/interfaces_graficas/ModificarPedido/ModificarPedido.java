@@ -47,7 +47,7 @@ public class ModificarPedido extends javax.swing.JFrame {
         BtnAsignarFecha.setEnabled(false);
         BtnLimpiarFecha.setEnabled(false);
         this.pedido = pedido;
-        mapProductos = ManagerProducto.getHashMapProductos();
+        mapProductos = ManagerProducto.getHashMapProductosVisibles();
         List<RenglonPedido> listaRenglones = ManagerRenglonPedido.getRenglonesPorPedido(pedido);
         for (RenglonPedido rp: listaRenglones){
             mapRenglones.put(rp.getProducto().getNombreP(), rp);
@@ -88,10 +88,12 @@ public class ModificarPedido extends javax.swing.JFrame {
                 super.focusGained(e);
                 int row = TblRenglones.getSelectedRow();
                 int column = TblRenglones.getSelectedColumn();
-                String newValue = TblRenglones.getValueAt(row, column).toString();
-                String rowName = TblRenglones.getValueAt(row, 1).toString();
-                updateRenglonPedido(rowName,newValue,column);
-                updateTable();
+                if (row>=0 && column>=0) {
+                    String newValue = TblRenglones.getValueAt(row, column).toString();
+                    String rowName = TblRenglones.getValueAt(row, 1).toString();
+                    updateRenglonPedido(rowName,newValue,column);
+                    updateTable();
+                }
             }
         }
         );

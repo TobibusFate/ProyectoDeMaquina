@@ -2,9 +2,11 @@ package datos;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DB_Init {
-
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     private static Statement query = null;
 
 
@@ -25,6 +27,7 @@ public class DB_Init {
                 + "Prod_PRECIO REAL NOT NULL, "
                 + "Prod_STOCK INTEGER NOT NULL, "
                 + "Prod_STOCK_MINIMO INTEGER NOT NULL, "
+                + "Prod_VISIBILIDAD BOOLEAN NOT NULL, "
                 + "PRIMARY KEY(Prod_CODIGO)"
                 + ")"
             );
@@ -176,7 +179,7 @@ public class DB_Init {
 
         }
         catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.fatal("ERROR FATAL durante la inicialización de la BD!: "+ex.getMessage());
         }
         finally { // finally se ejecuta siempre, no importa si hubo excepcion, así aseguramos que se cierra la conexión
             DatosBase.getInstance().closeConnection();
@@ -218,24 +221,24 @@ public class DB_Init {
 
 
 
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('12', 'LECHE', 'COMESTIBLE', '150', '200', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('12', 'LECHE', 'COMESTIBLE', '150.54', '200', '50', true)");
 
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('15', 'GALLETAS DE CHOCOLATE', 'COMESTIBLE', '200', '200', '50')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('15', 'GALLETAS DE CHOCOLATE', 'COMESTIBLE', '200.50', '200', '50', true)");
 
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('19', 'GALLETAS DE COCO', 'COMESTIBLE', '110', '200', '50')");
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('200', 'ACEITE', 'COMESTIBLE', '300', '200', '50')");
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('111', 'CHOCOLATE', 'COMESTIBLE', '220', '200', '50')");
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('300', 'OSITOS DE GOMA', 'COMESTIBLE', '220', '50', '50')");
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('301', 'GOMITAS', 'COMESTIBLE', '220', '50', '200')");
-        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO) " +
-                    "VALUES ('302', 'GALLETAS DE ANIMALES', 'COMESTIBLE', '220', '50', '51')");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('19', 'GALLETAS DE COCO', 'COMESTIBLE', '110.21', '0', '50', true)");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('200', 'ACEITE', 'COMESTIBLE', '300', '1', '50', true)");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('111', 'CHOCOLATE', 'COMESTIBLE', '220', '200', '50', false)");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('300', 'OSITOS DE GOMA', 'COMESTIBLE', '220', '50', '50', true)");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('301', 'GOMITAS', 'COMESTIBLE', '220', '50', '200', true)");
+        query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
+                    "VALUES ('302', 'GALLETAS DE ANIMALES', 'COMESTIBLE', '220', '50', '51', true)");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                     "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");

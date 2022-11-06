@@ -15,6 +15,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
 import java.util.Map;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -22,6 +24,7 @@ import java.util.Map;
  */
 public class AltaPedido_Preview extends javax.swing.JFrame {
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
     private Proveedor proveedor;
     private Administrador admin;
@@ -255,6 +258,7 @@ public class AltaPedido_Preview extends javax.swing.JFrame {
 
             ManagerPedido.cargarPedido(pedido, mapRenglones.values());
             JOptionPane.showMessageDialog(content, "El pedido fue cargado en el sistema","Alta de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
+            INFOLOGGER.info("El pedido #"+pedido.getCodigo()+" fue dado de alta por el usuario \'"+admin.getCuenta().getCuenta()+"\'");
             this.setVisible(false);
             generadorPedido.setVisible(true);
             

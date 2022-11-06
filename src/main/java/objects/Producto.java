@@ -11,17 +11,28 @@ public class Producto {
     private int stockMinimoP;
     private int stockP;
 
+    private boolean visible;
+
     public Producto(int codigoP) {
         this.codigoP = codigoP;
     }
 
-    public Producto(int codigoP, String nombreP, String categoriaP, float precioP, int stockP, int stockMinimoP) {
+    public Producto(int codigoP, String nombreP, String categoriaP, float precioP, int stockP, int stockMinimoP, boolean visible) {
         this.codigoP = codigoP;
         this.nombreP = nombreP;
         this.categoriaP = categoriaP;
         this.precioP = precioP;
         this.stockMinimoP = stockMinimoP;
         this.stockP = stockP;
+        this.visible = visible;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public int getCodigoP() {

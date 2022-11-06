@@ -17,10 +17,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class DAO_RenglonPedido implements IDAO<RenglonPedido>{
 
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<RenglonPedido> read(RenglonPedido rp) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -57,7 +60,7 @@ public class DAO_RenglonPedido implements IDAO<RenglonPedido>{
             }
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;
@@ -85,7 +88,7 @@ public class DAO_RenglonPedido implements IDAO<RenglonPedido>{
             ps.setInt(4, rp.getPedido().getCodigo());
             exito = ps.executeUpdate() != 0;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         return exito;
     }

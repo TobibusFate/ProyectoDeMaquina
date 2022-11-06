@@ -165,15 +165,17 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void boton_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cerrar_sesionActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
         LogIn li = new LogIn();
         li.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
 
     private void boton_buscar_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscar_pedidoActionPerformed
-        this.setVisible(false);
         BuscarPedido bp = new BuscarPedido(username);
         bp.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
     }//GEN-LAST:event_boton_buscar_pedidoActionPerformed
 
     private void boton_buscar_ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_buscar_ventaActionPerformed

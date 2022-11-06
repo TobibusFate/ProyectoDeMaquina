@@ -1,0 +1,4 @@
+[WARN ] 2022-11-05 11:24:25,063 info-log.main() - LOG WARNING1
+[ERROR] 2022-11-05 11:24:25,063 info-log.main() - LOG ERROR1
+[FATAL] 2022-11-05 11:24:25,063 info-log.main() - LOG FATAL1
+[INFO ] 2022-11-05 11:24:25,064 info-log.main() - LOG INFO1

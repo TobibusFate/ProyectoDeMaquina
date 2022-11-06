@@ -4,16 +4,44 @@ import datos.dao.implementation.DAO_Producto;
 import objects.Producto;
 
 import java.util.HashMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ManagerProducto {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
+    
     private static DAO_Producto dao_producto = new DAO_Producto();
-    public static HashMap<String, Producto> getHashMapProductos() {
+
+
+    public static HashMap<String, Producto> getHashMapProductosVisiblesYConStock() {
+        HashMap <String, Producto> map = new HashMap<>();
+        for (Producto producto : dao_producto.read(null)) {
+            if (producto.isVisible() && producto.getStockP()>0){
+                map.put(producto.getNombreP().toUpperCase(),producto);
+            }
+        }
+        return map;
+    }
+
+    public static HashMap<String, Producto> getHashMapProductosVisibles() {
+        HashMap <String, Producto> map = new HashMap<>();
+        for (Producto producto : dao_producto.read(null)) {
+            if (producto.isVisible()) {
+                map.put(producto.getNombreP().toUpperCase(),producto);
+            }
+        }
+        return map;
+    }
+
+    public static HashMap<String, Producto> getHashMapAllProductos() {
         HashMap <String, Producto> map = new HashMap<>();
         for (Producto producto : dao_producto.read(null)) {
             map.put(producto.getNombreP().toUpperCase(),producto);
         }
         return map;
     }
+
+
     public static void updateStock(Producto producto, int unidades) {
         producto.setStockP(producto.getStockP() - unidades);
         dao_producto.update(producto);
@@ -31,11 +59,12 @@ public class ManagerProducto {
                 categoria.toUpperCase().trim(),
                 Float.parseFloat(precio),
                 Integer.parseInt(stock),
-                Integer.parseInt(stockMinimo)
+                Integer.parseInt(stockMinimo),
+                    true
             );
             return dao_producto.create(prod);
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return false;
         }
         

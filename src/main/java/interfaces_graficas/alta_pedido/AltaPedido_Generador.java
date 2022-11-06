@@ -42,7 +42,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         Btn_Continuar.setEnabled(false);
         
         mapProveedores = ManagerProveedor.getProveedoresMap();
-        mapProductos = ManagerProducto.getHashMapProductos();
+        mapProductos = ManagerProducto.getHashMapProductosVisibles();
         admin = ManagerAdministrador.getAdministrador(-1, username);
         updateComboboxProductos();
         updateComboboxProveedores();
@@ -102,10 +102,12 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                     super.focusGained(e);
                     int row = TblRenglones.getSelectedRow();
                     int column = TblRenglones.getSelectedColumn();
-                    String newValue = TblRenglones.getValueAt(row, column).toString();
-                    String rowName = TblRenglones.getValueAt(row, 1).toString();
-                    updateRenglonPedido(rowName,newValue,column);
-                    updateTable();
+                    if (row>=0 && column>=0) {
+                        String newValue = TblRenglones.getValueAt(row, column).toString();
+                        String rowName = TblRenglones.getValueAt(row, 1).toString();
+                        updateRenglonPedido(rowName,newValue,column);
+                        updateTable();
+                    }
                 }
             }
         );
@@ -464,7 +466,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             model.removeRow(TblRenglones.getSelectedRow());
         }
         else {
-            // TODO: MessageDialog
+            JOptionPane.showMessageDialog(this, "Seleccione un producto", "No se ha seleccionado un producto",JOptionPane.ERROR_MESSAGE);
         }
         if (getMapRenglones().isEmpty() || "CUIT".matches(FldCUIT1.getText())) {
             Btn_Continuar.setEnabled(false);

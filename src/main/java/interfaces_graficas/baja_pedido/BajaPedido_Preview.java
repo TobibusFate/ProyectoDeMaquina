@@ -16,6 +16,8 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -23,6 +25,7 @@ import java.util.List;
  */
 public class BajaPedido_Preview extends javax.swing.JFrame {
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private Pedido pedido;
     private List<RenglonPedido> renglones = new ArrayList<>();
     private String username;
@@ -249,18 +252,21 @@ public class BajaPedido_Preview extends javax.swing.JFrame {
             JOptionPane.QUESTION_MESSAGE,
             null, null, null) == 0) {
 
-            if (ManagerPedido.eliminarPedido(pedido, renglones)) JOptionPane.showMessageDialog(content, "El pedido fue dado de baja del sistema","Baja de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
+            if (ManagerPedido.eliminarPedido(pedido, renglones)) {
+                JOptionPane.showMessageDialog(content, "El pedido fue dado de baja del sistema","Baja de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
+                INFOLOGGER.info("El pedido #"+pedido.getCodigo()+" fue dado de baja, por el usuario \'"+username+"\'");
+            }
             else JOptionPane.showMessageDialog(content, "Ha ocurrido un problema al intentar dar de baja al pedido.\nIntente nuevamente.","Baja de Pedido fallida",JOptionPane.ERROR_MESSAGE);
-            this.setVisible(false);
             BuscarPedido bp = new BuscarPedido(username);
+            this.setVisible(false);
             bp.setVisible(true);
             this.dispose();
         }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVolverActionPerformed
-        this.setVisible(false);
         BuscarPedido bp = new BuscarPedido(username);
+        this.setVisible(false);
         bp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_BtnVolverActionPerformed

@@ -16,6 +16,8 @@ import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -26,6 +28,7 @@ public class ModificarProducto extends javax.swing.JFrame {
     /**
      * Creates new form ModificarProducto
      */
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private List<JTextField> campos = new ArrayList<>();
     private ABM_Producto abm_padre = null;
     private Producto producto;
@@ -248,12 +251,22 @@ public class ModificarProducto extends javax.swing.JFrame {
             ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
             abm_padre.updateProductos();
         }*/
-        if (ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())))) {
+
+        if (ManagerProducto.updateProducto(new Producto(
+                this.producto.getCodigoP(),
+                nombre_producto.getText().toUpperCase(),
+                categoria_producto.getText().toUpperCase(),
+                Float.parseFloat(precio_producto.getText()),
+                Integer.parseInt(stock_producto.getText()),
+                Integer.parseInt(stock_minimo_producto.getText()),
+                this.producto.isVisible()))) {
+            JOptionPane.showMessageDialog(this, "Se ha modificado el producto en el sistema", "Exito en Modificacion de Producto", JOptionPane.INFORMATION_MESSAGE);
+            INFOLOGGER.info("El producto #"+producto.getCodigoP()+" fue modificado por el usuario \'"+abm_padre.getUsername()+"\'");
             abm_padre.updateProductos();
             abm_padre.enabledButtons();
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la carga,\nya existe un producto con ese nombre", "Falla en Alta de Producto",JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la modificacion,\nya existe un producto con ese nombre", "Falla en Modificacion de Producto",JOptionPane.ERROR_MESSAGE);
         }
 
 

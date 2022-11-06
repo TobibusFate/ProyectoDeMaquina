@@ -26,9 +26,10 @@ public class DAO_Producto implements IDAO<Producto> {
                             rs.getInt("Prod_CODIGO"),
                             rs.getString("Prod_NOMBRE"),
                             rs.getString("Prod_CATEGORIA"),
-                            rs.getInt("Prod_PRECIO"),
+                            rs.getFloat("Prod_PRECIO"),
                             rs.getInt("Prod_STOCK"),
-                            rs.getInt("Prod_STOCK_MINIMO")
+                            rs.getInt("Prod_STOCK_MINIMO"),
+                            rs.getBoolean("Prod_VISIBILIDAD")
                             ));
                 }
             // query para retornar lista de productos
@@ -39,13 +40,13 @@ public class DAO_Producto implements IDAO<Producto> {
                             rs.getInt("Prod_CODIGO"),
                             rs.getString("Prod_NOMBRE"),
                             rs.getString("Prod_CATEGORIA"),
-                            rs.getInt("Prod_PRECIO"),
+                            rs.getFloat("Prod_PRECIO"),
                             rs.getInt("Prod_STOCK"),
-                            rs.getInt("Prod_STOCK_MINIMO")
+                            rs.getInt("Prod_STOCK_MINIMO"),
+                            rs.getBoolean("Prod_VISIBILIDAD")
                     ));
                 }
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -66,7 +67,7 @@ public class DAO_Producto implements IDAO<Producto> {
         Connection conn = DatosBase.getInstance().getConnection();
         PreparedStatement statement;
         boolean exito = false;
-        String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_CATEGORIA = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?" +
+        String sqlUpdate = " UPDATE Productos SET Prod_NOMBRE = ?, Prod_CATEGORIA = ?, Prod_PRECIO = ?, Prod_STOCK = ?, Prod_STOCK_MINIMO = ?, Prod_VISIBILIDAD = ?" +
                 " WHERE (Prod_CODIGO = '" + producto.getCodigoP() + "')";
         try {
             statement = conn.prepareStatement(sqlUpdate);
@@ -75,6 +76,7 @@ public class DAO_Producto implements IDAO<Producto> {
             statement.setFloat(3,producto.getPrecioP());
             statement.setInt(4,producto.getStockP());
             statement.setInt(5,producto.getStockMinimoP());
+            statement.setBoolean(6,producto.isVisible());
             statement.executeUpdate();
             exito = true;
 
