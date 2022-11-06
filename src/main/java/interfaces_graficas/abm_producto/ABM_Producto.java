@@ -284,6 +284,10 @@ public class ABM_Producto extends javax.swing.JFrame {
             }
         });
     }
+    
+    public String getUsername() {
+        return user;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar_producto;

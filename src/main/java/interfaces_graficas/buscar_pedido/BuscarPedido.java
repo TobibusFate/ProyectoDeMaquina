@@ -278,8 +278,9 @@ public class BuscarPedido extends javax.swing.JFrame {
         int row = TblPedidos.getSelectedRow();
         if (row != -1) {
             Pedido p = mapPedidos.get((Integer) TblPedidos.getValueAt(row, 0));
-            this.setVisible(false);
             ModificarPedido mp = new ModificarPedido(username, p);
+            this.dispose();
+            this.setVisible(false);
             mp.setVisible(true);
         }
         else JOptionPane.showMessageDialog(content, "Seleccione un pedido","Pedido no seleccionado",JOptionPane.ERROR_MESSAGE);
@@ -290,9 +291,10 @@ public class BuscarPedido extends javax.swing.JFrame {
         int row = TblPedidos.getSelectedRow();
         if (row != -1) {
             Pedido p = mapPedidos.get((Integer) TblPedidos.getValueAt(row, 0));
-            this.setVisible(false);
             BajaPedido_Preview bp = new BajaPedido_Preview(p, username);
             bp.setVisible(true);
+            this.setVisible(false);
+            this.dispose();
         }
         else JOptionPane.showMessageDialog(content, "Seleccione un pedido","Pedido no seleccionado",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_BtnEliminarPedidoActionPerformed

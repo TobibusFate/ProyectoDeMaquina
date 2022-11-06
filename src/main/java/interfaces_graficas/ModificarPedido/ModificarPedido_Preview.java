@@ -14,6 +14,8 @@ import logica.managers.ManagerPedido;
 import objects.Administrador;
 import objects.Pedido;
 import objects.RenglonPedido;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -21,6 +23,8 @@ import objects.RenglonPedido;
  */
 public class ModificarPedido_Preview extends javax.swing.JFrame {
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
+    
     private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
     private Administrador admin;
     private DefaultTableModel model;
@@ -236,6 +240,7 @@ public class ModificarPedido_Preview extends javax.swing.JFrame {
 
             ManagerPedido.modificarPedido(pedido, new ArrayList(mapRenglones.values()));
             JOptionPane.showMessageDialog(content, "El pedido fue modificado en el sistema","Modificación de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
+            INFOLOGGER.info("El pedido #"+pedido.getCodigo()+" fue modificado por el usuario \'"+admin.getCuenta().getCuenta()+"\'");
             this.setVisible(false);
             modificarPedido.setVisible(true);
             this.dispose();

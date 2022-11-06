@@ -4,8 +4,12 @@ import datos.dao.implementation.DAO_Producto;
 import objects.Producto;
 
 import java.util.HashMap;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class ManagerProducto {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
+    
     private static DAO_Producto dao_producto = new DAO_Producto();
     public static HashMap<String, Producto> getHashMapProductos() {
         HashMap <String, Producto> map = new HashMap<>();
@@ -35,7 +39,7 @@ public class ManagerProducto {
             );
             return dao_producto.create(prod);
         } catch (NumberFormatException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return false;
         }
         

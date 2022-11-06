@@ -2,9 +2,11 @@ package datos;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DB_Init {
-
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     private static Statement query = null;
 
 
@@ -176,7 +178,7 @@ public class DB_Init {
 
         }
         catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.fatal("ERROR FATAL durante la inicialización de la BD!: "+ex.getMessage());
         }
         finally { // finally se ejecuta siempre, no importa si hubo excepcion, así aseguramos que se cierra la conexión
             DatosBase.getInstance().closeConnection();

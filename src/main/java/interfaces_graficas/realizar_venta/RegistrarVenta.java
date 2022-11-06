@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -34,6 +36,7 @@ public class RegistrarVenta extends javax.swing.JFrame {
      */
     private String usuario;
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private int tipo;
     private static HashMap <String, Producto> listaProductos = new HashMap<>();
     private static HashMap <Integer, Cliente> listaClientes = new HashMap<>();
@@ -114,10 +117,12 @@ public class RegistrarVenta extends javax.swing.JFrame {
                 //super.focusGained(e);
                 int fila = tabla_renglones.getSelectedRow();
                 int columna = tabla_renglones.getSelectedColumn();
-                String nuevoValor = tabla_renglones.getValueAt(fila,columna).toString();
-                String nombreFila = tabla_renglones.getValueAt(fila,1).toString();
-                updateRenglonVenta(nombreFila,nuevoValor,columna);
-                updateTable();
+                if (fila>=0 && columna >=0) {
+                    String nuevoValor = tabla_renglones.getValueAt(fila,columna).toString();
+                    String nombreFila = tabla_renglones.getValueAt(fila,1).toString();
+                    updateRenglonVenta(nombreFila,nuevoValor,columna);
+                    updateTable();
+                }
             }
         });
 
@@ -454,8 +459,8 @@ public class RegistrarVenta extends javax.swing.JFrame {
             Venta v = new Venta(Float.parseFloat(valor_total_value.getText()), cerrada, this.usuario);
             ManagerVenta.cargarVenta(v,listaRenglon.values(),listaPagos);
             JOptionPane.showMessageDialog(null, "Venta Exitosa");
+            INFOLOGGER.info("La venta #"+v.getCodigoV()+" fue dada de alta por el usuario \'"+v.getCuentaVendedor()+"\'");
             prepararNuevaCompra();
-
         }
         
         /** ejecutar seleccion pago la cantidad de veces que indique value*/

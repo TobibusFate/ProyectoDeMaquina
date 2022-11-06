@@ -3,10 +3,14 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class DB_BasicQuerys {
 
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
+            
     public static ResultSet findTuple(List<String> keyNames, List<String> keyValues, String tableName, Connection conn) {
         try {
             ResultSet rs = null;
@@ -37,7 +41,7 @@ public class DB_BasicQuerys {
             }
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return null;
         }
         return null;
@@ -63,7 +67,7 @@ public class DB_BasicQuerys {
             return true;
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return false;
         }
     }
@@ -97,7 +101,7 @@ public class DB_BasicQuerys {
 
 
         } catch (SQLException ex) {
-            //ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return false;
         }
     }
@@ -128,7 +132,7 @@ public class DB_BasicQuerys {
             else return false;
 
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return false;
         }
     }
@@ -153,7 +157,7 @@ public class DB_BasicQuerys {
             
             return rs;
         }catch (SQLException ex) {
-            ex.printStackTrace();
+            ERRLOGGER.error(ex.getMessage());
             return null;
         }
         

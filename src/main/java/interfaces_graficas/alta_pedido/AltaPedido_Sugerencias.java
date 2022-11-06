@@ -7,6 +7,7 @@ package interfaces_graficas.alta_pedido;
 
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import objects.Producto;
 import objects.RenglonPedido;
@@ -160,24 +161,28 @@ public class AltaPedido_Sugerencias extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnSelectAllActionPerformed
 
     private void BtnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAddActionPerformed
-        for (int prodRow: TblProd.getSelectedRows()) {
-            Producto prod = mapProductos.get((String)TblProd.getModel().getValueAt(prodRow, 1));
-            int cant = prod.getStockMinimoP() - prod.getStockP();
-            if (!mapRenglones.containsKey(prod.getNombreP())) {
-                mapRenglones.put(
-                        prod.getNombreP(),
-                        new RenglonPedido(prod,
-                                cant > 0 ? cant : 1,
-                                TipoCantidad.Bolsones,
-                                0F));
+        int[] rows = TblProd.getSelectedRows();
+        if (rows.length == 0) JOptionPane.showMessageDialog(this, "Seleccione al menos un producto", "No se ha seleccionado un producto", JOptionPane.ERROR_MESSAGE);
+        else {
+            for (int prodRow: TblProd.getSelectedRows()) {
+                Producto prod = mapProductos.get((String)TblProd.getModel().getValueAt(prodRow, 1));
+                int cant = prod.getStockMinimoP() - prod.getStockP();
+                if (!mapRenglones.containsKey(prod.getNombreP())) {
+                    mapRenglones.put(
+                            prod.getNombreP(),
+                            new RenglonPedido(prod,
+                                    cant > 0 ? cant : 1,
+                                    TipoCantidad.Bolsones,
+                                    0F));
+                }
+                else if (mapRenglones.get(prod.getNombreP()).getCantidad() < cant) {
+                    RenglonPedido rp =  mapRenglones.get(prod.getNombreP());
+                    rp.setCantidad(cant);
+                    mapRenglones.replace(prod.getNombreP(), rp);
+                }
             }
-            else if (mapRenglones.get(prod.getNombreP()).getCantidad() < cant) {
-                RenglonPedido rp =  mapRenglones.get(prod.getNombreP());
-                rp.setCantidad(cant);
-                mapRenglones.replace(prod.getNombreP(), rp);
-            }
-        }
         apg.updateTable();
+        }
     }//GEN-LAST:event_BtnAddActionPerformed
 
     /**

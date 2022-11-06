@@ -6,6 +6,8 @@ package interfaces_graficas.menus;
 
 import logica.managers.ManagerCuenta;
 import objects.Cuenta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -13,6 +15,7 @@ import objects.Cuenta;
  */
 public class LogIn extends javax.swing.JFrame {
 
+    private static final Logger LOGINLOGGER = LogManager.getLogger("logIn-log");
     /**
      * Creates new form Log
      */
@@ -123,12 +126,13 @@ public class LogIn extends javax.swing.JFrame {
                 this.setVisible(false);
                 MenuVendedor mv = new MenuVendedor(entrada_usuario.getText());
                 mv.setVisible(true);
+                LOGINLOGGER.info("El usuario vendedor \'"+entrada_usuario.getText()+"\' se ha logeado");
             break;
             case 2:
                 this.setVisible(false);
                 MenuAdministrador ma = new MenuAdministrador(entrada_usuario.getText());
                 ma.setVisible(true);
-
+                LOGINLOGGER.info("El usuario administrador \'"+entrada_usuario.getText()+"\' se ha logeado");
             break;
         }
 

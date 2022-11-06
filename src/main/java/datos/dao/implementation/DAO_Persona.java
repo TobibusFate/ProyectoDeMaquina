@@ -12,9 +12,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class DAO_Persona implements IDAO<Persona> {
 
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<Persona> read(Persona p) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -37,7 +40,7 @@ public class DAO_Persona implements IDAO<Persona> {
             }
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;

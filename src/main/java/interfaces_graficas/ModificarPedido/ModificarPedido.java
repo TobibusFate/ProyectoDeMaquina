@@ -88,10 +88,12 @@ public class ModificarPedido extends javax.swing.JFrame {
                 super.focusGained(e);
                 int row = TblRenglones.getSelectedRow();
                 int column = TblRenglones.getSelectedColumn();
-                String newValue = TblRenglones.getValueAt(row, column).toString();
-                String rowName = TblRenglones.getValueAt(row, 1).toString();
-                updateRenglonPedido(rowName,newValue,column);
-                updateTable();
+                if (row>=0 && column>=0) {
+                    String newValue = TblRenglones.getValueAt(row, column).toString();
+                    String rowName = TblRenglones.getValueAt(row, 1).toString();
+                    updateRenglonPedido(rowName,newValue,column);
+                    updateTable();
+                }
             }
         }
         );
