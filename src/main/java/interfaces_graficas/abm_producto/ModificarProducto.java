@@ -11,6 +11,8 @@ import objects.Producto;
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -101,6 +103,50 @@ public class ModificarProducto extends javax.swing.JFrame {
         for (JTextField campo:campos) {
             campo.getDocument().addDocumentListener(listener);
         }
+
+        precio_producto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Float.parseFloat(precio_producto.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
+        stock_producto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(stock_producto.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
+        stock_minimo_producto.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (Character.isLetter(e.getKeyChar())) {
+                    e.consume();
+                } else {
+                    try {
+                        Integer.parseInt(stock_minimo_producto.getText() + e.getKeyChar());
+                    } catch (NumberFormatException exception) {
+                        e.consume();
+                    }
+                }
+            }
+        });
+
     }
 
 
@@ -242,16 +288,6 @@ public class ModificarProducto extends javax.swing.JFrame {
 
         //logica para cambiar codigo de producto
 
-        /*if (this.producto.getCodigoP() != Integer.parseInt(codigo_producto.getText())) {
-            Producto p = new Producto(Integer.parseInt(codigo_producto.getText()),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText()));
-            ManagerProducto.deleteProducto(this.producto);
-            ManagerRenglon.updateProductos(this.producto, p);
-            ManagerProducto.cargarProducto(codigo_producto.getText(),nombre_producto.getText(),categoria_producto.getText(),precio_producto.getText(),stock_producto.getText(),stock_minimo_producto.getText());
-        } else {
-            ManagerProducto.updateProducto(new Producto(this.producto.getCodigoP(),nombre_producto.getText().toUpperCase(),categoria_producto.getText().toUpperCase(),Float.parseFloat(precio_producto.getText()),Integer.parseInt(stock_producto.getText()),Integer.parseInt(stock_minimo_producto.getText())));
-            abm_padre.updateProductos();
-        }*/
-
         if (ManagerProducto.updateProducto(new Producto(
                 this.producto.getCodigoP(),
                 nombre_producto.getText().toUpperCase(),
@@ -264,6 +300,7 @@ public class ModificarProducto extends javax.swing.JFrame {
             INFOLOGGER.info("El producto #"+producto.getCodigoP()+" fue modificado por el usuario \'"+abm_padre.getUsername()+"\'");
             abm_padre.updateProductos();
             abm_padre.enabledButtons();
+
             this.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "Ha ocurrido un error en la modificacion,\nya existe un producto con ese nombre", "Falla en Modificacion de Producto",JOptionPane.ERROR_MESSAGE);

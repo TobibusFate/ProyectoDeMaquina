@@ -7,11 +7,14 @@ package interfaces_graficas.buscar_venta;
 import interfaces_graficas.menus.MenuAdministrador;
 import interfaces_graficas.menus.MenuVendedor;
 import logica.managers.ManagerVenta;
+import objects.Producto;
 import objects.Venta;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.HashMap;
 
 /**
@@ -34,6 +37,7 @@ public class BuscarVenta extends javax.swing.JFrame {
         this.usuario = usuario;
         listaVentas = ManagerVenta.getAllVentas();
         addList();
+        boton_mostar.setEnabled(false);
         updateTabla(listaVentas);
     }
 
@@ -81,8 +85,20 @@ public class BuscarVenta extends javax.swing.JFrame {
                 updateTabla(coincidencia());
             }
         });
+
+        tabla_ventas.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                updateCambiarHabilitado();
+            }
+        });
     }
 
+    public void updateCambiarHabilitado (){
+        if (tabla_ventas.getSelectedRow() != -1) {
+            boton_mostar.setEnabled(true);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

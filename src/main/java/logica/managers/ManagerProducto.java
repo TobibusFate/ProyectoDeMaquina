@@ -67,20 +67,10 @@ public class ManagerProducto {
             ERRLOGGER.error(ex.getMessage());
             return false;
         }
-        
-        
     }
 
     public static boolean updateProducto(Producto p) {
        return dao_producto.update(p);
     }
 
-    public static void deleteProducto(Producto producto) {
-        dao_producto.delete(producto);
-    }
-
-    /*public static void updateProducto(int codigoP, Producto p) {
-        dao_producto.update(p);
-    }*/
-    /** PARTE LOGICA ENCARGADA DE LOS PRODUCTOS */
 }

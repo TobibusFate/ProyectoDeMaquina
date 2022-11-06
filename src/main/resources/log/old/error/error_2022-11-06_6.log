@@ -1,0 +1,10 @@
+[ERROR] 2022-11-06 19:40:10,839 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+  Detail: La fila que falla contiene (1100, ALGO, ADSD546, 122, 1232, 156, null).
+[ERROR] 2022-11-06 19:40:18,130 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+  Detail: La fila que falla contiene (1100, ALGO1, ADSD546, 122, 1232, 156, null).
+[ERROR] 2022-11-06 19:40:22,156 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+  Detail: La fila que falla contiene (11005, ALGO1, ADSD546, 122, 1232, 156, null).
+[ERROR] 2022-11-06 19:40:32,306 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+  Detail: La fila que falla contiene (110051231, ALGO1, ADSD546, 122, 1232, 156, null).
+[ERROR] 2022-11-06 19:40:38,546 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+  Detail: La fila que falla contiene (110051231, ALGSADASD, ADSD546, 122, 1232, 156, null).

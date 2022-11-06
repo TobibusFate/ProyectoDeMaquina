@@ -201,7 +201,7 @@ public class DB_BasicQuerys {
     private static void finishStatement(PreparedStatement p_query, List<String> values) throws SQLException {
         for (int i = 0; i < values.size(); i++) {
                 switch (matchesType(values.get(i))) {
-                    case 1: p_query.setInt((i+1), Integer.parseInt(values.get(i)));; break;
+                    case 1: p_query.setInt((i+1), Integer.parseInt(values.get(i))); break;
                     case 2: p_query.setLong((i+1), Long.parseLong(values.get(i))); break;
                     case 3: p_query.setFloat((i+1), Float.parseFloat(values.get(i))); break;
                     case 4: p_query.setDouble((i+1), Double.parseDouble(values.get(i))); break;

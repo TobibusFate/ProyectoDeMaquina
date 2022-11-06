@@ -34,6 +34,7 @@ public class ABM_Producto extends javax.swing.JFrame {
         listaProductos = ManagerProducto.getHashMapAllProductos();
         updateTabla(listaProductos);
         cambiar_visibilidad_producto.setEnabled(false);
+        modificar_producto.setEnabled(false);
         addList();
     }
     
@@ -50,6 +51,7 @@ public class ABM_Producto extends javax.swing.JFrame {
         modificar_producto.setEnabled(true);
         if (tabla_productos.getSelectedRow() != -1) {
             cambiar_visibilidad_producto.setEnabled(true);
+            modificar_producto.setEnabled(true);
         }
     }
     
@@ -85,6 +87,8 @@ public class ABM_Producto extends javax.swing.JFrame {
                 updateCambiarHabilitado();
             }
         });
+
+
     }
 
     private void updateCambiarHabilitado() {
@@ -92,6 +96,7 @@ public class ABM_Producto extends javax.swing.JFrame {
             Producto p = listaProductos.get(model.getValueAt(tabla_productos.getSelectedRow(),1).toString());
             cambiar_visibilidad_producto.setText(p.isVisible() ? "Deshabilitar" : "Habilitar");
             cambiar_visibilidad_producto.setEnabled(true);
+            modificar_producto.setEnabled(true);
         }
     }
     public HashMap<String, Producto> coincidencia () {
@@ -247,8 +252,6 @@ public class ABM_Producto extends javax.swing.JFrame {
             ModificarProducto mp = new ModificarProducto(p,this);
             disableButtons();
             mp.setVisible(true);
-        } else {
-            //No hay producto seleccionado
         }
 
         //ManagerProducto.actualizarProducto
@@ -262,9 +265,8 @@ public class ABM_Producto extends javax.swing.JFrame {
             p.setVisible(!p.isVisible());
             ManagerProducto.updateProducto(p);
             cambiar_visibilidad_producto.setEnabled(false);
+            modificar_producto.setEnabled(false);
             updateProductos();
-        } else {
-            //No hay producto seleccionado
         }
     }//GEN-LAST:event_cambiar_visibilidad_productoActionPerformed
 
