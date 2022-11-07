@@ -241,7 +241,11 @@ public class DB_Init {
                     "VALUES ('302', 'GALLETAS DE ANIMALES', 'COMESTIBLE', '220', '50', '51', true)");
          
         query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
-                    "VALUES ('20438404334', 'provtesteo', 'test@gmail.com', 'perro mojado 845')");
+                    "VALUES ('20438404334', 'La Serenita', 'test@gmail.com', 'perro mojado 845')");
+        query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
+                    "VALUES ('20438404335', 'Miniconsumo', 'test@gmail.com', 'perro mojado 845')");
+        query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
+                    "VALUES ('20438404336', 'Palili', 'test@gmail.com', 'perro mojado 845')");
         
         query.execute("INSERT INTO Personas VALUES ('43840433', 'celso','fernandez','2664375249')");
         query.execute("INSERT INTO Trabajadores VALUES ('admin', '43840433')");

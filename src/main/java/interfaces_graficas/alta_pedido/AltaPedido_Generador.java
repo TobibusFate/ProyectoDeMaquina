@@ -29,8 +29,8 @@ import java.util.Map;
 public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private Map<Long,Proveedor> mapProveedores = new HashMap<>();
-    Map<String,Producto> mapProductos = new HashMap<>();
-    Map<String, RenglonPedido> mapRenglones = new HashMap<>();
+    private Map<String,Producto> mapProductos = new HashMap<>();
+    private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
     private Proveedor proveedor;
     private DefaultTableModel model;
     private Administrador admin;

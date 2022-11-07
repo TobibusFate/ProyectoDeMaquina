@@ -35,7 +35,7 @@ public class BajaPedido_Preview extends javax.swing.JFrame {
         initComponents();
         this.username = username;
         pedido = p;
-        renglones = ManagerRenglonPedido.getRenglonesPorPedido(pedido);
+        renglones = ManagerRenglonPedido.getRenglonesPorPedidoVisibles(pedido);
         updateText();
         updateTable();
     }
@@ -56,14 +56,18 @@ public class BajaPedido_Preview extends javax.swing.JFrame {
         while(model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        
-        
-        for (RenglonPedido rp: renglones) {
-            model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
-        }
         float value = 0;
-        for (RenglonPedido rp: renglones) {
-            value += rp.getMontoTotal();
+        
+        if (!renglones.isEmpty()) {
+            for (RenglonPedido rp: renglones) {
+                model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
+            }
+            for (RenglonPedido rp: renglones) {
+                value += rp.getMontoTotal();
+            }
+        }
+        else {
+            JOptionPane.showMessageDialog(content, "Los productos de este pedido, han sido dados de baja.\nEs recomendable que lo elimine, o que habilite sus productos.", "Pedido sin renglones", JOptionPane.INFORMATION_MESSAGE);
         }
         FldMontoFinal.setText(Float.toString(value));
     }
@@ -252,7 +256,7 @@ public class BajaPedido_Preview extends javax.swing.JFrame {
             JOptionPane.QUESTION_MESSAGE,
             null, null, null) == 0) {
 
-            if (ManagerPedido.eliminarPedido(pedido, renglones)) {
+            if (ManagerPedido.eliminarPedido(pedido, ManagerRenglonPedido.getRenglonesPorPedido(pedido))) {
                 JOptionPane.showMessageDialog(content, "El pedido fue dado de baja del sistema","Baja de Pedido exitosa",JOptionPane.INFORMATION_MESSAGE);
                 INFOLOGGER.info("El pedido #"+pedido.getCodigo()+" fue dado de baja, por el usuario \'"+username+"\'");
             }

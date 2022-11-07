@@ -27,8 +27,18 @@ public class ManagerRenglonPedido {
         return i == 0;
     }
     
+    public static List<RenglonPedido> getRenglonesPorPedidoVisibles(Pedido p) {
+        List<RenglonPedido> renglones = dao_renglonPedido.read(new RenglonPedido(p.getCodigo(), null, null, 0, null, 0, 0));
+        List<RenglonPedido> renglonesVisibles = new ArrayList<>();
+        for (RenglonPedido rp:renglones) {
+            if (rp.getProducto().isVisible()) {
+                renglonesVisibles.add(rp);
+            }
+        }
+        return renglonesVisibles;
+    }
+    
     public static List<RenglonPedido> getRenglonesPorPedido(Pedido p) {
-        
         return dao_renglonPedido.read(new RenglonPedido(p.getCodigo(), null, null, 0, null, 0, 0));
     }
     

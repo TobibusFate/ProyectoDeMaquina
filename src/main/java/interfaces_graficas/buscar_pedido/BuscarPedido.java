@@ -5,18 +5,27 @@
  */
 package interfaces_graficas.buscar_pedido;
 import interfaces_graficas.ModificarPedido.ModificarPedido;
+import interfaces_graficas.VerPedido.VerPedido;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import interfaces_graficas.menus.MenuAdministrador;
 import interfaces_graficas.baja_pedido.BajaPedido_Preview;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
 import logica.managers.ManagerPedido;
 import objects.Pedido;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import logica.managers.ManagerProveedor;
+import objects.Proveedor;
 
 /**
  *
@@ -24,43 +33,114 @@ import java.util.Map;
  */
 public class BuscarPedido extends javax.swing.JFrame {
 
+    private Map<Long,Proveedor> mapProveedores = new HashMap<>();
     private Map<Integer,Pedido> mapPedidos = new HashMap<>();
     private DefaultTableModel model;
     private String username;
     
     public BuscarPedido(String username) {
         initComponents();
+        addListeners();
         DateDesde.setDateFormatString("yyyy-MM-dd");
         DateHasta.setDateFormatString("yyyy-MM-dd");
         this.username = username;
         mapPedidos = ManagerPedido.getMapPedidos();
-        updateTable();
+        mapProveedores = ManagerProveedor.getProveedoresMap();
+        updateComboboxProveedores();
+        updateTable(false);
+        
     }
 
+    private void addListeners() {
+        FldCUIT.getDocument().addDocumentListener(new DocumentListener() {
+                @Override
+                public void insertUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+
+                @Override
+                public void removeUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+
+                @Override
+                public void changedUpdate(DocumentEvent e) {
+                    updateComboboxProveedores();
+                    Cbx_ListaProveedores.hidePopup();
+                    Cbx_ListaProveedores.showPopup();
+                }
+            }        
+        );
+    }
     
-    private void updateTable() {
+    private void updateComboboxProveedores() {
+        List<String> listaProv = new ArrayList<>();
+        for (int i = 0;i<Cbx_ListaProveedores.getItemCount();i++) {
+            listaProv.add(Cbx_ListaProveedores.getItemAt(i));
+        }
+        for (Proveedor p: mapProveedores.values()){
+            if (p.getNombre().contains(FldCUIT.getText()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
+                if (!listaProv.contains(p.getNombre())) {
+                    Cbx_ListaProveedores.addItem(p.getNombre());
+                }
+            }
+            if (listaProv.contains(p.getNombre())) {
+                if (!p.getNombre().contains(FldCUIT.getText())) {
+                    Cbx_ListaProveedores.removeItem(p.getNombre());
+                }
+            }
+        }
+        if (!Cbx_ListaProveedores.getItemAt(0).equals("Ninguno")) Cbx_ListaProveedores.insertItemAt("Ninguno", 0);
+        Cbx_ListaProveedores.setSelectedIndex(0);
+    }
+    
+    private void updateTable(Boolean filtrado) {
         model = (DefaultTableModel) TblPedidos.getModel();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
+        boolean meetFilters;
+        
         for (Pedido p: mapPedidos.values()) {
-            if (p.getFechaEntrega() == null) {
-                model.addRow(new Object[] {
-                    p.getCodigo(),
-                    p.getAdmin().getApellido()+" "+p.getAdmin().getNombre(),
-                    p.getProv().getNombre(),
-                    p.getFechaPedido().toString(),
-                    "No recibido"
-                });
+            meetFilters = true;
+            if (filtrado) {
+                if (!FldCodigoPedido.getText().isBlank() && !String.valueOf(p.getCodigo()).equals(FldCodigoPedido.getText())) meetFilters = false;
+                if (Cbx_ListaProveedores.getSelectedItem() != null) {
+                    String str = Cbx_ListaProveedores.getSelectedItem().toString();
+                    if (!str.equals("Ninguno") && !p.getProv().getNombre().equals(str)) meetFilters = false;
+                }
+                try {
+                    LocalDate fechaDesde = DateDesde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate fechaHasta = DateHasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    LocalDate fechaPedido = p.getFechaPedido();
+                    if (fechaPedido.compareTo(fechaDesde)<0 || fechaPedido.compareTo(fechaHasta)>0) meetFilters = false;
+                } catch (NullPointerException ex) {
+                }
             }
-        else {
-                model.addRow(new Object[] {
-                    p.getCodigo(),
-                    p.getAdmin().getApellido()+" "+p.getAdmin().getNombre(),
-                    p.getProv().getNombre(),
-                    p.getFechaPedido().toString(),
-                    p.getFechaEntrega().toString()
-                });
+
+            if (meetFilters) {
+                if (p.getFechaEntrega() == null) {
+                    model.addRow(new Object[] {
+                        p.getCodigo(),
+                        p.getAdmin().getApellido()+" "+p.getAdmin().getNombre(),
+                        p.getProv().getNombre(),
+                        p.getFechaPedido().toString(),
+                        "No recibido"
+                    });
+                }
+                else {
+                    model.addRow(new Object[] {
+                        p.getCodigo(),
+                        p.getAdmin().getApellido()+" "+p.getAdmin().getNombre(),
+                        p.getProv().getNombre(),
+                        p.getFechaPedido().toString(),
+                        p.getFechaEntrega().toString()
+                    });
+                }
             }
         }
     }
@@ -102,6 +182,7 @@ public class BuscarPedido extends javax.swing.JFrame {
             }
         });
 
+        Cbx_ListaProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ninguno" }));
         Cbx_ListaProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Cbx_ListaProveedoresActionPerformed(evt);
@@ -204,20 +285,19 @@ public class BuscarPedido extends javax.swing.JFrame {
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(DateHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(Cbx_ListaProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(303, Short.MAX_VALUE))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(BtnBuscar)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(BtnGoBack)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtnEliminarPedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnModificarPedido)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnVerPedido)))
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(BtnBuscar)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(contentLayout.createSequentialGroup()
+                            .addComponent(BtnGoBack)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(BtnEliminarPedido)
+                            .addGap(18, 18, 18)
+                            .addComponent(BtnModificarPedido)
+                            .addGap(18, 18, 18)
+                            .addComponent(BtnVerPedido))))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,7 +343,7 @@ public class BuscarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_FldCodigoPedidoActionPerformed
 
     private void Cbx_ListaProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cbx_ListaProveedoresActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_Cbx_ListaProveedoresActionPerformed
 
     private void FldCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUITActionPerformed
@@ -271,7 +351,15 @@ public class BuscarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_FldCUITActionPerformed
 
     private void BtnVerPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerPedidoActionPerformed
-        JOptionPane.showMessageDialog(content, "Funcionalidad no implementada","Not implemented error",JOptionPane.ERROR_MESSAGE);
+        int row = TblPedidos.getSelectedRow();
+        if (row != -1) {
+            Pedido p = mapPedidos.get((Integer) TblPedidos.getValueAt(row, 0));
+            VerPedido vp = new VerPedido(p, username);
+            vp.setVisible(true);
+            this.setVisible(false);
+            this.dispose();
+        }
+        else JOptionPane.showMessageDialog(content, "Seleccione un pedido","Pedido no seleccionado",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_BtnVerPedidoActionPerformed
 
     private void BtnModificarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarPedidoActionPerformed
@@ -300,7 +388,21 @@ public class BuscarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnEliminarPedidoActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
-        JOptionPane.showMessageDialog(content, "Funcionalidad no implementada","Not implemented error",JOptionPane.ERROR_MESSAGE);
+        try {
+            LocalDate fechaDesde = DateDesde.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate fechaHasta = DateHasta.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (fechaHasta.compareTo(fechaDesde) < 0) {
+                JOptionPane.showMessageDialog(content, "La fecha-hasta es anterior a la fecha-desde,\nintente nuevamente","Fechas incorrectas",JOptionPane.ERROR_MESSAGE);
+                updateTable(false);
+            }
+            else updateTable(true);
+        } catch (NullPointerException ex) {
+            if ((DateDesde.getDate()!=null && DateHasta.getDate()==null)||(DateDesde.getDate()==null && DateHasta.getDate()!=null)) {
+                JOptionPane.showMessageDialog(content, "Seleccione ambas fechas","Una de las fechas es nula",JOptionPane.ERROR_MESSAGE);
+                updateTable(false);
+            }
+            else if (DateDesde.getDate() == null && DateHasta.getDate()==null) updateTable(true);
+        }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGoBackActionPerformed

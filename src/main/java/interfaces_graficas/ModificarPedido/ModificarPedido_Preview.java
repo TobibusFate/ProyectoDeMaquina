@@ -58,13 +58,18 @@ public class ModificarPedido_Preview extends javax.swing.JFrame {
         while(model.getRowCount() > 0) {
             model.removeRow(0);
         }
-        for (RenglonPedido rp: mapRenglones.values()) {
-            model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
-        }
         float value = 0;
-        for (RenglonPedido rp: mapRenglones.values()) {
-            value += rp.getMontoTotal();
+        
+        if (!mapRenglones.isEmpty()) {
+            for (RenglonPedido rp: mapRenglones.values()) {
+                model.addRow(new Object[]{rp.getProducto().getCodigoP(),rp.getProducto().getNombreP(), rp.getCantidad(), rp.getTipoCantidad(), rp.getProducto().getPrecioP(), rp.getDescuento(), rp.getMontoTotal()});
+            }
+
+            for (RenglonPedido rp: mapRenglones.values()) {
+                value += rp.getMontoTotal();
+            }
         }
+        else JOptionPane.showMessageDialog(content, "Los productos de este pedido, han sido dados de baja.\nEs recomendable que los modifique, o que habilite sus productos.", "Pedido sin renglones", JOptionPane.INFORMATION_MESSAGE);
         FldMontoFinal.setText(Float.toString(value));
     }
     /**

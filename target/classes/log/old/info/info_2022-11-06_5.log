@@ -1,2 +1,1 @@
-[INFO ] 2022-11-06 19:59:19,375 info-log.BtnCrearActionPerformed() - El pedido #1 fue dado de alta por el usuario 'admin'
-[INFO ] 2022-11-06 20:01:58,780 info-log.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'admin'
+[INFO ] 2022-11-06 20:16:46,596 info-log.boton_modificarActionPerformed() - El producto #19 fue modificado por el usuario 'admin'

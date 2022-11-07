@@ -24,6 +24,7 @@ interfaces_graficas\alta_pedido\AltaPedido_Generador$5.class
 objects\Cliente.class
 interfaces_graficas\buscar_pedido\BuscarPedido$1.class
 interfaces_graficas\buscar_venta\MostrarVenta$5.class
+interfaces_graficas\buscar_venta\BuscarVenta$6.class
 interfaces_graficas\baja_pedido\BajaPedido_Preview.class
 objects\Administrador.class
 datos\DB_BasicQuerys.class
@@ -59,6 +60,7 @@ interfaces_graficas\realizar_venta\RealizarPago$8.class
 interfaces_graficas\alta_pedido\AltaPedido_Generador$4.class
 interfaces_graficas\ModificarPedido\ModificarPedido$6.class
 datos\dao\implementation\DAO_Cliente.class
+interfaces_graficas\abm_producto\ABM_Producto$8.class
 objects\TipoCantidad.class
 interfaces_graficas\alta_pedido\AltaPedido_Generador$1.class
 interfaces_graficas\abm_producto\AgregarProducto$8.class
@@ -108,6 +110,7 @@ logica\managers\ManagerClienteJuridico.class
 interfaces_graficas\buscar_pedido\BuscarPedido$3.class
 objects\RenglonPedido.class
 datos\dao\implementation\DAO_Venta.class
+interfaces_graficas\abm_producto\ModificarProducto$7.class
 interfaces_graficas\realizar_venta\MostrarPagos$4.class
 logica\managers\ManagerRenglon.class
 interfaces_graficas\menus\MenuVendedor.class
@@ -151,6 +154,7 @@ interfaces_graficas\alta_pedido\AltaPedido_Preview$3.class
 interfaces_graficas\buscar_venta\BuscarVenta$5.class
 interfaces_graficas\realizar_venta\RealizarPago$5.class
 interfaces_graficas\ModificarPedido\ModificarPedido_Preview$1.class
+interfaces_graficas\abm_producto\ModificarProducto$8.class
 datos\dao\implementation\DAO_Producto.class
 interfaces_graficas\alta_pedido\AltaPedido_Sugerencias$1.class
 interfaces_graficas\menus\LogIn$3.class
@@ -179,11 +183,13 @@ interfaces_graficas\buscar_pedido\BuscarPedido$10.class
 interfaces_graficas\buscar_pedido\BuscarPedido$7.class
 interfaces_graficas\realizar_venta\RealizarPago$3.class
 datos\dao\implementation\DAO_ClienteFisico.class
+interfaces_graficas\abm_producto\ModificarProducto$6.class
 interfaces_graficas\realizar_venta\RegistrarVenta$6.class
 interfaces_graficas\realizar_venta\RegistrarVenta$9.class
 interfaces_graficas\menus\MenuAdministrador$8.class
 objects\Pedido.class
 datos\dao\implementation\DAO_Proveedor.class
+interfaces_graficas\buscar_pedido\BuscarPedido$11.class
 datos\dao\implementation\DAO_Renglon$2.class
 objects\Cliente_Juridico.class
 interfaces_graficas\alta_pedido\AltaPedido_Generador$12.class
