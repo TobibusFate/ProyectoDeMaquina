@@ -188,6 +188,8 @@ public class DB_BasicQuerys {
                 case 2: query += Long.parseLong(values.get(i)); break;
                 case 3: query += Float.parseFloat(values.get(i)); break;
                 case 4: query += Double.parseDouble(values.get(i)); break;
+                case 5: query += java.sql.Date.valueOf(values.get(i)); break;
+                case 6: query += Boolean.parseBoolean(values.get(i)); break;
                 case 0: {
                     String[] str = isEnumType(values.get(i));
                     if (str == null) query += "'"+values.get(i)+"'";
@@ -206,6 +208,7 @@ public class DB_BasicQuerys {
                     case 3: p_query.setFloat((i+1), Float.parseFloat(values.get(i))); break;
                     case 4: p_query.setDouble((i+1), Double.parseDouble(values.get(i))); break;
                     case 5: p_query.setDate((i+1), java.sql.Date.valueOf(values.get(i))); break;
+                    case 6: p_query.setBoolean((i+1), Boolean.parseBoolean(values.get(i))); break;
                     case 0: {
                         String[] str = isEnumType(values.get(i));
                         if (str == null) p_query.setString((i+1), values.get(i));
@@ -222,6 +225,7 @@ public class DB_BasicQuerys {
         else if (s.matches("\\d{1,8}\\.\\d{1,8}")) return 3; // float
         else if (s.matches("\\d+\\.\\d+")) return 4; // double
         else if (s.matches("\\d{2,4}\\-\\d{2}\\-\\d{2,4}")) return 5; // date
+        else if (s.matches("(?i)(true|false)")) return 6; //boolean
         return 0; // string
     }
     

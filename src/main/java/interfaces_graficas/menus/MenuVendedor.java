@@ -7,6 +7,8 @@ package interfaces_graficas.menus;
 
 import interfaces_graficas.buscar_venta.BuscarVenta;
 import interfaces_graficas.realizar_venta.RegistrarVenta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -14,6 +16,7 @@ import interfaces_graficas.realizar_venta.RegistrarVenta;
  */
 public class MenuVendedor extends javax.swing.JFrame {
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     /**
      * Creates new form MenuVendedor
      */
@@ -125,6 +128,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         // TODO add your handling code here:
         LogIn li = new LogIn();
         li.setVisible(true);
+        INFOLOGGER.info("El usuario \'"+usuario+"\' ha cerrado sesion");
         this.dispose();
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
 

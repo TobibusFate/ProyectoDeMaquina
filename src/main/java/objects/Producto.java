@@ -91,6 +91,7 @@ public class Producto {
         l.add("Prod_PRECIO");
         l.add("Prod_STOCK");
         l.add("Prod_STOCK_MINIMO");
+        l.add("Prod_VISIBILIDAD");
         return l;
     }
     public List<String> getAttributeValuesList() {
@@ -101,6 +102,7 @@ public class Producto {
         l.add(Float.toString(precioP));
         l.add(Integer.toString(stockP));
         l.add(Integer.toString(stockMinimoP));
+        l.add(Boolean.toString(visible));
         return l;
     }
     public List<String> getKeyNamesList() {

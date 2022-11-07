@@ -9,6 +9,8 @@ import interfaces_graficas.buscar_pedido.BuscarPedido;
 import interfaces_graficas.abm_producto.ABM_Producto;
 import interfaces_graficas.buscar_venta.BuscarVenta;
 import interfaces_graficas.realizar_venta.RegistrarVenta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -16,6 +18,7 @@ import interfaces_graficas.realizar_venta.RegistrarVenta;
  */
 public class MenuAdministrador extends javax.swing.JFrame {
 
+    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private String username;
     
     public MenuAdministrador(String username) {
@@ -158,15 +161,17 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void boton_alta_pedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_alta_pedidoActionPerformed
         // TODO add your handling code here:
-        this.setVisible(false);
         AltaPedido_Generador apg = new AltaPedido_Generador(username);
+        this.setVisible(false);
         apg.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_boton_alta_pedidoActionPerformed
 
     private void boton_cerrar_sesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_cerrar_sesionActionPerformed
         // TODO add your handling code here:
         LogIn li = new LogIn();
         li.setVisible(true);
+        INFOLOGGER.info("El usuario \'"+username+"\' ha cerrado sesion");
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed
