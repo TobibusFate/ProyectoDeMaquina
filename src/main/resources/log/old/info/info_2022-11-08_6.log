@@ -1,2 +1,2 @@
-[INFO ] 2022-11-08 16:51:27,854 info-log.BtnCrearActionPerformed() - El pedido #1 fue dado de alta por el usuario 'admin'
-[INFO ] 2022-11-08 16:53:20,809 info-log.boton_realizar_pagoActionPerformed() - La venta #1 fue dada de alta por el usuario 'admin'
+[INFO ] 2022-11-08 17:48:25,285 info-log.boton_cerrar_sesionActionPerformed() - El usuario '' ha cerrado sesion
+[INFO ] 2022-11-08 17:48:33,503 info-log.boton_cerrar_sesionActionPerformed() - El usuario 'admin' ha cerrado sesion
