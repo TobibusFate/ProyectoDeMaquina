@@ -145,7 +145,6 @@ public class RegistrarVenta extends javax.swing.JFrame {
         RenglonVenta renglonVenta = listaRenglon.get(nombreFila);
         switch (columna){
             case 2: //unidades
-
                 if (Integer.parseInt(nuevoValor) > listaProductos.get(nombreFila).getStockP()) {
                     JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
                 } else {
@@ -168,6 +167,8 @@ public class RegistrarVenta extends javax.swing.JFrame {
     }
     private void updateCombobox(){
         List<String> lista = new ArrayList<>();
+        combobox_listado_productos.removeAllItems();
+
         for (int i = 0;i<combobox_listado_productos.getItemCount();i++) {
             lista.add(combobox_listado_productos.getItemAt(i).toUpperCase());
         }
@@ -191,8 +192,10 @@ public class RegistrarVenta extends javax.swing.JFrame {
         boton_realizar_pago.setEnabled(false);
         listaRenglon.clear();
         listaProductos = ManagerProducto.getHashMapProductosVisiblesYConStock();
+        updateCombobox();
         listaClientes = ManagerCliente.getHashMapClientes();
         updateTable();
+
     }
 
     public void updateTable (){
@@ -473,33 +476,37 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
     private void boton_agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_agregarActionPerformed
         // TODO add your handling code here:
-        String text = combobox_listado_productos.getSelectedItem().toString();
-        int unidades_value = Integer.parseInt(unidades.getText());
+        if (combobox_listado_productos.getSelectedItem()!=null){
+            String text = combobox_listado_productos.getSelectedItem().toString();
+            int unidades_value = Integer.parseInt(unidades.getText());
 
-        if (listaRenglon.containsKey(text)) {
-            /** MODIFICAR CANTIDAD*/
-            RenglonVenta renglonVenta = listaRenglon.get(text);
-            if ((unidades_value + renglonVenta.getUnidades()) >
-                    listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
-                JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
-            } else {
-                renglonVenta.setUnidades(renglonVenta.getUnidades()+unidades_value);
-                listaRenglon.replace(text,renglonVenta);
-            }
+            if (listaRenglon.containsKey(text)) {
+                /** MODIFICAR CANTIDAD*/
+                RenglonVenta renglonVenta = listaRenglon.get(text);
+                if ((unidades_value + renglonVenta.getUnidades()) >
+                        listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
+                    JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
+                } else {
+                    renglonVenta.setUnidades(renglonVenta.getUnidades()+unidades_value);
+                    listaRenglon.replace(text,renglonVenta);
+                }
 
-        } else {
-            /** NUEVA ENTRADA*/
-            if (unidades_value > listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
-                JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
             } else {
-                listaRenglon.put(text,new RenglonVenta(unidades_value,listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
+                /** NUEVA ENTRADA*/
+                if (unidades_value > listaProductos.get(combobox_listado_productos.getSelectedItem().toString()).getStockP()) {
+                    JOptionPane.showMessageDialog(null, "La cantidad supera las unidades en stock");
+                } else {
+                    listaRenglon.put(text,new RenglonVenta(unidades_value,listaProductos.get(combobox_listado_productos.getSelectedItem().toString())));
+                }
             }
+            if (!listaRenglon.isEmpty()){
+                boton_realizar_pago.setEnabled(true);
+            }
+            unidades.setText("1");
+            updateTable();
         }
-        if (!listaRenglon.isEmpty()){
-            boton_realizar_pago.setEnabled(true);
-        }
-        unidades.setText("1");
-        updateTable();
+
+
                 
     }//GEN-LAST:event_boton_agregarActionPerformed
 

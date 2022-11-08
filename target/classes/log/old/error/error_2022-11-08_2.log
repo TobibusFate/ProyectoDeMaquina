@@ -1,0 +1,2 @@
+[FATAL] 2022-11-08 16:12:24,436 error-log.getConnection() - No se pudo establecer la conexión: FATAL: la autentificación password falló para el usuario «postgres» (pgjdbc: autodetected server-encoding to be ISO-8859-1, if the message is not readable, please check database logs and/or host, port, dbname, user, password, pg_hba.conf)
+[FATAL] 2022-11-08 16:12:24,439 error-log.main() - Cannot invoke "java.sql.Connection.createStatement()" because "conn" is null

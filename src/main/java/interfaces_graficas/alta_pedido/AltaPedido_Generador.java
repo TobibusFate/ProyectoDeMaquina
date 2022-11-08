@@ -427,19 +427,22 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private void Btn_Btn_CargarProvProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_Btn_CargarProvProvActionPerformed
         // TODO add your handling code here:
-        String textCbx = Cbx_ListaProveedores.getSelectedItem().toString();
-        for (Proveedor prov : mapProveedores.values()) {
-            if (Long.toString(prov.getCuit()).equals(textCbx) || prov.getNombre().equals(textCbx)) {
-                FldCUIT1.setText(Long.toString(prov.getCuit()));
-                FldNombre.setText(prov.getNombre());
-                FldEmail.setText(prov.getEmail());
-                FldDomicilio.setText(prov.getDireccion());
-                proveedor = ManagerProveedor.getProveedor(prov.getCuit());
+        if (Cbx_ListaProveedores.getSelectedItem()!=null) {
+            String textCbx = Cbx_ListaProveedores.getSelectedItem().toString();
+            for (Proveedor prov : mapProveedores.values()) {
+                if (Long.toString(prov.getCuit()).equals(textCbx) || prov.getNombre().equals(textCbx)) {
+                    FldCUIT1.setText(Long.toString(prov.getCuit()));
+                    FldNombre.setText(prov.getNombre());
+                    FldEmail.setText(prov.getEmail());
+                    FldDomicilio.setText(prov.getDireccion());
+                    proveedor = ManagerProveedor.getProveedor(prov.getCuit());
+                }
+            }
+            if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
+                Btn_Continuar.setEnabled(true);
             }
         }
-        if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
-            Btn_Continuar.setEnabled(true);
-        }
+
     }//GEN-LAST:event_Btn_Btn_CargarProvProvActionPerformed
 
     private void FldCUITActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldCUITActionPerformed
@@ -492,29 +495,33 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
 
     private void Btn_addProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Btn_addProdActionPerformed
         // TODO add your handling code here:
-        String cbxText = Cbx_ListaProductos.getSelectedItem().toString();
-        String cbxTipo = Cbx_ListaTipos.getSelectedItem().toString();
-        if (!mapRenglones.containsKey(cbxText)) {
-            switch (cbxTipo) {
-                case "Bolsones": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
-                case "Bultos Cerrados": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.BultosCerrados,0F)); break;
-                case "Pallets": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Pallets,0F)); break;
-                default: getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+
+        if (Cbx_ListaProductos.getSelectedItem()!= null) {
+            String cbxText = Cbx_ListaProductos.getSelectedItem().toString();
+            String cbxTipo = Cbx_ListaTipos.getSelectedItem().toString();
+            if (!mapRenglones.containsKey(cbxText)) {
+                switch (cbxTipo) {
+                    case "Bolsones": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+                    case "Bultos Cerrados": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.BultosCerrados,0F)); break;
+                    case "Pallets": getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Pallets,0F)); break;
+                    default: getMapRenglones().put(cbxText, new RenglonPedido(getMapProductos().get(cbxText),1,TipoCantidad.Bolsones,0F)); break;
+                }
             }
-        }
-        else {
-            RenglonPedido rp = getMapRenglones().get(cbxText);
-            switch (cbxTipo) {
-                case "Bolsones": rp.setTipoCantidad(TipoCantidad.Bolsones);; break;
-                case "Bultos Cerrados": rp.setTipoCantidad(TipoCantidad.BultosCerrados);; break;
-                case "Pallets": rp.setTipoCantidad(TipoCantidad.Pallets);; break;
+            else {
+                RenglonPedido rp = getMapRenglones().get(cbxText);
+                switch (cbxTipo) {
+                    case "Bolsones": rp.setTipoCantidad(TipoCantidad.Bolsones);; break;
+                    case "Bultos Cerrados": rp.setTipoCantidad(TipoCantidad.BultosCerrados);; break;
+                    case "Pallets": rp.setTipoCantidad(TipoCantidad.Pallets);; break;
+                }
+                getMapRenglones().replace(cbxText, rp);
             }
-            getMapRenglones().replace(cbxText, rp);
+            if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
+                Btn_Continuar.setEnabled(true);
+            }
+            updateTable();
         }
-        if (!mapRenglones.isEmpty() && !"CUIT".matches(FldCUIT1.getText())) {
-            Btn_Continuar.setEnabled(true);
-        }
-        updateTable();
+
     }//GEN-LAST:event_Btn_addProdActionPerformed
 
     private void FldProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FldProdActionPerformed

@@ -1,2 +1,0 @@
-[ERROR] 2022-11-06 19:55:34,753 error-log.insertTuple() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
-  Detail: La fila que falla contiene (5000, COSITA, ALGO, 150, 10, 5, null).

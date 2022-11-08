@@ -1,2 +1,2 @@
-[FATAL] 2022-11-06 18:26:18,788 error-log.main() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
+[FATAL] 2022-11-06 18:28:52,272 error-log.main() - ERROR: el valor nulo en la columna «prod_visibilidad» de la relación «productos» viola la restricción de no nulo
   Detail: La fila que falla contiene (12, LECHE, COMESTIBLE, 150.54, 200, 50, null).

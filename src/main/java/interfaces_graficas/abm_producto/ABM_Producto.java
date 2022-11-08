@@ -102,7 +102,7 @@ public class ABM_Producto extends javax.swing.JFrame {
     public HashMap<String, Producto> coincidencia () {
         HashMap<String, Producto> map = new HashMap<>();
         for (Producto p : listaProductos.values()) {
-            if (String.valueOf(p.getNombreP()).contains(texto_buscador.getText())) {
+            if (String.valueOf(p.getNombreP()).contains(texto_buscador.getText().toUpperCase())) {
                 map.put(p.getNombreP(),p);
             }
         }
@@ -117,7 +117,6 @@ public class ABM_Producto extends javax.swing.JFrame {
         }
         /** CARGAR  TABLA*/
         for (Producto p: localMap.values()){
-
             model.addRow(new Object[]{p.getCodigoP(),p.getNombreP().toUpperCase(),p.getCategoriaP(),p.getPrecioP(),p.getStockP(),p.getStockMinimoP(),(p.isVisible()) ? "True" : "False"});
         }
     }

@@ -320,24 +320,32 @@ public class RealizarPago extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "El Monto es obligatorio");
             terminar = false;
         }
-
-        if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo())) {
-            if (texto_dni.getText().equals("")) {
-                JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
-                terminar = false;
-            }
-            if (!registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
-                JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
-                terminar = false;
-            }
-            if (registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())).getMoroso()) {
-                JOptionPane.showMessageDialog(null, "El Cliente no puede reazlizar fiados por ser moroso");
-                terminar = false;
-            }
-        }
         try {
-            if (Float.parseFloat(texto_monto.getText()) < 0 || Integer.parseInt(text_cuotas.getText()) < 0) {
-                JOptionPane.showMessageDialog(null, "No se permiten Cuotas o Montos negativos");
+            if (tipo_pago.getSelectedItem().toString().equals(TipoDePago.FIADO.getTipo())) {
+                if (texto_dni.getText().equals("")) {
+                    JOptionPane.showMessageDialog(null, "El DNI es obligatorio");
+                    terminar = false;
+                }
+                if (!registrarVenta.getListaClientes().containsKey(Integer.parseInt(texto_dni.getText()))) {
+                    JOptionPane.showMessageDialog(null, "El DNI no pertenece a un Cliente registrado");
+                    terminar = false;
+                }
+                if (registrarVenta.getListaClientes().get(Integer.parseInt(texto_dni.getText())).getMoroso()) {
+                    JOptionPane.showMessageDialog(null, "El Cliente no puede reazlizar fiados por ser moroso");
+                    terminar = false;
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("a");
+        }
+
+        try {
+            if (Float.parseFloat(texto_monto.getText()) <= 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese monto mayor a 0");
+                terminar = false;
+            }
+            if (Integer.parseInt(text_cuotas.getText()) <= 0) {
+                JOptionPane.showMessageDialog(null, "Ingrese al menos una cuota");
                 terminar = false;
             }
         } catch (NumberFormatException e) {

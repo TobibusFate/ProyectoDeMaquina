@@ -5,9 +5,11 @@
  */
 package interfaces_graficas.alta_pedido;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import objects.Producto;
 import objects.RenglonPedido;
@@ -25,10 +27,29 @@ public class AltaPedido_Sugerencias extends javax.swing.JFrame {
      
     public AltaPedido_Sugerencias(AltaPedido_Generador apg) {
         initComponents();
+        cerrar();
         this.apg = apg;
         this.mapProductos = apg.getMapProductos();
         this.mapRenglones = apg.getMapRenglones();
         updateTable();
+    }
+
+    private void cerrar () {
+        try {
+            this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            addWindowListener(new WindowAdapter() {
+                @Override
+                public void windowClosing(WindowEvent e) {
+                    destruir();
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void destruir () {
+        this.dispose();
     }
 
     private void updateTable() {
