@@ -4,6 +4,7 @@
  */
 package interfaces_graficas.menus;
 
+import javax.swing.JOptionPane;
 import logica.managers.ManagerCuenta;
 import objects.Cuenta;
 import org.apache.logging.log4j.LogManager;
@@ -71,7 +72,7 @@ public class LogIn extends javax.swing.JFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
-        jLabel3.setText("Gestor de Ventas");
+        jLabel3.setText("Bienvenido al Gestor de Ventas:");
 
         jLabel4.setText("Ingrese su nombre de usuario y contraseña:");
 
@@ -144,21 +145,23 @@ public class LogIn extends javax.swing.JFrame {
 
         switch (accion) {
             case -1:
-            System.out.println("Contraseña Erronea");
+                JOptionPane.showMessageDialog(content, "Usuario o contraseña incorrecta.\nIntente nuevamente.", "Error en la autenticación",JOptionPane.ERROR_MESSAGE);
             break;
             case 0:
-            System.out.println("Usuario no encontrado");
+                JOptionPane.showMessageDialog(content, "Debe ingresar un usuario y contraseña válidos.", "Error en la autenticación",JOptionPane.ERROR_MESSAGE);
             break;
             case 1:
                 this.setVisible(false);
                 MenuVendedor mv = new MenuVendedor(entrada_usuario.getText());
                 mv.setVisible(true);
+                this.dispose();
                 LOGINLOGGER.info("El usuario vendedor \'"+entrada_usuario.getText()+"\' se ha logeado");
             break;
             case 2:
                 this.setVisible(false);
                 MenuAdministrador ma = new MenuAdministrador(entrada_usuario.getText());
                 ma.setVisible(true);
+                this.dispose();
                 LOGINLOGGER.info("El usuario administrador \'"+entrada_usuario.getText()+"\' se ha logeado");
             break;
         }
