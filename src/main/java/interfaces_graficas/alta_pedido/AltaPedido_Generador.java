@@ -547,13 +547,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             listaProv.add(Cbx_ListaProveedores.getItemAt(i));
         }
         for (Proveedor p: mapProveedores.values()){
-            if (p.getNombre().contains(FldCUIT.getText()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
+            if (p.getNombre().toUpperCase().contains(FldCUIT.getText().toUpperCase()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
                 if (!listaProv.contains(p.getNombre())) {
                     Cbx_ListaProveedores.addItem(p.getNombre());
                 }
             }
             if (listaProv.contains(p.getNombre())) {
-                if (!p.getNombre().contains(FldCUIT.getText())) {
+                if (!p.getNombre().toUpperCase().contains(FldCUIT.getText().toUpperCase())) {
                     Cbx_ListaProveedores.removeItem(p.getNombre());
                 }
             }
@@ -566,13 +566,13 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
             listaProd.add(Cbx_ListaProductos.getItemAt(i));
         }
         for (Producto p: getMapProductos().values()){
-            if (p.getNombreP().contains(FldProd.getText())) {
+            if (p.getNombreP().toUpperCase().contains(FldProd.getText().toUpperCase())) {
                 if (!listaProd.contains(p.getNombreP())) {
                     Cbx_ListaProductos.addItem(p.getNombreP());
                 }
             }
             if (listaProd.contains(p.getNombreP())) {
-                if (!p.getNombreP().contains(FldProd.getText())) {
+                if (!p.getNombreP().toUpperCase().contains(FldProd.getText().toUpperCase())) {
                     Cbx_ListaProductos.removeItem(p.getNombreP());
                 }
             }

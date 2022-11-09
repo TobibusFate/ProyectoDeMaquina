@@ -95,6 +95,7 @@ public class VerPedido extends javax.swing.JFrame {
         FldMontoFinal = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setSize(new java.awt.Dimension(860, 510));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         content.setBackground(new java.awt.Color(255, 255, 255));

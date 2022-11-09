@@ -83,13 +83,13 @@ public class BuscarPedido extends javax.swing.JFrame {
             listaProv.add(Cbx_ListaProveedores.getItemAt(i));
         }
         for (Proveedor p: mapProveedores.values()){
-            if (p.getNombre().contains(FldCUIT.getText()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
+            if (p.getNombre().toUpperCase().contains(FldCUIT.getText().toUpperCase()) || String.valueOf(p.getCuit()).contains(FldCUIT.getText()) ) {
                 if (!listaProv.contains(p.getNombre())) {
                     Cbx_ListaProveedores.addItem(p.getNombre());
                 }
             }
             if (listaProv.contains(p.getNombre())) {
-                if (!p.getNombre().contains(FldCUIT.getText())) {
+                if (!p.getNombre().toUpperCase().contains(FldCUIT.getText().toUpperCase())) {
                     Cbx_ListaProveedores.removeItem(p.getNombre());
                 }
             }
@@ -168,6 +168,8 @@ public class BuscarPedido extends javax.swing.JFrame {
         BtnModificarPedido = new javax.swing.JButton();
         BtnGoBack = new javax.swing.JButton();
         BtnVerPedido = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -260,6 +262,10 @@ public class BuscarPedido extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("desde:");
+
+        jLabel5.setText("hasta:");
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -268,36 +274,46 @@ public class BuscarPedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(BtnBuscar)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(contentLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(35, 35, 35)
-                                .addComponent(FldCodigoPedido))
-                            .addGroup(contentLayout.createSequentialGroup()
-                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3))
+                                .addComponent(BtnGoBack)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(BtnEliminarPedido)
                                 .addGap(18, 18, 18)
+                                .addComponent(BtnModificarPedido)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnVerPedido)))
+                        .addGap(0, 31, Short.MAX_VALUE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4))
+                            .addComponent(jLabel2))
+                        .addGap(6, 6, 6)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(contentLayout.createSequentialGroup()
+                                .addComponent(FldCodigoPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(contentLayout.createSequentialGroup()
                                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(DateDesde, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                                    .addComponent(FldCUIT))))
-                        .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(DateHasta, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(Cbx_ListaProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(BtnBuscar)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 831, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(contentLayout.createSequentialGroup()
-                            .addComponent(BtnGoBack)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(BtnEliminarPedido)
-                            .addGap(18, 18, 18)
-                            .addComponent(BtnModificarPedido)
-                            .addGap(18, 18, 18)
-                            .addComponent(BtnVerPedido))))
-                .addGap(0, 19, Short.MAX_VALUE))
+                                    .addComponent(FldCUIT))
+                                .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(contentLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addComponent(Cbx_ListaProveedores, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jLabel5)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(DateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(271, 271, 271))))))))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,9 +334,12 @@ public class BuscarPedido extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addComponent(DateDesde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(DateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(DateHasta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel5))
                     .addComponent(BtnBuscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -463,6 +482,8 @@ public class BuscarPedido extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
