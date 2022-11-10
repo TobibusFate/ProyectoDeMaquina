@@ -22,7 +22,7 @@
         </RollingFile>-->
         <!-- ARCHIVO QUE GUARDA LOS ERRORES -->
         <RollingFile name="errorFile" fileName="${logPath}/${errorFileName}.log" filePattern="${patternLogPath}/error/${errorFileName}_%d{yyy-MM-dd}_%i.log">
-            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%C{1}.%M() - %msg%n%throwable{short.lineNumber}" />
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
@@ -30,7 +30,7 @@
         </RollingFile>
         <!-- ARCHIVO QUE GUARDA LAS LLAMADAS A BASE DE DATOS (Alta, Baja, Modifciacion) -->
         <RollingFile name="infoFile" fileName="${logPath}/${infoFileName}.log" filePattern="${patternLogPath}/info/${infoFileName}_%d{yyy-MM-dd}_%i.log">
-            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%C{1}.%M() - %msg%n%throwable{short.lineNumber}" />
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />
@@ -38,7 +38,7 @@
         </RollingFile>
         <!-- ARCHIVO QUE GUARDA LOS LOG IN's DE USUARIOS AL SISTEMA -->
         <RollingFile name="logInFile" fileName="${logPath}/${logInFileName}.log" filePattern="${patternLogPath}/logIn/${logInFileName}_%d{yyy-MM-dd}_%i.log">
-            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%M() - %msg%n%throwable{short.lineNumber}" />
+            <PatternLayout pattern="[%highlight{%-5level}] %d{DEFAULT} %c{1}.%C{1}.%M() - %msg%n%throwable{short.lineNumber}" />
             <Policies>
                 <OnStartupTriggeringPolicy />
                 <TimeBasedTriggeringPolicy interval="1" modulate="true" />

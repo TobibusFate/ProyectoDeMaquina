@@ -18,7 +18,7 @@ import org.apache.logging.log4j.Logger;
  */
 public class MenuAdministrador extends javax.swing.JFrame {
 
-    private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
+    private static final Logger LOGINLOGGER = LogManager.getLogger("logIn-log");
     private String username;
     
     public MenuAdministrador(String username) {
@@ -233,7 +233,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         LogIn li = new LogIn();
         li.setVisible(true);
-        INFOLOGGER.info("El usuario \'"+username+"\' ha cerrado sesion");
+        LOGINLOGGER.info("El usuario \'"+username+"\' ha cerrado sesion");
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_boton_cerrar_sesionActionPerformed

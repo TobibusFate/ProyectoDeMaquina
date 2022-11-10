@@ -1,0 +1,3 @@
+[INFO ] 2022-11-10 00:45:20,967 info-log.RegistrarVenta.boton_realizar_pagoActionPerformed() - La venta #2 fue dada de alta por el usuario 'admin'
+[INFO ] 2022-11-10 00:45:42,735 info-log.RegistrarVenta.boton_realizar_pagoActionPerformed() - La venta #3 fue dada de alta por el usuario 'user'
+[INFO ] 2022-11-10 00:46:18,769 info-log.AltaPedido_Preview.BtnCrearActionPerformed() - El pedido #1 fue dado de alta por el usuario 'admin'
