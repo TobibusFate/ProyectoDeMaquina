@@ -81,20 +81,20 @@
                           </Group>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="boton_alta_pedido" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="boton_productos" alignment="1" min="-2" pref="130" max="-2" attributes="0"/>
-                          </Group>
+                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="boton_productos" min="-2" pref="130" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="boton_buscar_pedido" min="-2" pref="130" max="-2" attributes="0"/>
-                              <Component id="boton_cierre_diario" min="-2" pref="130" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="boton_cierre_diario" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="boton_cerrar_sesion" min="-2" pref="130" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+                          <Component id="boton_alta_pedido" min="-2" pref="130" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="boton_buscar_pedido" min="-2" pref="130" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace pref="60" max="32767" attributes="0"/>
@@ -136,7 +136,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
-                  <EmptySpace pref="62" max="32767" attributes="0"/>
+                  <EmptySpace pref="34" max="32767" attributes="0"/>
                   <Component id="boton_cerrar_sesion" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -154,7 +154,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_alta_pedido">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Alta Pedido"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Generar&lt;br&gt;&amp;nbsp;Pedido&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_alta_pedidoActionPerformed"/>
@@ -162,7 +162,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_buscar_pedido">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar Pedido"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Gestionar&lt;br&gt;&amp;nbsp;Pedidos&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_buscar_pedidoActionPerformed"/>
@@ -170,7 +170,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_buscar_cliente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Buscar Ciente"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Buscar Cliente&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_buscar_clienteActionPerformed"/>
@@ -194,7 +194,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_agregar_cliente">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Agregar Cliente"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Agregar Cliente&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_agregar_clienteActionPerformed"/>
@@ -202,7 +202,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_productos">
           <Properties>
-            <Property name="text" type="java.lang.String" value="ABM Producto"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Gestionar&lt;br&gt;Productos&lt;/html&gt;"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="boton_productosActionPerformed"/>
@@ -243,7 +243,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="boton_cierre_diario">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Cierre Diario"/>
+            <Property name="text" type="java.lang.String" value="&lt;html&gt;Cierre&lt;br&gt;Diario&lt;/html&gt;"/>
           </Properties>
         </Component>
       </SubComponents>

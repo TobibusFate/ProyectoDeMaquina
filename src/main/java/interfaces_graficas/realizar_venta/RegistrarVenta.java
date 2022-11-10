@@ -374,9 +374,11 @@ public class RegistrarVenta extends javax.swing.JFrame {
 
         valor_total_value.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         valor_total_value.setText("0");
+        valor_total_value.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         monto_restante_value.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
         monto_restante_value.setText("0");
+        monto_restante_value.setDisabledTextColor(new java.awt.Color(0, 0, 0));
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -464,11 +466,11 @@ public class RegistrarVenta extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content, javax.swing.GroupLayout.PREFERRED_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 809, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
         );
 
         pack();

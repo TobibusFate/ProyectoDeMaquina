@@ -150,7 +150,6 @@ public class MostrarVenta extends javax.swing.JFrame {
         content.setPreferredSize(new java.awt.Dimension(800, 520));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
 
         tabla_renglon_pagos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,12 +238,10 @@ public class MostrarVenta extends javax.swing.JFrame {
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1)
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1))
-                    .addGroup(contentLayout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(boton_salir, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())

@@ -67,21 +67,21 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        boton_alta_pedido.setText("Alta Pedido");
+        boton_alta_pedido.setText("<html>Generar<br>&nbsp;Pedido</html>");
         boton_alta_pedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_alta_pedidoActionPerformed(evt);
             }
         });
 
-        boton_buscar_pedido.setText("Buscar Pedido");
+        boton_buscar_pedido.setText("<html>Gestionar<br>&nbsp;Pedidos</html>");
         boton_buscar_pedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_buscar_pedidoActionPerformed(evt);
             }
         });
 
-        boton_buscar_cliente.setText("Buscar Ciente");
+        boton_buscar_cliente.setText("<html>Buscar Cliente</html>");
         boton_buscar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_buscar_clienteActionPerformed(evt);
@@ -102,14 +102,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
 
-        boton_agregar_cliente.setText("Agregar Cliente");
+        boton_agregar_cliente.setText("<html>Agregar Cliente</html>");
         boton_agregar_cliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_agregar_clienteActionPerformed(evt);
             }
         });
 
-        boton_productos.setText("ABM Producto");
+        boton_productos.setText("<html>Gestionar<br>Productos</html>");
         boton_productos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boton_productosActionPerformed(evt);
@@ -126,7 +126,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
         jLabel3.setText("Vendedor:");
 
-        boton_cierre_diario.setText("Cierre Diario");
+        boton_cierre_diario.setText("<html>Cierre<br>Diario</html>");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -158,17 +158,18 @@ public class MenuAdministrador extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(boton_buscar_venta, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(contentLayout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(boton_alta_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boton_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(69, 69, 69)
+                        .addComponent(boton_productos, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(boton_buscar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(boton_cierre_diario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(boton_cierre_diario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(contentLayout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(boton_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(boton_cerrar_sesion, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addComponent(boton_alta_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(boton_buscar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
@@ -186,23 +187,23 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addComponent(realizar_venta))
                 .addGap(18, 18, 18)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boton_agregar_cliente)
-                    .addComponent(boton_buscar_cliente))
+                    .addComponent(boton_agregar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boton_buscar_cliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(24, 24, 24)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boton_alta_pedido)
-                    .addComponent(boton_buscar_pedido))
+                    .addComponent(boton_alta_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boton_buscar_pedido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(boton_productos)
-                    .addComponent(boton_cierre_diario))
+                    .addComponent(boton_productos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boton_cierre_diario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(35, 35, 35)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(boton_cerrar_sesion)
                 .addContainerGap())
         );

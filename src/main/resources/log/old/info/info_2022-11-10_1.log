@@ -1,5 +1,1 @@
-[INFO ] 2022-11-10 10:22:09,559 info-log.BajaPedido_Preview.BtnEliminarActionPerformed() - El pedido #1 fue dado de baja, por el usuario 'admin'
-[INFO ] 2022-11-10 10:22:58,011 info-log.AltaPedido_Preview.BtnCrearActionPerformed() - El pedido #1 fue dado de alta por el usuario 'admin'
-[INFO ] 2022-11-10 10:25:11,120 info-log.ModificarPedido_Preview.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'admin'
-[INFO ] 2022-11-10 10:26:00,627 info-log.ModificarPedido_Preview.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'admin'
-[INFO ] 2022-11-10 10:28:58,002 info-log.ModificarPedido_Preview.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'admin'
+[INFO ] 2022-11-10 10:48:26,321 info-log.ModificarPedido_Preview.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'admin'

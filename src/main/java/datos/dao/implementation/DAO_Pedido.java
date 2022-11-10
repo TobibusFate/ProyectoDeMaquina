@@ -88,7 +88,6 @@ public class DAO_Pedido implements IDAO<Pedido> {
                 );
             }
             else{
-                System.out.println("fechanull");
                 exito = statement.execute(
                 "UPDATE Pedidos SET Ped_FECHAENTREGA = null WHERE Ped_CODIGO = " +
                     p.getCodigo()
