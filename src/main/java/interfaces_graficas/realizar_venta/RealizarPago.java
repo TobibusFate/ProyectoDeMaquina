@@ -6,6 +6,8 @@ package interfaces_graficas.realizar_venta;
 
 import objects.Pago;
 import objects.TipoDePago;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -16,7 +18,8 @@ import java.time.LocalDate;
  * @author tovib
  */
 public class RealizarPago extends javax.swing.JFrame {
-    
+
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     private static RegistrarVenta registrarVenta = null;
     /**
      * Creates new form RealizarPago
@@ -115,7 +118,7 @@ public class RealizarPago extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
     }
 

@@ -14,12 +14,16 @@ import javax.swing.table.DefaultTableModel;
 import objects.Producto;
 import objects.RenglonPedido;
 import objects.TipoCantidad;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  *
  * @author Cell9870
  */
 public class AltaPedido_Sugerencias extends javax.swing.JFrame {
+
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
 
     private Map<String, Producto> mapProductos = new HashMap<>();
     private Map<String, RenglonPedido> mapRenglones = new HashMap<>();
@@ -44,7 +48,7 @@ public class AltaPedido_Sugerencias extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
     }
 

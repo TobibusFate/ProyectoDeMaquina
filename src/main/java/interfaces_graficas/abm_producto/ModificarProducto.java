@@ -30,6 +30,7 @@ public class ModificarProducto extends javax.swing.JFrame {
     /**
      * Creates new form ModificarProducto
      */
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     private static final Logger INFOLOGGER = LogManager.getLogger("info-log");
     private List<JTextField> campos = new ArrayList<>();
     private ABM_Producto abm_padre = null;
@@ -63,7 +64,7 @@ public class ModificarProducto extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
     }
 

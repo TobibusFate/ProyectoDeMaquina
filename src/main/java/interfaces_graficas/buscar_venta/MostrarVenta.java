@@ -9,6 +9,8 @@ import logica.managers.ManagerRenglonVenta;
 import objects.Pago;
 import objects.RenglonVenta;
 import objects.Venta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +23,7 @@ import java.util.ArrayList;
  * @author tovib
  */
 public class MostrarVenta extends javax.swing.JFrame {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
 
     private static ArrayList<Pago> listaPagos = new ArrayList<>();
     private static ArrayList<RenglonVenta> listaRenglonVenta = new ArrayList<>();
@@ -49,7 +52,7 @@ public class MostrarVenta extends javax.swing.JFrame {
                 }
             });
         } catch (Exception e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
     }
 

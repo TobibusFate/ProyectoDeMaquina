@@ -1,3 +1,1 @@
-[INFO ] 2022-11-10 11:50:45,134 - El usuario administrador 'admin' se ha logeado
- - logIn-log.LogIn.botone_ntrarActionPerformed(){short.lineNumber}[INFO ] 2022-11-10 11:50:46,031 - El usuario 'admin' ha cerrado sesion
- - logIn-log.MenuAdministrador.boton_cerrar_sesionActionPerformed(){short.lineNumber}
+[INFO ] 2022-11-10 12:19:23,008 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'admin' se ha logeado

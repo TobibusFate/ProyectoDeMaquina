@@ -1,1 +1,2 @@
-[INFO ] 2022-11-10 12:14:15,697 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'admin' se ha logeado
+[INFO ] 2022-11-10 14:24:07,352 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'admin' se ha logeado
+[INFO ] 2022-11-10 14:24:20,087 logIn-log.MenuAdministrador.boton_cerrar_sesionActionPerformed() - El usuario 'admin' ha cerrado sesion
