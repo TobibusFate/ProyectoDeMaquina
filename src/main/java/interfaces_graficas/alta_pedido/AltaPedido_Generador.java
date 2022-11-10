@@ -310,7 +310,7 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
         });
 
         jLabel4.setFont(new java.awt.Font("Yu Gothic", 1, 14)); // NOI18N
-        jLabel4.setText("Generar Pedido:");
+        jLabel4.setText("Generar Pedido");
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
@@ -362,22 +362,25 @@ public class AltaPedido_Generador extends javax.swing.JFrame {
                         .addComponent(Btn_Continuar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(34, Short.MAX_VALUE))
             .addGroup(contentLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
                     .addGroup(contentLayout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 792, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Btn_removeProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(contentLayout.createSequentialGroup()
+                        .addGap(370, 370, 370)
+                        .addComponent(jLabel4)))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(contentLayout.createSequentialGroup()
-                .addGap(0, 23, Short.MAX_VALUE)
+                .addGap(0, 18, Short.MAX_VALUE)
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(FldCUIT, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
