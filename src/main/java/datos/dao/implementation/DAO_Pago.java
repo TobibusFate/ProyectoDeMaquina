@@ -6,6 +6,8 @@ import logica.managers.ManagerCliente;
 import objects.Cliente_Fisico;
 import objects.Pago;
 import objects.Venta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -15,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Pago implements IDAO<Pago> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<Pago> read(Pago pago) {
         return null;
@@ -42,7 +45,7 @@ public class DAO_Pago implements IDAO<Pago> {
                             +pago.getMetodoPago()
                             +"' )");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return exito;
@@ -70,7 +73,7 @@ public class DAO_Pago implements IDAO<Pago> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return value+1;
@@ -100,10 +103,8 @@ public class DAO_Pago implements IDAO<Pago> {
             /** QUERY DE SI EXISTEN PAGOS CON ESTA VENTA*/
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
-
-
         return list;
 
     }

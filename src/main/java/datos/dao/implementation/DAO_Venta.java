@@ -3,6 +3,9 @@ package datos.dao.implementation;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Venta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,6 +17,7 @@ import java.util.List;
 
 
 public class DAO_Venta implements IDAO<Venta> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
 
     @Override
     public List<Venta> read(Venta venta) {
@@ -51,7 +55,7 @@ public class DAO_Venta implements IDAO<Venta> {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         return list;
     }
@@ -85,7 +89,7 @@ public class DAO_Venta implements IDAO<Venta> {
                             +"' )");
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return exito;
@@ -115,7 +119,7 @@ public class DAO_Venta implements IDAO<Venta> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return value+1;

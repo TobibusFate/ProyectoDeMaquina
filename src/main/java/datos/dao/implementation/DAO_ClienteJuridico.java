@@ -3,6 +3,8 @@ package datos.dao.implementation;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Cliente_Juridico;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_ClienteJuridico implements IDAO<Cliente_Juridico> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<Cliente_Juridico> read(Cliente_Juridico cliente_juridico) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -34,7 +37,7 @@ public class DAO_ClienteJuridico implements IDAO<Cliente_Juridico> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;

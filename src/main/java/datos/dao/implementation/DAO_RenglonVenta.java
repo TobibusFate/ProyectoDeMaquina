@@ -4,6 +4,8 @@ import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.RenglonVenta;
 import objects.Venta;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<RenglonVenta> read(RenglonVenta renglonVenta) {
         return null;
@@ -36,7 +39,7 @@ public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
                             +"' )");
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
 
         DatosBase.getInstance().closeConnection();
@@ -70,7 +73,7 @@ public class DAO_RenglonVenta implements IDAO<RenglonVenta> {
                 ));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
 
         return list;

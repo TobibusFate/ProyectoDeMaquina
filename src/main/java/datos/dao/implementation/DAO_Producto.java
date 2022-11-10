@@ -4,12 +4,15 @@ import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Producto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Producto implements IDAO<Producto> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<Producto> read(Producto producto) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -48,7 +51,7 @@ public class DAO_Producto implements IDAO<Producto> {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;
@@ -81,6 +84,7 @@ public class DAO_Producto implements IDAO<Producto> {
             exito = true;
 
         } catch (SQLException e) {
+            ERRLOGGER.error(e.getMessage());
             return false;
         }
         DatosBase.getInstance().closeConnection();
@@ -101,7 +105,7 @@ public class DAO_Producto implements IDAO<Producto> {
             exito = true;
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return exito;

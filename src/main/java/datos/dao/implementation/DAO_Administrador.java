@@ -4,6 +4,8 @@ import datos.DB_BasicQuerys;
 import datos.DatosBase;
 import datos.dao.IDAO;
 import objects.Administrador;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import java.util.List;
 
 public class DAO_Administrador implements IDAO<Administrador>{
 
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     @Override
     public List<Administrador> read(Administrador a) {
         Connection conn = DatosBase.getInstance().getConnection();
@@ -27,7 +30,7 @@ public class DAO_Administrador implements IDAO<Administrador>{
             }
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;

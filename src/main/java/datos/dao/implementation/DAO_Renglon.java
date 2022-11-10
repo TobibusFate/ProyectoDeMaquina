@@ -6,6 +6,8 @@ import datos.dao.IDAO;
 import logica.managers.ManagerProducto;
 import objects.Producto;
 import objects.Renglon;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -16,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DAO_Renglon implements IDAO<Renglon> {
+    private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     
     @Override
     public List<Renglon> read(Renglon renglon) {
@@ -40,7 +43,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
             
             rs.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return list;
@@ -64,7 +67,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
                             +"' )");
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
 
         DatosBase.getInstance().closeConnection();
@@ -87,7 +90,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
                         renglon.getCodigo()
             );
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return exito;
@@ -119,7 +122,7 @@ public class DAO_Renglon implements IDAO<Renglon> {
             }
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            ERRLOGGER.error(e.getMessage());
         }
         DatosBase.getInstance().closeConnection();
         return value+1;
