@@ -104,5 +104,5 @@ public class RenglonPedido extends Renglon {
         l.add(tipoCantidad.name()+"::TIPOCANTIDAD");
         l.add(Integer.toString(cantidad));
         return l;
-    }
+    }    
 }

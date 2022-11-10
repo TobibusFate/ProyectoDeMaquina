@@ -79,12 +79,21 @@ public class DAO_Pedido implements IDAO<Pedido> {
         boolean exito = false;
         try{
             statement = conn.createStatement();
-            exito = statement.execute(
+            if(p.getFechaEntrega() != null){
+                exito = statement.execute(
                 "UPDATE Pedidos SET Ped_FECHAENTREGA = " + "'" +
                         p.getFechaEntrega().toString() + "'" +
                         " WHERE Ped_CODIGO = " +
                         p.getCodigo()
-            );
+                );
+            }
+            else{
+                System.out.println("fechanull");
+                exito = statement.execute(
+                "UPDATE Pedidos SET Ped_FECHAENTREGA = null WHERE Ped_CODIGO = " +
+                    p.getCodigo()
+                );
+            }
         } catch (SQLException e) {
             ERRLOGGER.error(e.getMessage());
         }

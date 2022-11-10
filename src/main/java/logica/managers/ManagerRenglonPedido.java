@@ -48,14 +48,14 @@ public class ManagerRenglonPedido {
         List <RenglonPedido> renglonesActualizar = new ArrayList();
         List <RenglonPedido> listaVieja = getRenglonesPorPedido(p);
         for(RenglonPedido rp: listaVieja) {
-            if(listaNueva.contains(rp))
-                renglonesActualizar.add(rp);
-            else
+            if(!listaNueva.contains(rp))
                 renglonesEliminar.add(rp);
         }
         for(RenglonPedido rp: listaNueva){
-            if(!renglonesActualizar.contains(rp))
+            if(!listaVieja.contains(rp))
                 renglonesNuevos.add(rp);
+            else
+                renglonesActualizar.add(rp);
         }
         for(RenglonPedido rp: renglonesEliminar)
             eliminarRenglonPedido(rp);

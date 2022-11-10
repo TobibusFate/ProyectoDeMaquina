@@ -92,8 +92,8 @@ public abstract class Renglon {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 53 * hash + this.codigo;
+        int hash = 7;
+        hash = 97 * hash + Objects.hashCode(this.prod);
         return hash;
     }
 
@@ -109,7 +109,7 @@ public abstract class Renglon {
             return false;
         }
         final Renglon other = (Renglon) obj;
-        return this.codigo == other.codigo;
+        return Objects.equals(this.prod, other.prod);
     }
-
+    
 }

@@ -1,0 +1,2 @@
+[ERROR] 2022-11-10 10:53:19,823 error-log.DAO_Pedido.update() - ERROR: la sintaxis de entrada no es válida para tipo date: «»
+  Position: 39

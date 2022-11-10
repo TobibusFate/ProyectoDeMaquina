@@ -44,11 +44,17 @@ public class ModificarPedido extends javax.swing.JFrame {
         labelFechaCreacion.setText(pedido.getFechaPedido().format(formatter));
         AddListeners();
         //Btn_Continuar.setEnabled(false);
-        BtnAsignarFecha.setEnabled(false);
-        BtnLimpiarFecha.setEnabled(false);
         this.pedido = pedido;
+        BtnAsignarFecha.setEnabled(false);
+        if(this.pedido.getFechaEntrega() == null){
+            labelFechaEntrega.setText("Sin fecha est.");
+            BtnLimpiarFecha.setEnabled(false);
+        }
+        else{
+            labelFechaEntrega.setText(this.pedido.getFechaEntrega().toString());
+        }
         mapProductos = ManagerProducto.getHashMapProductosVisibles();
-        List<RenglonPedido> listaRenglones = ManagerRenglonPedido.getRenglonesPorPedido(pedido);
+        List<RenglonPedido> listaRenglones = ManagerRenglonPedido.getRenglonesPorPedido(this.pedido);
         for (RenglonPedido rp: listaRenglones){
             mapRenglones.put(rp.getProducto().getNombreP(), rp);
         }
@@ -123,6 +129,7 @@ public class ModificarPedido extends javax.swing.JFrame {
         BtnAsignarFecha = new javax.swing.JButton();
         calendarFechaEntrega = new com.toedter.calendar.JDateChooser();
         BtnLimpiarFecha = new javax.swing.JButton();
+        labelFechaEntrega = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -240,6 +247,8 @@ public class ModificarPedido extends javax.swing.JFrame {
             }
         });
 
+        labelFechaEntrega.setText("jLabel4");
+
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
@@ -274,7 +283,9 @@ public class ModificarPedido extends javax.swing.JFrame {
                                     .addComponent(Btn_addProd, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
                                 .addComponent(BtnCancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(186, 186, 186)
+                                .addComponent(labelFechaEntrega, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(347, 347, 347)
                                 .addComponent(Btn_Continuar)))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
@@ -337,7 +348,9 @@ public class ModificarPedido extends javax.swing.JFrame {
                             .addComponent(calendarFechaEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BtnAsignarFecha))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnLimpiarFecha)))
+                        .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BtnLimpiarFecha)
+                            .addComponent(labelFechaEntrega))))
                 .addContainerGap())
         );
 
@@ -424,6 +437,7 @@ public class ModificarPedido extends javax.swing.JFrame {
 
     private void BtnLimpiarFechaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLimpiarFechaActionPerformed
             pedido.setFechaEntrega(null);
+            labelFechaEntrega.setVisible(false);
     }//GEN-LAST:event_BtnLimpiarFechaActionPerformed
 
     private void calendarFechaEntregaPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_calendarFechaEntregaPropertyChange
@@ -553,5 +567,6 @@ public class ModificarPedido extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelCodigoPedido;
     private javax.swing.JLabel labelFechaCreacion;
+    private javax.swing.JLabel labelFechaEntrega;
     // End of variables declaration//GEN-END:variables
 }

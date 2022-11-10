@@ -1,0 +1,3 @@
+[FATAL] 2022-11-10 09:07:13,266 error-log.DatosBase.getConnection() - No se pudo establecer la conexión: FATAL: la autentificación password falló para el usuario «postgres» (pgjdbc: autodetected server-encoding to be ISO-8859-1, if the message is not readable, please check database logs and/or host, port, dbname, user, password, pg_hba.conf)
+[FATAL] 2022-11-10 09:07:13,298 error-log.DB_Init.initializeDataBase() - Cannot invoke "java.sql.Connection.close()" because "datos.DatosBase.conn" is null
+[FATAL] 2022-11-10 09:07:13,298 error-log.Main.main() - Error durante la inicialización.
