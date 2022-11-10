@@ -65,6 +65,12 @@ public class ManagerRenglonPedido {
             dao_renglonPedido.update(rp);
             ManagerRenglon.actualizarReglon(rp);
         }
+        
+        if (p.getFechaEntrega() != null && p.entregaEsHoy()) {
+            for (RenglonPedido rp: listaNueva) {
+                ManagerProducto.updateStock(rp.getProducto(), -rp.getCantidad());
+            }
+        }
         return false;
     }
 }

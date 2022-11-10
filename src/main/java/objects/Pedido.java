@@ -95,6 +95,11 @@ public class Pedido {
         l.add(fechaPedido.toString());
         return l;
     }
+    
+    public boolean entregaEsHoy() {
+        LocalDate today = LocalDate.now();
+        return today.isEqual(fechaEntrega);
+    }
 
     
 
