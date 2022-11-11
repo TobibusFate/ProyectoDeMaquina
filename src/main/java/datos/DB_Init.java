@@ -9,9 +9,9 @@ public class DB_Init {
     private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     private static Statement query = null;
 
-    public static void initializeDataBase() {
+    public static void initializeDataBase(boolean drop) {
         try {
-            //dropAllTables();
+            if (drop) dropAllTables();
             if (dropTypes()) {
                 createTypes();
             }
@@ -234,6 +234,7 @@ public class DB_Init {
             var conn = DatosBase.getInstance().getConnection();
             query = conn.createStatement();
 
+            // CUENTAS 
             query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                         "VALUES ('tobias', '123', 'Empleado', 'corretobias@gmail.com') ");
             query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
@@ -245,38 +246,33 @@ public class DB_Init {
             query.execute("INSERT INTO Cuentas (Cuen_USUARIO, Cuen_CONTRASEÑA, Cuen_PERMISOS, Cuen_EMAIL) " +
                         "VALUES ('alejandro', '123', 'Administrador', 'correoalej@gmail.com') ");
             
+            // CLIENTE ANONIMO (PARA VENTAS QUE NO SON FIADO).
             query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
                     "VALUES (0, '_', 'Anonimo', '0') ");
-
             query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
                     "VALUES (0, 'patata', 'false', 0) ");
 
-//cliente1
+            // CLIENTE 1: MOROSO
             query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
-                    "VALUES (121212, 'Juanio', 'Perez', '011101') ");
-
+                    "VALUES (12121212, 'Juanio', 'Perez', '011101') ");
             query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
-                    "VALUES (121212, 'Monotributo', 'true', 0) ");
-
+                    "VALUES (12121212, 'Monotributo', 'true', 0) ");
             query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
-                    "VALUES (121212, '54545') ");
+                    "VALUES (12121212, '54545') ");
 
-//cliente2
+            // CLIENTE 2: NO MOROSO
             query.execute("INSERT INTO Personas (Pers_DNI, Pers_Nombre, Pers_Apellido, Pers_Telefono) " +
-                    "VALUES (42028418, 'Tobias', 'Burger', '011101') ");
-
+                    "VALUES (12345678, 'Tobias', 'Burger', '011101') ");
             query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
-                    "VALUES (42028418, 'ResInscripto', 'false', 0) ");
-
+                    "VALUES (12345678, 'ResInscripto', 'false', 0) ");
             query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
-                    "VALUES (42028418, '20420284184') ");
+                    "VALUES (12345678, '20420284184') ");
 
+            // PRODUCTOS
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
                         "VALUES ('12', 'LECHE', 'COMESTIBLE', '150.54', '200', '50', true)");
-
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
                         "VALUES ('15', 'GALLETAS DE CHOCOLATE', 'COMESTIBLE', '200.50', '200', '50', true)");
-
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
                         "VALUES ('19', 'GALLETAS DE COCO', 'COMESTIBLE', '110.21', '0', '50', true)");
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
@@ -290,6 +286,7 @@ public class DB_Init {
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
                         "VALUES ('302', 'GALLETAS DE ANIMALES', 'COMESTIBLE', '220', '50', '51', true)");
 
+            // PROVEEDORES
             query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                         "VALUES ('20438404334', 'La Serenita', 'test@gmail.com', 'perro mojado 845')");
             query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
@@ -297,15 +294,22 @@ public class DB_Init {
             query.execute("INSERT INTO Proveedores (Prov_CUIT, Prov_NombreFirma, Prov_Email, Prov_Direccion) " +
                         "VALUES ('20438404336', 'Palili', 'test@gmail.com', 'perro mojado 845')");
 
-            query.execute("INSERT INTO Personas VALUES ('43840433', 'celso','fernandez','2664375249')");
-            query.execute("INSERT INTO Personas VALUES ('43840434', 'celsos','fernandezs','2664375249')");
-            query.execute("INSERT INTO Trabajadores VALUES ('admin', '43840433')");
-            query.execute("INSERT INTO Trabajadores VALUES ('celso', '43840434')");
-            query.execute("INSERT INTO Administradores VALUES ('admin', '43840433')");
-            query.execute("INSERT INTO Administradores VALUES ('celso', '43840434')");
+            // TRABAJADORES (NECESARIO PARA PEDIDOS, EN VENTAS SE PUEDE OBVIAR)
+            // SI NO ES ADMINISTRADOR, NO SE PONE LA ÚLTIMA QUERY
+            // TRABAJADOR 1 
+            query.execute("INSERT INTO Personas VALUES ('43840433', 'adminname','adminsurname','2664375249')");
+            query.execute("INSERT INTO Trabajadores VALUES ('admin', '43840433')"); // cuenta_user / persona_dni
+            query.execute("INSERT INTO Administradores VALUES ('admin', '43840433')"); // cuenta_user / trabajador_dni
+            
+            // TRABAJADOR 2
             query.execute("INSERT INTO Personas VALUES ('40597810', 'alejandro','jaita','2664375249')");
             query.execute("INSERT INTO Trabajadores VALUES ('alejandro', '40597810')");
             query.execute("INSERT INTO Administradores VALUES ('alejandro', '40597810')");
+            
+            // TRABAJADOR 3
+            query.execute("INSERT INTO Personas VALUES ('43840434', 'celso','fernandez','2664375249')");
+            query.execute("INSERT INTO Trabajadores VALUES ('celso', '43840434')");
+            query.execute("INSERT INTO Administradores VALUES ('celso', '43840434')");
         } catch (SQLException ex) {
             ERRLOGGER.fatal(ex.getMessage());
             throw new RuntimeException("Error durante la inicialización de tablas.");

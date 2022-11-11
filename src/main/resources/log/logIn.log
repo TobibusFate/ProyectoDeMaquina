@@ -1,5 +1,1 @@
-[INFO ] 2022-11-10 20:09:01,521 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario vendedor 'tobias' se ha logeado
-[INFO ] 2022-11-10 20:14:51,043 logIn-log.MenuVendedor.boton_cerrar_sesionActionPerformed() - El usuario 'tobias' ha cerrado sesion
-[INFO ] 2022-11-10 20:15:09,589 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'celso' se ha logeado
-[INFO ] 2022-11-10 20:28:14,250 logIn-log.MenuAdministrador.boton_cerrar_sesionActionPerformed() - El usuario 'celso' ha cerrado sesion
-[INFO ] 2022-11-10 20:28:59,740 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'alejandro' se ha logeado
+[INFO ] 2022-11-11 13:58:07,633 logIn-log.LogIn.botone_ntrarActionPerformed() - El usuario administrador 'admin' se ha logeado

@@ -10,7 +10,7 @@ public class Main {
     private static final Logger ERRLOGGER = LogManager.getLogger("error-log");
     public static void main(String[] args) {
         try {
-            DB_Init.initializeDataBase();
+            DB_Init.initializeDataBase(false); // PONER TRUE SI SE QUIERE REINICIAR LAS TABLAS AL INICIAR LA EJECUCIÓN
             LogIn logIn = new LogIn();
             logIn.setVisible(true); 
         } catch (Exception e) {

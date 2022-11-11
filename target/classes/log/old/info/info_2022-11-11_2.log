@@ -1,0 +1,4 @@
+[INFO ] 2022-11-11 13:36:47,533 info-log.RegistrarVenta.boton_realizar_pagoActionPerformed() - La venta #1 fue dada de alta por el usuario 'celso'
+[INFO ] 2022-11-11 13:37:43,365 info-log.AltaPedido_Preview.BtnCrearActionPerformed() - El pedido #1 fue dado de alta por el usuario 'celso'
+[INFO ] 2022-11-11 13:38:21,687 info-log.ModificarPedido_Preview.ModificarActionPerformed() - El pedido #1 fue modificado por el usuario 'alejandro'
+[INFO ] 2022-11-11 13:39:06,384 info-log.RegistrarVenta.boton_realizar_pagoActionPerformed() - La venta #2 fue dada de alta por el usuario 'tobias'
