@@ -266,7 +266,7 @@ public class DB_Init {
             query.execute("INSERT INTO Clientes (Cli_DNI, Cli_IVA, Cli_MOROSO, Cli_DEUDA) " +
                     "VALUES (12345678, 'ResInscripto', 'false', 0) ");
             query.execute("INSERT INTO ClientesFisicos (CliF_DNI, CliF_CUIL) " +
-                    "VALUES (12345678, '20420284184') ");
+                    "VALUES (12345678, '204444444') ");
 
             // PRODUCTOS
             query.execute("INSERT INTO Productos (Prod_CODIGO, Prod_NOMBRE, Prod_CATEGORIA, Prod_PRECIO, Prod_STOCK, Prod_STOCK_MINIMO, Prod_VISIBILIDAD) " +
